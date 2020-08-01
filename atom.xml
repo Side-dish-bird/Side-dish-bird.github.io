@@ -1,0 +1,527 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title>水无痕</title>
+  
+  <subtitle>side-dish-bird.github.io</subtitle>
+  <link href="/atom.xml" rel="self"/>
+  
+  <link href="http://yoursite.com/"/>
+  <updated>2020-07-30T17:12:11.012Z</updated>
+  <id>http://yoursite.com/</id>
+  
+  <author>
+    <name>水无痕</name>
+    
+  </author>
+  
+  <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>数据库视图事务等</title>
+    <link href="http://yoursite.com/2020/07/29/%E6%95%B0%E6%8D%AE%E5%BA%93%E8%A7%86%E5%9B%BE%E4%BA%8B%E5%8A%A1%E7%AD%89/"/>
+    <id>http://yoursite.com/2020/07/29/%E6%95%B0%E6%8D%AE%E5%BA%93%E8%A7%86%E5%9B%BE%E4%BA%8B%E5%8A%A1%E7%AD%89/</id>
+    <published>2020-07-29T09:33:52.000Z</published>
+    <updated>2020-07-30T17:12:11.012Z</updated>
+    
+    <content type="html"><![CDATA[<h4 id="视图-view"><a href="#视图-view" class="headerlink" title="视图 view"></a>视图 view</h4><p>视图说白了就是查询后的结果集，将这个结果集保存起来，方便下次从这个结果集中查询数据。</p><ol><li><p>怎么保存结果集？建视图</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">create view 视图名字 as(select语句...);sle</span><br><span class="line">如：</span><br><span class="line">create view sgoods as select goods_id,goods_name from goods;</span><br><span class="line">select * from sgoods;</span><br><span class="line">sgoods就是select的结果集</span><br></pre></td></tr></table></figure></li><li><p>视图的概念</p><p>view 又被称为虚拟表，view是sql语句的查询结果。一个sql的查询结果，我用view存起来，下次你查这个view,就相当于这个sql发挥作用了！</p><ul><li><p>权限控制时可以用</p><p>比如，某几个列，允许用户查询，其他列不允许查询。</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">create view sgoods as select goods_id,goods_name from goods;</span><br><span class="line">select * from sgoods;</span><br><span class="line">任你怎么查询sgoods表，也无法得到shop_price列的数据，因为sgoods就没有shop_price列</span><br></pre></td></tr></table></figure></li><li><p>简化复杂的查询</p><p><code>select  * from (select ....)</code></p><p>我们可以将内层select语句的查询结果转为视图</p><p>在通过视图查询我们具体想要的内容</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">先将所有值查出来</span><br><span class="line">select cat_id,avg(shop_price) as pj from goods group by cat_id;</span><br><span class="line">然后取前三</span><br><span class="line">select * from (select cat_id,avg(shop_price) as pj from goods group by cat_id) as tmp order by pj desc limit 0,3;</span><br><span class="line">使用view简化后查询</span><br><span class="line">create view pingjun as select cat_id,avg(shop_price) as pj from goods group by cat_id;</span><br><span class="line">select * from pingjun order by pj desc limit 0,3;</span><br></pre></td></tr></table></figure></li><li><p>view 是什么？</p><p>view就是你存储好的一条sql的查询结果</p><p><code>select * from pingjun order by pj desc limit 0,3;</code></p><p>这条sql的查询的pingjun这个表，我们不能看出来pingjun是个表还是个视图。</p><p>show   tables；</p><p>可以看到我们的视图，也是存在的，我们都区分不出来它是表还是视图。</p></li><li><p>视图可以更改，删除吗？</p><p>更改物理表，我们发现视图的内容也跟着变化了。</p><p>更改视图，物理表也变化了。</p><p>但有些情况不能改变，如果视图view某一行，是由物理表经过计算得到的结果，view则不能更改，因位它映射到物理表上有多行，不知道更改哪里。比如view上的平均值</p></li></ul></li></ol><h5 id="表-视图管理语句"><a href="#表-视图管理语句" class="headerlink" title="表/视图管理语句"></a>表/视图管理语句</h5><p>show   tables   ：  查看表，视图也会显示出来。</p><p>desc  表/视图    ：查看表结构</p><p>show create table 表   ：查看建表过程语句</p><p>show create view  视图 ：查看建视图过程语句</p><p>drop table  表： 删除表</p><p>drop  view  视图名 ：删除视图</p><p>查看库中的表信息，show table status；</p><p>如果表中信息太多，竖着显示：show table status \G</p><p>查看某张表详细信息：</p><p>show  table status where name=’表名’；</p><p>修改表名：</p><p> rename table oldName to newName;</p><p>清空表数据：</p><p>truncate(相当于删除表，再重建)  表名；</p><p>delete from 表名；</p><p>delete from 表名；删除数据后，再加入新数据，发现id并不是重新开始增长的，而是接着上次的id继续增长。</p><p>truncate 表名；</p><p>清空表的数据；这次我们可以看到id的值，从0开始增长了。</p><h5 id="存储引擎的概念"><a href="#存储引擎的概念" class="headerlink" title="存储引擎的概念"></a>存储引擎的概念</h5><p>数据库对同样的数据，有着不同的存储方式和管理方式。</p><p>在mysql中，称为存储引擎。有myisam 和innoDB两种</p><p>myisam  批量插入的速度更快。但不支持事务安全，支持全文索引，锁机制是表锁。</p><p>innoDB 批量插入的速度稍慢，支持事务安全，不支持全文索引，锁机制是行锁。</p><h5 id="字符集与乱码问题"><a href="#字符集与乱码问题" class="headerlink" title="字符集与乱码问题"></a>字符集与乱码问题</h5><p>乱码：只是文字本来的字符集和展示的字符集不一致。</p><p>解决：输入的字符集和展示的字符集一致。</p><p>选字符集 —&gt;就选择 utf8 即可</p><p>杜绝乱码：</p><ol><li>php 文件ufr8</li><li>html页面的meta信息也是utf8</li><li>建表时，也是utf8</li><li>php页面连接数据库时 set names utf8</li></ol><h4 id="校对集"><a href="#校对集" class="headerlink" title="校对集"></a>校对集</h4><p>charset 是字符集 ，那校对集是什么？</p><p>校对集并不常用，我们知道它的概念即可。</p><p>校对集就是字符集的排序规则，一套字符集可以有n套校对集。</p><p>说白了就是字符串怎么排序，谁排前谁排后。caDB这几个字母按照ascii字符集里，a代表96,大写A是65。但按照人们习惯是aBcD这样排。这就是校对集</p><h5 id="索引概念"><a href="#索引概念" class="headerlink" title="索引概念"></a>索引概念</h5><p>索引相当于一本书上的目录。索引是数据的目录，能快速定位行数据的位置。</p><p>索引提高了查询速度，降低了增删改的速度，并非加的越多越好。</p><ul><li><p>key普通索引</p><p>纯粹就是帮我们组织数据，提高查询速度。</p></li><li><p>unique key 唯一索引</p></li></ul><p>​        加快查询速度，约束数据。</p><p>​       unique是唯一的，不能重复。</p><pre><code><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">create  table t(name char(10),email char(20),key name(name),unique key email(email));</span><br><span class="line">insert into t22 values (&#39;lisi&#39;,&#39;lisi@qq.com&#39;);</span><br><span class="line">insert into t22 values (&#39;lisi&#39;,&#39;lisi@qq.com&#39;);&#x2F;&#x2F;因为emial是唯一索引，不能重复所以会报错</span><br></pre></td></tr></table></figure></code></pre><ul><li><p>primary key 主键索引</p><p>一张表中，只可能有一个primary key </p></li><li><p>fulltext 全文索引</p><p>中文环境下，全文索引无效。</p><p>因为英文，每个单词是分开的，它将每个单词分门别类，建立索引</p><p>你查这行中的任意一个单词，都有可能查询到这行数据。</p><p>而中文的每个字是连在一起的，它无法区分每个字。所以中文环境下无效</p><p>在中文环境下 , 需要 分词 + 索引才有效<br>一般用第三方解决方案 , 如 sphinx</p></li></ul><p>设置索引长度</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">建索引时，可以指定索引列的前一部分的内容。比如前10个字符</span><br><span class="line">create table t(</span><br><span class="line">name char(10),</span><br><span class="line">email char(20),</span><br><span class="line">key name(name),</span><br><span class="line">unique email(email(10))</span><br><span class="line">);</span><br><span class="line">误区：给email的前十个字符建立索引，只是为了让查询速度增快。只是速度快了。</span><br></pre></td></tr></table></figure><p>多列索引</p><p>有的时候，一列索引还查询不出来什么效果。</p><p>多列索引，就是把2列或多列的值，看成一个整体，然后建索引。</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">create table t25 (</span><br><span class="line">xing char(10),</span><br><span class="line">ming char(10),</span><br><span class="line">key xm(xing,ming)</span><br><span class="line">);</span><br><span class="line">显示如何使用索引来处理select语句及连接表</span><br><span class="line">explain select * from t25 where xing&#x3D;&#39;zhang&#39; and ming&#x3D;&#39;san&#39; \G</span><br><span class="line">多列索引，查询数据可以将索引都用上，也可以只用第一个如xing。但用xing之后的索引则</span><br><span class="line">不起作用！</span><br></pre></td></tr></table></figure><h5 id="冗余索引"><a href="#冗余索引" class="headerlink" title="冗余索引"></a>冗余索引</h5><p>就是在某个列上，可能存在多个索引</p><p>比如 xm(xing,ming)我们单查ming，索引不发挥作用。</p><p>给ming也加上索引，单独查ming的时候，也是有索引发挥作用的。</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">create table t26 (</span><br><span class="line">xing char(10),</span><br><span class="line">ming char(10),</span><br><span class="line">key xm(xing,ming),</span><br><span class="line">key ming(ming) &#x2F;&#x2F;给ming也加上索引</span><br><span class="line">);</span><br></pre></td></tr></table></figure><h5 id="索引操作"><a href="#索引操作" class="headerlink" title="索引操作"></a>索引操作</h5><p>查看索引</p><p>show index from 表名</p><p>删除索引</p><p>alter table 表名 drop  index 索引名</p><p>添加索引</p><p>alter table 表名 add index/unique xm(xing,ming);</p><p>添加主键索引</p><p>alter table 表名 add id int not null; //添加id列</p><p>alter table 表名 add primary key (id); //将id列设为主键</p><p>删除主键索引</p><p>alter table 表名 drop primary key;</p><h4 id="常用函数"><a href="#常用函数" class="headerlink" title="常用函数"></a>常用函数</h4><p>floor(x) 返回小于x的最大整数值</p><p><code>select goods_id,floor(shop_pirce) from goods;</code></p><p>rand() 返回0到1内的随机值，可以通过提供一个参数是rand()随机数生成器生成一个指定值</p><p><code>select floor(5+rand()*5);</code>随机生成5到10随机数</p><p>left(str,x)返回字符串str中最左边的x字符</p><p><code>select left(email,3) from t</code>将t表中email 列中数据值前3个字符</p><p>position(substr in str) 返回资产substr 在字符串str中第一次出现的位置</p><p><code>select left(email,position(&#39;@&#39; in email)-1) from t27;截取@之前的字符</code></p><p>now()返回当前的日期和时间</p><p>select now();</p><p>date_format(date,fmt)依照指定的fmt格式格式化日期date值</p><p>注意要加百分号%</p><p>select date_format(now(),’%y/%m’);</p><h5 id="事务"><a href="#事务" class="headerlink" title="事务"></a>事务</h5><p>事务就是在一个业务下的具体多个小的语句，要么让你都完成，要么让你都不完成，从而保证你数据的一个安全性</p><p>innodb支持事务，myisam不支持</p><p>特性：</p><p>原子性：要成功一起成功，要失败一起失败</p><p>一致性：事务发生前和发生后，数据总和一致</p><p>隔离性：操作后，完成前。两者同时完成才能正常操作</p><p>持久性：一旦事务完毕，无法撤销</p><p>开启事务：</p><p>start  transaction</p><p>sql操作</p><p>完成事务：commit</p><p>撤销事务：rollback; 不想执行sql操作了</p><p>不使用事务： sql操作 —-&gt;直接作用表数据</p><p>使用事务：sql操作——–&gt;事务日志，记录下sql操作——-&gt;同时作用于表数据</p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h4 id=&quot;视图-view&quot;&gt;&lt;a href=&quot;#视图-view&quot; class=&quot;headerlink&quot; title=&quot;视图 view&quot;&gt;&lt;/a&gt;视图 view&lt;/h4&gt;&lt;p&gt;视图说白了就是查询后的结果集，将这个结果集保存起来，方便下次从这个结果集中查询数据。&lt;/p&gt;
+&lt;ol
+      
+    
+    </summary>
+    
+    
+      <category term="mysql" scheme="http://yoursite.com/categories/mysql/"/>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>数据库表的认识</title>
+    <link href="http://yoursite.com/2020/07/27/%E6%95%B0%E6%8D%AE%E5%BA%93%E8%A1%A8%E7%9A%84%E8%AE%A4%E8%AF%86/"/>
+    <id>http://yoursite.com/2020/07/27/%E6%95%B0%E6%8D%AE%E5%BA%93%E8%A1%A8%E7%9A%84%E8%AE%A4%E8%AF%86/</id>
+    <published>2020-07-27T15:52:05.000Z</published>
+    <updated>2020-07-29T09:30:02.071Z</updated>
+    
+    <content type="html"><![CDATA[<h4 id="table-表的创建"><a href="#table-表的创建" class="headerlink" title="table 表的创建"></a>table 表的创建</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">create  database lianxi charset utf8;&#x2F;&#x2F;创建数据库lianxi  数据库的字符集utf8</span><br><span class="line">use lianxi; &#x2F;&#x2F;使用数据库</span><br><span class="line">create table salary(                &#x2F;&#x2F;创建表salary</span><br><span class="line">name char(4) not null default &#39;&#39;,</span><br><span class="line">gender char(1) not null default &#39;&#39;,</span><br><span class="line">com varchar(20) not null default &#39;&#39;,</span><br><span class="line">money decimal(6,2) not null default 0.00,</span><br><span class="line">fb smallint not null default 0)engine myisam charset utf8;  &#x2F;&#x2F;引擎是myisam  表的字符集是utf8;</span><br></pre></td></tr></table></figure><h5 id="整型列"><a href="#整型列" class="headerlink" title="整型列"></a>整型列</h5><p>mysql中 各种列的类型及特点</p><p>列类型大致分为3类：</p><p>​     整值型：整型，浮点型，定点型（比较精确）</p><p>​     字符串：char , varchar , text</p><p>​     日期时间类型：2012-12-13   14:25:23 </p><p>整型：</p><p>一个字节有8位，每个位上有0,1两种可能</p><p>一个列，占的字节越多，存储的范围越大。</p><p>tinyint               1个字节    -128-127     0-255</p><p>smallint            2个字节     -32768-32767      0-65535</p><p>mediumint      3个字节    -8388608-8388607    0-16777215</p><p>int                     4个字节     -2147483648-2147483647    0-4294967295</p><p>bigint               8个字节     -9223372036854775808-9223372036854775807    0-18446744073709551615</p><p>无符号范围很容易理解就是8位全为0或全为1的值，有符号的呢？在计算机内最高为表示符号0为正，1为负。有符号的其实计算的是后7位的值。</p><h5 id="整型列的可选参数"><a href="#整型列的可选参数" class="headerlink" title="整型列的可选参数"></a>整型列的可选参数</h5><p>unsigned：无符号类型</p><p>zerofill:零填充 默认是无符号类型 如<code>数据类型 int(4) 表示数据应是4位。如果添加的数据只有2位则前面用零补齐</code></p><h5 id="浮点列与定点列"><a href="#浮点列与定点列" class="headerlink" title="浮点列与定点列"></a>浮点列与定点列</h5><p>float 浮点型   <code>float(5,2)5表示精度，总位数，2表示标度，小数点后的位数 如：999.99</code></p><p>double 范围更大的浮点型</p><p>decimal 定点型 更准确 一般用于钱</p><h5 id="字符型列"><a href="#字符型列" class="headerlink" title="字符型列"></a>字符型列</h5><p>char   varchar   text/blob  enum</p><p>char 定长存储内容</p><p>varchar 变长存储内容</p><p>char和varchar区别：</p><p>char(10) 不管字符长度多少，都是存储10个字符的宽度</p><p>varchar(10)最多存储10个字符，用多少占多少。</p><p>char速度更快。适用于固定长或简短的数据</p><p>varchar适用于不定长的数据</p><p>text文本类型：</p><p> 可以存比较大的文本段，搜索速度稍慢。因此如果不是特别大的内容，建议用char,varchar代替</p><p>enum枚举类型：定义好，只能在某几个枚举范围内，</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&#96;create table t(gender enum(&#39;boy&#39;,&#39;girl&#39;));&#96;</span><br><span class="line">insert into t values(&#39;boy&#39;);   只能存储boy或girl类型</span><br></pre></td></tr></table></figure><h5 id="日期时间列"><a href="#日期时间列" class="headerlink" title="日期时间列"></a>日期时间列</h5><p>日期时间类型：year  1901-2155</p><p>​                           date    1000/01/01-9999/12/31</p><p>​                           time   -838:59:59-838:59:59</p><p>​                           datetime     1000/01/01 00:00:00-9999:12:31 23:59:59</p><p>​                           时间戳： 1970-01-01 00:00:00 到当前的秒数</p><p>​                           一般存储注册时间，商品发布时间等，并不是用datetime存储，而是用时间戳</p><p>​                            因为datetime虽然直观，但计算不便</p><p>timestamp时间戳  如果我们插入改行，时间戳这列会自动插入当前时间戳</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">create table t(id int,tt timestamp);</span><br><span class="line">timestamp列的显示格式与datetime列相同</span><br></pre></td></tr></table></figure><h6 id="主键与自增"><a href="#主键与自增" class="headerlink" title="主键与自增"></a>主键与自增</h6><p>primary key 能够区分每一行的列，如id</p><p>主键不能重复。</p><p>主键往往和auto_increment一起出现，但并不意味着他们两个必须要绑定在一起使用。</p><p>不声明主键直接使用auto_increment，但必须有索引，才能成功</p><p><code>create table t(id int auto_increment,name char(5),index id(id));</code></p><h5 id="列的删除增加与修改"><a href="#列的删除增加与修改" class="headerlink" title="列的删除增加与修改"></a>列的删除增加与修改</h5><p>alter table 表名 add 列名  列类型  列属性   添加新列</p><p><code>alter table user add height tinyint unsigned not null default 0</code></p><p>alter table 表名  change  旧列名  新列名  新类型  列属性</p><p><code>alter table user change height shengao smallint not null default 0</code></p><p>alter table 表名  modify  列名 新属性    //只修改属性</p><p><code>alter table user modify height tinyint not null default 0</code></p><p>alter table  表名  drop  [column] 列名</p><p><code>alter table user  drop column height</code></p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h4 id=&quot;table-表的创建&quot;&gt;&lt;a href=&quot;#table-表的创建&quot; class=&quot;headerlink&quot; title=&quot;table 表的创建&quot;&gt;&lt;/a&gt;table 表的创建&lt;/h4&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;t
+      
+    
+    </summary>
+    
+    
+      <category term="mysql" scheme="http://yoursite.com/categories/mysql/"/>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>select查询</title>
+    <link href="http://yoursite.com/2020/07/23/select%E6%9F%A5%E8%AF%A2/"/>
+    <id>http://yoursite.com/2020/07/23/select%E6%9F%A5%E8%AF%A2/</id>
+    <published>2020-07-22T23:35:43.000Z</published>
+    <updated>2020-07-27T15:45:19.531Z</updated>
+    
+    <content type="html"><![CDATA[<h4 id="select条件语句"><a href="#select条件语句" class="headerlink" title="select条件语句"></a>select条件语句</h4><p>select 后面不仅能写where 还能写 group by,having,order by,limit等</p><p>投影概念：</p><p> 取出表中的部分列，就叫做投影运算</p><p>如：<code>select name,age from user;</code></p><p>表中两个列做运算，叫做广义投影</p><p>如：<code>select goods_id,marker_price-shop_price from goods;</code></p><h5 id="子查询有严格的顺序的"><a href="#子查询有严格的顺序的" class="headerlink" title="子查询有严格的顺序的"></a>子查询有严格的顺序的</h5><p>where , group by , having , order by , limit</p><h5 id="统计函数"><a href="#统计函数" class="headerlink" title="统计函数"></a>统计函数</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">select avg(shop_price) from goods; 平均函数</span><br><span class="line">select sum(goods_number) from goods; 求和</span><br><span class="line">select max(shop_price) from goods;最大值</span><br><span class="line">select min(shop_price) from goods;最小值</span><br><span class="line">select count(*) from goods;计算行数</span><br><span class="line">注意：count是计算行数，它取决于筛选的条件而不是它括号里面的条件</span><br></pre></td></tr></table></figure><h5 id="where子句-条件"><a href="#where子句-条件" class="headerlink" title="where子句 条件"></a>where子句 条件</h5><p>将表的列看成变量</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">in是集合</span><br><span class="line">select * from user where uid in(2,4); 取出uid是2和4的数据</span><br><span class="line">between and 是范围</span><br><span class="line">select * from user where uid berween 2 and 5 ;取出uid在2到5之间的数据</span><br></pre></td></tr></table></figure><p>where型子查询：说白了就是合并的两条查询语句，这就是子查询</p><p>如：<code>select goods_id,goods_name from goods where goods_id in(select max(goods_id) from goods group by cat_id);</code></p><p>通配符：like</p><p> <code>select * from goods where cat_name like &#39;诺基亚%&#39;;</code></p><p>查询 cat_name开头是诺基亚的数据。%代表所有字符</p><p>限制取出条目：limit</p><p>limit offset ,N  跳过offset条，取出N条</p><p><code>select * from goods limit 0,5;</code>    查询goods表前5个数据</p><p>order by一般和limit配合使用，功能才会更强大</p><h5 id="from型子查询-查询的表是临时表"><a href="#from型子查询-查询的表是临时表" class="headerlink" title="from型子查询  查询的表是临时表"></a>from型子查询  查询的表是临时表</h5><p>先select查询出结果集看作一张表，起一个别名，再在外层select这张临时表中的内容。</p><p><code>goods_id,goods_name from (select goods_id,cat_id from goods order by goods_id desc)as tmp group by cat_id;</code></p><h5 id="group-by子句-分组"><a href="#group-by子句-分组" class="headerlink" title="group by子句 分组"></a>group by子句 分组</h5><p>分组查询，一般是比较消耗资源的，因为数据会先按照分组进行排序，再筛选出你所需的内容出来，如果索引建立的比较巧妙，在分组的时候有可能根据索引不需要排序，所以分组计算能避免就避免，它比较浪费资源。</p><p><code>select * from goods group by cat_id;</code>   根据 cat_id  分组</p><h5 id="having-子句"><a href="#having-子句" class="headerlink" title="having 子句"></a>having 子句</h5><p>as 相当于 = 号</p><p>where 和 having  不同是 where在执行前作用于表，having查询结果后再执行</p><p>如果语句里where和having都存在，where 要放在 having 的前面</p><h5 id="order-by-子句-排序"><a href="#order-by-子句-排序" class="headerlink" title="order by 子句 排序"></a>order by 子句 排序</h5><p><code>select goods_id,goods_name,shop_price from goods order by shop_price desc</code></p><p>通过shop_price排序   desc 倒序排序   asc 正序排序</p><h5 id="exists型子查询"><a href="#exists型子查询" class="headerlink" title="exists型子查询"></a>exists型子查询</h5><p>可以代替 in 查询，且效率更高</p><p>exists相当于判断语句，如果exists后面成立，则取出结果</p><p><code>select * from category where exists (select * from goods where category.cat_id=goods.cat_id);</code></p><p>查询的还是category表，条件是goods中cat_id和category表中的cat_id得相等</p><h5 id="内连接查询"><a href="#内连接查询" class="headerlink" title="内连接查询"></a>内连接查询</h5><p><code>inner join.....on</code>   取两张表的交集</p><p><code>select boy.hid,boy.bname,girl.hid,girl.gname from boy inner join girl on boy.hid=girl.hid;</code></p><h5 id="左连接及右连接查询"><a href="#左连接及右连接查询" class="headerlink" title="左连接及右连接查询"></a>左连接及右连接查询</h5><p>左连接和右连接类似，只是调个方向。</p><p><code>left  join .....on</code> 以左边为主，取出左边所有数据，让右边数据去匹配，没有的以 NULL 补齐</p><p><code>select boy.hid,boy.bname,girl.hid,girl.gname from boy left join girl on boy.hid=girl.hid;</code></p><h5 id="union查询"><a href="#union查询" class="headerlink" title="union查询"></a>union查询</h5><p>就是把2条或多条sql的查询结果，合并成1个结果集。</p><p>sql1 返回n行</p><p>sql2 返回m行</p><p>sql1 union sql2 返回n+m行</p><p>注意：union语句必须满足 1个条件，各语句取出的列数相同。列名未必一致，查询出的结果列名称会使用第一条sql的列名为准。</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">select uid,name,age from user</span><br><span class="line">union</span><br><span class="line">select id,title,time from tmp;</span><br><span class="line">查询出的结果是俩表的数据，但是列名是uid,name,age;</span><br></pre></td></tr></table></figure><p>使用union时，完全相等的行，将会被合并，合并是比较耗时的操作，两行会在比较看是否完全相等。一般不让union进行合并，使用 union all 可以避免</p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h4 id=&quot;select条件语句&quot;&gt;&lt;a href=&quot;#select条件语句&quot; class=&quot;headerlink&quot; title=&quot;select条件语句&quot;&gt;&lt;/a&gt;select条件语句&lt;/h4&gt;&lt;p&gt;select 后面不仅能写where 还能写 group by,having
+      
+    
+    </summary>
+    
+    
+      <category term="mysql" scheme="http://yoursite.com/categories/mysql/"/>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>数据库简识</title>
+    <link href="http://yoursite.com/2020/07/21/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%AE%80%E8%AF%86/"/>
+    <id>http://yoursite.com/2020/07/21/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%AE%80%E8%AF%86/</id>
+    <published>2020-07-20T16:19:05.000Z</published>
+    <updated>2020-07-22T23:30:14.702Z</updated>
+    
+    <content type="html"><![CDATA[<h5 id="数据库初识"><a href="#数据库初识" class="headerlink" title="数据库初识"></a>数据库初识</h5><p>何为数据库？就是管理数据的一个软件，数据库好比是一本书，数据相当于书里的目录，有文章，有作者等信息。它能帮我们很好的管理这些数据，而且效率很高。这就是数据库。</p><h5 id="表与库的概念"><a href="#表与库的概念" class="headerlink" title="表与库的概念"></a>表与库的概念</h5><p>数据库是通过表来管理数据，数据库可以有多张表。而服务器可以帮我们管理多个库。</p><p>查看库：<code>showdatabases</code></p><p>选库：<code>use test</code>  test是库名</p><p>查看库下的表：<code>show tables</code></p><p>查表：<code>select  *  from cat</code> cat是表名</p><h5 id="认识sql"><a href="#认识sql" class="headerlink" title="认识sql"></a>认识sql</h5><p>sql是一门标准的计算机语言，用来访问和操作数据库系统</p><p>sql分为两部分，数据操作语言 DML 和 数据定义语言 DDL</p><p>DML就是表的操作：insert 、delete、update、select</p><p>DDL就是数据库和表的操作：</p><p>​                           create database 创建数据库</p><p>​                           alter  database 修改数据库</p><p>​                            create  table 创建表</p><p>​                           alter table   修改表</p><p>​                            drop table 删除表</p><p>​                             create index  创建索引</p><p>​                            drop  index  删除索引</p><h6 id="DML增删改查"><a href="#DML增删改查" class="headerlink" title="DML增删改查"></a>DML增删改查</h6><p> insert 操作：列与值，必须严格对应</p>  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">insert into 表名(列名)values(值);</span><br><span class="line">insert into user(uid,name,age) values(1,&#39;wangwu&#39;,23);</span><br><span class="line">插入多条数据：</span><br><span class="line">insert into user values(1,&#39;lisi&#39;,22),(2,&#39;lisi2&#39;,23),(3,&#39;lisi3&#39;,24);</span><br></pre></td></tr></table></figure><p>update 操作：</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">update 表名 set 列&#x3D;值 where 条件</span><br><span class="line">update user set age&#x3D;24 where name&#x3D;&#39;lisi&#39;;</span><br></pre></td></tr></table></figure><p>delete 操作：</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">delete from 表名 where 条件</span><br><span class="line">delete from user where name&#x3D;&#39;lisi&#39;;</span><br></pre></td></tr></table></figure><p>select  操作：</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">select 列名 from 表名  where 条件</span><br><span class="line">select name,age from user where uid&#x3D;1;</span><br></pre></td></tr></table></figure><p>​       </p><p>​      </p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h5 id=&quot;数据库初识&quot;&gt;&lt;a href=&quot;#数据库初识&quot; class=&quot;headerlink&quot; title=&quot;数据库初识&quot;&gt;&lt;/a&gt;数据库初识&lt;/h5&gt;&lt;p&gt;何为数据库？就是管理数据的一个软件，数据库好比是一本书，数据相当于书里的目录，有文章，有作者等信息。它能帮我们很好的
+      
+    
+    </summary>
+    
+    
+      <category term="mysql" scheme="http://yoursite.com/categories/mysql/"/>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>mysql编译安装</title>
+    <link href="http://yoursite.com/2020/06/28/mysql%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85/"/>
+    <id>http://yoursite.com/2020/06/28/mysql%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85/</id>
+    <published>2020-06-28T08:51:39.000Z</published>
+    <updated>2020-06-30T08:50:59.573Z</updated>
+    
+    <content type="html"><![CDATA[<h4 id="mysql"><a href="#mysql" class="headerlink" title="mysql"></a>mysql</h4><h4 id="使用二进制文件在linux上安装MySQL"><a href="#使用二进制文件在linux上安装MySQL" class="headerlink" title="使用二进制文件在linux上安装MySQL"></a>使用二进制文件在linux上安装MySQL</h4><ol><li><p>下载二进制版本安装</p><p><code>http://mirrors.sohu.com/mysql/MySQL-5.5/</code> </p></li><li><p>解压</p><p><code>tar  -zxf   mysql-5.5.61-linux-glibc2.12-i686.tar.gz</code></p></li><li><p>一般二进制文件都有安装说明</p><p>进入解压后的 mysql 文件，会看到 INSTALL-BINARY 文件 ，more   INSTALL-BINARY  查看文件</p></li><li><p>检测是否安装libaio库</p> <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">yum  search   libaio </span><br><span class="line">yum  install  libaio</span><br></pre></td></tr></table></figure></li><li><p>建立用户和组</p><ul><li>建立用户组  <code>groupadd  mysql</code></li></ul><ul><li>建立用户      <code>useradd -r -g mysql mysql</code></li><li>cd到mysql   <code>cd mysql</code></li><li>将文件用户改为mysql <code>chown -R mysql .</code></li><li>将文件组改为mysql <code>chgrp -R mysql .</code></li><li>初始化 <code>scripts /mysql_install_db  --user=mysql</code></li><li>将文件用户改为root <code>chown -R root .</code></li><li>将data改为用户mysql <code>chown -R mysal data</code></li></ul></li><li><p>启动</p><p><code>./bin/mysqld_safe --user=mysql &amp;</code></p></li><li><p>可能会出现的问题</p><p><code>[ERROR] Can’t start server: can’t create PID filepath: No such file or directory</code></p><p>错误原因：一般由于服务器强制关机导致pid文件丢失</p><p>解决：在/etc/my.cnf中查看pid-file的位置发现没有mysqld，则创建文件</p><p><code>mkdir  ./mysqld</code></p><p>将 mysqld 文件所属用户改为mysql</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">chown mysql &#x2F;var&#x2F;run&#x2F;mysqld -R</span><br><span class="line">chgrp mysql &#x2F;var&#x2F;run&#x2F;mysqld -R</span><br></pre></td></tr></table></figure></li><li><p>进入mysql</p><p>./bin/mysql</p></li></ol><p>​      提示：找不到sock文件</p><p>​     创建快捷方式  <code>ln /var/lib/mysql/mysql.sock  /tmp/msyql.sock</code></p><h5 id="修改-MySQL密码"><a href="#修改-MySQL密码" class="headerlink" title="修改 MySQL密码"></a>修改 MySQL密码</h5><p>  进入mysql  :   ./bin/mysql</p> <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">show databases;&#x2F;&#x2F;显示数据库</span><br><span class="line">use mysql; &#x2F;&#x2F;进入msyql数据库</span><br><span class="line">show tables;&#x2F;&#x2F;mysql数据库下的表</span><br><span class="line">desc user;&#x2F;&#x2F;user表详细信息</span><br><span class="line">select host，user，password  from user;&#x2F;&#x2F;列出user表的三个相关字段</span><br><span class="line">update user set Password&#x3D;password(&#39;123456&#39;) where Host&#x3D;&#39;localhost&#39; and User&#x3D;&#39;root&#39;;&#x2F;&#x2F;修改密码</span><br><span class="line">delete from user where Password&#x3D;&#39;&#39;;&#x2F;&#x2F;删除空密码的账号</span><br><span class="line">flush privileges;&#x2F;&#x2F;刷新</span><br></pre></td></tr></table></figure>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h4 id=&quot;mysql&quot;&gt;&lt;a href=&quot;#mysql&quot; class=&quot;headerlink&quot; title=&quot;mysql&quot;&gt;&lt;/a&gt;mysql&lt;/h4&gt;&lt;h4 id=&quot;使用二进制文件在linux上安装MySQL&quot;&gt;&lt;a href=&quot;#使用二进制文件在linux上安装MySQ
+      
+    
+    </summary>
+    
+    
+      <category term="mysql" scheme="http://yoursite.com/categories/mysql/"/>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>nginx+php整合</title>
+    <link href="http://yoursite.com/2020/06/27/nginx-php%E6%95%B4%E5%90%88/"/>
+    <id>http://yoursite.com/2020/06/27/nginx-php%E6%95%B4%E5%90%88/</id>
+    <published>2020-06-27T08:34:47.000Z</published>
+    <updated>2020-06-27T08:50:43.180Z</updated>
+    
+    <content type="html"><![CDATA[<h4 id="php的安装和编译"><a href="#php的安装和编译" class="headerlink" title="php的安装和编译"></a>php的安装和编译</h4><ol><li>php安装前期准备</li></ol><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum install gd zlib zlib-devel openssl openssl-devel libxml2 libxml2-devel libjpeg libjpeg-devel libpng libpng-devel freetype freetype-devel</span><br></pre></td></tr></table></figure><ol start="2"><li><p>到官网下载对应的php版本</p><p>解压php</p></li><li><p>配置</p> <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">.&#x2F;configure --prefix&#x3D;&#x2F;usr&#x2F;local&#x2F;php \</span><br><span class="line">--with-gd \</span><br><span class="line">--enable-gd-native-ttf \</span><br><span class="line">--enable-mysqlnd \</span><br><span class="line">--with-mysql&#x3D;mysqlnd \</span><br><span class="line">--with-pdo-mysql&#x3D;mysqlnd \</span><br><span class="line">--with-openssl \</span><br><span class="line">--enable-mbstring \</span><br><span class="line">--with-jpeg-dir\</span><br><span class="line">--with-freetype-dir \</span><br><span class="line">--enable-fpm</span><br></pre></td></tr></table></figure><p>如果报警告   <code>--with-*** 是因为当前php版本不支持</code></p></li></ol><p>4.安装编译</p><p>  <code>make &amp;&amp; make install</code></p><p>5.启动</p><p><code>./sbin/php-fpm</code></p><p>启动失败: /etc下找不到php-fpm.conf文件导致</p><p>解决办法：<code>cp etc/php-fpm.conf.default etc/php-fpm.conf</code></p><h4 id="php-nginx整合"><a href="#php-nginx整合" class="headerlink" title="php+nginx整合"></a>php+nginx整合</h4><p>访问php文件时，需要设置nginx配置文件nginx.conf</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">local~\.php$&#123;</span><br><span class="line">  root          html;</span><br><span class="line"> fastcgi_pass   127.0.0.1:9000;  &#x2F;&#x2F;主机地址9000是php的端口</span><br><span class="line"> fastcgi_index  index.php</span><br><span class="line"> fastcgi_param  SCRIPT_FILENAME $DOCUMENT_ROOT$fastcgi_script_name; &#x2F;&#x2F;php地址</span><br><span class="line"> include        fastcgi_params;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p>./sbin/nginx -s reload   配置文件生效</p><p>可以访问了但是，发现缺少ini，找到解压后php-5.6.38文件将php.ini-复制过去</p><p><code>cp /usr/local/php-5.6.38/php.ini-development  /usr/local/php/lib/php.ini</code></p><p>至此php+nginx完成整合！</p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h4 id=&quot;php的安装和编译&quot;&gt;&lt;a href=&quot;#php的安装和编译&quot; class=&quot;headerlink&quot; title=&quot;php的安装和编译&quot;&gt;&lt;/a&gt;php的安装和编译&lt;/h4&gt;&lt;ol&gt;
+&lt;li&gt;php安装前期准备&lt;/li&gt;
+&lt;/ol&gt;
+&lt;figure class=&quot;
+      
+    
+    </summary>
+    
+    
+      <category term="php" scheme="http://yoursite.com/categories/php/"/>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>nginx的pathInfo和重写</title>
+    <link href="http://yoursite.com/2020/06/23/nginx%E7%9A%84pathInfo%E5%92%8C%E9%87%8D%E5%86%99/"/>
+    <id>http://yoursite.com/2020/06/23/nginx%E7%9A%84pathInfo%E5%92%8C%E9%87%8D%E5%86%99/</id>
+    <published>2020-06-23T01:11:42.000Z</published>
+    <updated>2020-06-23T01:40:03.166Z</updated>
+    
+    <content type="html"><![CDATA[<h4 id="pathInfo"><a href="#pathInfo" class="headerlink" title="pathInfo"></a>pathInfo</h4><p>何为pathInfo?看下面这个网址</p><p><a href="http://localhost/index.php/Home/Index" target="_blank" rel="noopener">http://localhost/index.php/Home/Index</a></p><p>本该到index.php就结束了但后面还跟了Home/Index 。而Home/Index就是pathInfo实现的功能，不少php框架都有此模式。</p><p>nginx默认是不支持pathInfo的，需要手动设置参数，修改conf 文件：</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">location  ~ \.php(.*)$&#123;</span><br><span class="line">  ...</span><br><span class="line">  fascgi_param PATH_INFO  $1;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><h4 id="URL重写"><a href="#URL重写" class="headerlink" title="URL重写"></a>URL重写</h4><p>显示页面指定到某个php或html，但不想在浏览器地址栏显示 .php或 .html 。这就用到了重写</p><p>nginx重写有 rewrite 方式和 try_files 方式 。rewrite方式太麻烦我们就只介绍try_files方式 。修改conf 文件</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F;去掉 path_info</span><br><span class="line">location &#x2F;&#123;</span><br><span class="line"> ...</span><br><span class="line"> ...</span><br><span class="line">  try_files $uri  &#x2F;index.php?$uri;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p> $uri  是<a href="http://localhost/index.php?auto/login" target="_blank" rel="noopener">http://localhost/index.php?auto/login</a> 中的 auto/login</p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h4 id=&quot;pathInfo&quot;&gt;&lt;a href=&quot;#pathInfo&quot; class=&quot;headerlink&quot; title=&quot;pathInfo&quot;&gt;&lt;/a&gt;pathInfo&lt;/h4&gt;&lt;p&gt;何为pathInfo?看下面这个网址&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;http://loca
+      
+    
+    </summary>
+    
+    
+      <category term="nginx" scheme="http://yoursite.com/categories/nginx/"/>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>nginx配置</title>
+    <link href="http://yoursite.com/2020/06/22/nginx%E9%85%8D%E7%BD%AE/"/>
+    <id>http://yoursite.com/2020/06/22/nginx%E9%85%8D%E7%BD%AE/</id>
+    <published>2020-06-22T00:56:10.000Z</published>
+    <updated>2020-06-22T14:08:06.675Z</updated>
+    
+    <content type="html"><![CDATA[<h4 id="nginx配置虚拟主机"><a href="#nginx配置虚拟主机" class="headerlink" title="nginx配置虚拟主机"></a>nginx配置虚拟主机</h4><p>在conf文件里，一个server就是一个虚拟主机</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">server&#123;</span><br><span class="line"> listen 80;</span><br><span class="line"> server_name ddd.com; &#x2F;&#x2F;域名</span><br><span class="line"> location &#x2F;&#123;</span><br><span class="line">  root  html&#x2F;ddd; &#x2F;&#x2F;网站站点目录</span><br><span class="line">  index  index.php  index.html;  &#x2F;&#x2F;网站首页</span><br><span class="line"> &#125;</span><br><span class="line"> location ~\.php$&#123; &#x2F;&#x2F;php结尾的文件</span><br><span class="line">  root  html&#x2F;ddd; &#x2F;&#x2F;站点目录</span><br><span class="line">  fastcgi_pass  127.0.0.1:9000; &#x2F;&#x2F;ip地址 php程序是9000端口</span><br><span class="line">  fastcgi_index  index.php; &#x2F;&#x2F;首页</span><br><span class="line">  fastcgi_param  SCRIPT_FILENAME $DOCUMENT_ROOT$... &#x2F;&#x2F;php会去这个站点目录运行脚本</span><br><span class="line">  include fastcgi_params;</span><br><span class="line"> &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><h4 id="日志管理"><a href="#日志管理" class="headerlink" title="日志管理"></a>日志管理</h4><p>日志内容大致为：</p><p>访问者ip    访问时间     请求行    200     访问的字节长度     浏览器类别</p><p>conf文件有日志格式：</p><p>simple 是日志名称</p><p> log_format  simple  “ “</p><p>给项目设置独立日志：</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">server&#123;</span><br><span class="line"> listen 80;</span><br><span class="line"> server_name  ddd.com;</span><br><span class="line"> access_log  logs&#x2F;ddd.log  simple;</span><br><span class="line"> localtion ~&#x2F;.php$&#123;</span><br><span class="line"> </span><br><span class="line"> &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h4 id=&quot;nginx配置虚拟主机&quot;&gt;&lt;a href=&quot;#nginx配置虚拟主机&quot; class=&quot;headerlink&quot; title=&quot;nginx配置虚拟主机&quot;&gt;&lt;/a&gt;nginx配置虚拟主机&lt;/h4&gt;&lt;p&gt;在conf文件里，一个server就是一个虚拟主机&lt;/p&gt;
+&lt;fig
+      
+    
+    </summary>
+    
+    
+      <category term="nginx" scheme="http://yoursite.com/categories/nginx/"/>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>nginx服务器</title>
+    <link href="http://yoursite.com/2020/06/22/nginx%E6%9C%8D%E5%8A%A1%E5%99%A8/"/>
+    <id>http://yoursite.com/2020/06/22/nginx%E6%9C%8D%E5%8A%A1%E5%99%A8/</id>
+    <published>2020-06-22T00:18:32.000Z</published>
+    <updated>2020-06-22T00:55:07.509Z</updated>
+    
+    <content type="html"><![CDATA[<h4 id="nginx是什么？"><a href="#nginx是什么？" class="headerlink" title="nginx是什么？"></a>nginx是什么？</h4><p>nginx是一款轻量级的web 服务器/反向代理服务器及电子邮件代理服务器！</p><p>最早由俄罗斯程序设计师 lgor Sysoev所开发，并在一个BSD-like 协议下发行</p><p>nginx 轻量级，占有内存少，并发能力强，发展势头强劲。因而web领域最经典的lamp组合变成了lnmp组合</p><h4 id="nginx编译安装"><a href="#nginx编译安装" class="headerlink" title="nginx编译安装"></a>nginx编译安装</h4><p>到nginx官网，选择stable版本下载</p><p>nginx依赖于pcre库，所以先下载pcre</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">cd nginx</span><br><span class="line">.&#x2F;configure  --prefix&#x3D;&#x2F;usr&#x2F;local&#x2F;nginx  --with-pcre&#x3D;&#x2F;usr&#x2F;local&#x2F;src&#x2F;pcre-8.39</span><br><span class="line">make  &amp;&amp; make install</span><br></pre></td></tr></table></figure><p>启动：./sbin/nginx</p><h5 id="nginx-目录"><a href="#nginx-目录" class="headerlink" title="nginx 目录"></a>nginx 目录</h5><ul><li>conf   配置文件</li><li>html  网页文件</li><li>logs  日志文件</li><li>sbin  主要二进制程序</li></ul><h5 id="常见问题"><a href="#常见问题" class="headerlink" title="常见问题"></a>常见问题</h5><p>有时候启动nginx会失败，查看端口</p><p>ps  aux|grep  nginx</p><p>80端口容易被占用，一般是防火墙关掉防火墙</p><p><code>servcie iptables stop</code></p><h4 id="nginx-命令"><a href="#nginx-命令" class="headerlink" title="nginx 命令"></a>nginx 命令</h4><ul><li>./sbin/nginx -t  配置文件是否成功</li><li>./sbin/nginx  -s  reload  加载最新配置</li><li>./sbin/nginx -s stop  立即停止</li><li>./sbin/nginx -s quit  优雅停止，执行完程序后停止</li><li>./sbin/nignx  -s  reopen  重新打开日志（当备份了日志文件后，日志内容不往新文件写入就需要重新打开)</li></ul>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h4 id=&quot;nginx是什么？&quot;&gt;&lt;a href=&quot;#nginx是什么？&quot; class=&quot;headerlink&quot; title=&quot;nginx是什么？&quot;&gt;&lt;/a&gt;nginx是什么？&lt;/h4&gt;&lt;p&gt;nginx是一款轻量级的web 服务器/反向代理服务器及电子邮件代理服务器！&lt;/p&gt;
+      
+    
+    </summary>
+    
+    
+      <category term="nginx" scheme="http://yoursite.com/categories/nginx/"/>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>linux进程</title>
+    <link href="http://yoursite.com/2020/06/20/linux%E8%BF%9B%E7%A8%8B/"/>
+    <id>http://yoursite.com/2020/06/20/linux%E8%BF%9B%E7%A8%8B/</id>
+    <published>2020-06-20T01:06:12.000Z</published>
+    <updated>2020-06-20T01:24:08.684Z</updated>
+    
+    <content type="html"><![CDATA[<h4 id="进程"><a href="#进程" class="headerlink" title="进程"></a>进程</h4><p>程序是什么？程序其实就是动作指令的集合，而执行程序的过程就是进程！</p><p>查看进程：<code>ps -Af</code></p><a id="more"></a><p>终止进程：<code>kill 程序 id 号</code></p><p>动态查看进程：top</p><p>kill 默认模式是15 终止进程</p><p>kill  -9  pid 是强制终止进程</p><p>pkill 有选择性的向一个或一批进程发送信号</p><p>pkill  程序名</p><p>pkill -u stu 终止stu用户下的一切进程</p><p>守护进程：后台运行随时等待指令，通指系统进程</p><p>chkconfig  –list 查看系统服务</p><p>chkconfig  –list|grep httpd    查询httpd服务进程</p><p>启动服务：service httpd start</p><p>查询服务状态： service httpd status</p><p>停止服务：service httpd stop</p>]]></content>
+    
+    <summary type="html">
+    
+      &lt;h4 id=&quot;进程&quot;&gt;&lt;a href=&quot;#进程&quot; class=&quot;headerlink&quot; title=&quot;进程&quot;&gt;&lt;/a&gt;进程&lt;/h4&gt;&lt;p&gt;程序是什么？程序其实就是动作指令的集合，而执行程序的过程就是进程！&lt;/p&gt;
+&lt;p&gt;查看进程：&lt;code&gt;ps -Af&lt;/code&gt;&lt;/p&gt;
+    
+    </summary>
+    
+    
+      <category term="linux" scheme="http://yoursite.com/categories/linux/"/>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>linux软件包管理</title>
+    <link href="http://yoursite.com/2020/06/19/linux%E8%BD%AF%E4%BB%B6%E5%8C%85%E7%AE%A1%E7%90%86/"/>
+    <id>http://yoursite.com/2020/06/19/linux%E8%BD%AF%E4%BB%B6%E5%8C%85%E7%AE%A1%E7%90%86/</id>
+    <published>2020-06-19T01:45:36.000Z</published>
+    <updated>2020-06-20T00:54:30.933Z</updated>
+    
+    <content type="html"><![CDATA[<h4 id="rpm管理器"><a href="#rpm管理器" class="headerlink" title="rpm管理器"></a>rpm管理器</h4><p>linux 发行版本众多，基于各个版本开发的软件并不能在各个版本中使用，而二进制编译对于普通用户相对困难，因而RPM应运而生，RPM是将二进制源码，依赖库配置文件打包，RPM是linux统一默认的安装器。</p><a id="more"></a><p>下载软件：wget  软件链接地址</p><p>查询是否安装：rpm -q 软件名</p><p>安装：rpm -ivh  xx-版本号.rpm</p><p>v是软件信息，h安装进度</p><p>卸载：rpm -e  软件包名xx-版本号</p><p>RPM弊端：无法解决软件依赖关系。因而yum出现了，yum是解决了依赖关系但安装程序还是RPM</p><h4 id="yum"><a href="#yum" class="headerlink" title="yum"></a>yum</h4><p>使用yum先清除软件缓存，yum clean all</p><p>缓存软件源信息，提高搜索速度：yum makecache</p><p>安装：yum    install    软件名</p><p><code>如：yum install gcc-c++</code></p><p>查询：<code>yum list gcc-c++</code></p><p>详细信息：<code>yum info gcc</code></p><p>更新：<code>yum update gcc</code></p><p>卸载：<code>yum remove gcc</code></p><h5 id="配置yum源"><a href="#配置yum源" class="headerlink" title="配置yum源"></a>配置yum源</h5><p>系统自带的yum源稳定，但也存在版本陈旧，资源略少等问题，所以需要配置yum源</p><ol><li>首先下载合适版本源软件包 如：repoforge源</li><li>安装 rpm -ivh  源软件包.rpm</li><li>源顺序插件：先使用系统自带的源，没有找到再使用配置的源</li></ol><p>​        <code>yum install  yum-plugin-prioritise</code></p><ol start="4"><li>配置文件 ： cd  /etc/yum.repos.d  官方源文件 vim centos-Base.repo在三个软件仓库里设置优先级priority=1</li><li>配置repoforge源文件设置优先级 <code>vim rpmforge.repo priority=10</code></li></ol>]]></content>
+    
+    <summary type="html">
+    
+      &lt;h4 id=&quot;rpm管理器&quot;&gt;&lt;a href=&quot;#rpm管理器&quot; class=&quot;headerlink&quot; title=&quot;rpm管理器&quot;&gt;&lt;/a&gt;rpm管理器&lt;/h4&gt;&lt;p&gt;linux 发行版本众多，基于各个版本开发的软件并不能在各个版本中使用，而二进制编译对于普通用户相对困难，因而RPM应运而生，RPM是将二进制源码，依赖库配置文件打包，RPM是linux统一默认的安装器。&lt;/p&gt;
+    
+    </summary>
+    
+    
+      <category term="linux" scheme="http://yoursite.com/categories/linux/"/>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>linux网络管理</title>
+    <link href="http://yoursite.com/2020/06/19/linux%E7%BD%91%E7%BB%9C%E7%AE%A1%E7%90%86/"/>
+    <id>http://yoursite.com/2020/06/19/linux%E7%BD%91%E7%BB%9C%E7%AE%A1%E7%90%86/</id>
+    <published>2020-06-19T01:40:37.000Z</published>
+    <updated>2020-06-19T01:41:11.836Z</updated>
+    
+    <content type="html"><![CDATA[<h4 id="linux网络管理"><a href="#linux网络管理" class="headerlink" title="linux网络管理"></a>linux网络管理</h4><p>查看配置好的网络接口：ifconfig </p><p>查看特定网络接口：ifconfig eth0</p><p>查看所有网络接口：ifconfig   -a</p><a id="more"></a><p>开启网络接口：ifconfig eth1 up</p><p>重启网络：service  network  restart</p><p>关闭网络接口：ifconfig eth1 down</p><p>配置tcp/ip网络参数：</p><p>网络配置存放在 /etc/sysconfig/network-scripts/</p><p>vim  ./ifcfg-eth0</p><p>因为是手动配置不用DHCP动态分配 将DHCP修改为static或none在文本最后添加 IP 网管子网掩码等</p><p>设置主机名：</p><p><code>vim /etc/sysconfig/network 修改  HOSTNAME=主机名/域名</code></p><p><code>vim  /etc/host/添加 IP地址 域名</code></p>]]></content>
+    
+    <summary type="html">
+    
+      &lt;h4 id=&quot;linux网络管理&quot;&gt;&lt;a href=&quot;#linux网络管理&quot; class=&quot;headerlink&quot; title=&quot;linux网络管理&quot;&gt;&lt;/a&gt;linux网络管理&lt;/h4&gt;&lt;p&gt;查看配置好的网络接口：ifconfig &lt;/p&gt;
+&lt;p&gt;查看特定网络接口：ifconfig eth0&lt;/p&gt;
+&lt;p&gt;查看所有网络接口：ifconfig   -a&lt;/p&gt;
+    
+    </summary>
+    
+    
+      <category term="linux" scheme="http://yoursite.com/categories/linux/"/>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>linux文件挂载</title>
+    <link href="http://yoursite.com/2020/06/19/linux%E6%96%87%E4%BB%B6%E6%8C%82%E8%BD%BD/"/>
+    <id>http://yoursite.com/2020/06/19/linux%E6%96%87%E4%BB%B6%E6%8C%82%E8%BD%BD/</id>
+    <published>2020-06-19T01:02:34.000Z</published>
+    <updated>2020-06-19T01:22:26.780Z</updated>
+    
+    <content type="html"><![CDATA[<h4 id="文件挂载"><a href="#文件挂载" class="headerlink" title="文件挂载"></a>文件挂载</h4><p>Linux 是树形结构存储的，硬盘、设备等需要挂载到文件上才能访问使用。</p><p>创建文件：<code>mkdir -p  /hello/video</code></p><p>挂载：<code>mount  -t  ext4 -o ro /dev/sda1  /hello/video</code></p><p>这是挂载了一个硬盘分区，t 代表文件类型， o 代表挂载后文件的权限  ro是read only 只读的意思，/dev/sda1 是硬盘分区 /hello/video 是要挂载到的文件</p><p>有挂载就有卸载：umount</p><p><code>umount /dev/sda1</code> 卸载分区，卸载后则不能在访问分区里的内容，下次挂载才能访问</p><h5 id="自动挂载"><a href="#自动挂载" class="headerlink" title="自动挂载"></a>自动挂载</h5><p>手动挂载有一个缺点，就是下次开机时要重新挂载，开机自动挂载则需要在文件里修改</p><p>/etc/fstab </p><p>文件内容解释：</p><p>设备/挂载文件/分区类型/参数/备份/检测</p><p>设备可以是分区目录，标签，uuid 。uuid 是最保险的因为每个设备有且唯一的uuid</p><p>查看分区uuid : blkid</p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h4 id=&quot;文件挂载&quot;&gt;&lt;a href=&quot;#文件挂载&quot; class=&quot;headerlink&quot; title=&quot;文件挂载&quot;&gt;&lt;/a&gt;文件挂载&lt;/h4&gt;&lt;p&gt;Linux 是树形结构存储的，硬盘、设备等需要挂载到文件上才能访问使用。&lt;/p&gt;
+&lt;p&gt;创建文件：&lt;code&gt;mkdir -
+      
+    
+    </summary>
+    
+    
+      <category term="linux" scheme="http://yoursite.com/categories/linux/"/>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>linux用户和组管理</title>
+    <link href="http://yoursite.com/2020/06/18/linux%E7%94%A8%E6%88%B7%E5%92%8C%E7%BB%84%E7%AE%A1%E7%90%86/"/>
+    <id>http://yoursite.com/2020/06/18/linux%E7%94%A8%E6%88%B7%E5%92%8C%E7%BB%84%E7%AE%A1%E7%90%86/</id>
+    <published>2020-06-18T14:14:11.000Z</published>
+    <updated>2020-06-18T14:15:06.343Z</updated>
+    
+    <content type="html"><![CDATA[<h4 id="linux-用户和组"><a href="#linux-用户和组" class="headerlink" title="linux 用户和组"></a>linux 用户和组</h4><p>Linux用户有三种：超级用户、虚拟用户、普通用户。</p><p>超级用户：root   id为 0</p><p>虚拟用户：不能登陆主机是给程序使用的  如：mysql用户  id 在1-499之间</p><p>普通用户 ：id 在500之后</p><a id="more"></a><h5 id="用户管理"><a href="#用户管理" class="headerlink" title="用户管理"></a>用户管理</h5><p>添加用户： useradd  student  创建student用户</p><p>添加密码： passwd 密码</p><p>删除用户：userdel  student </p><p>查看用户： id  student</p><p>修改用户：usermod  -l  student2 student  将student用户名改为 student2</p><p>usermod 可以修改用户信息</p><p>usermod -c 用户描述  -u 600 -g  主用户组 -G 用户组  -s  shell命令</p><h5 id="组管理"><a href="#组管理" class="headerlink" title="组管理"></a>组管理</h5><p>添加组：groupadd   stu </p><p>删除组：groupdel   stu</p><h5 id="查看主机所有用户"><a href="#查看主机所有用户" class="headerlink" title="查看主机所有用户"></a>查看主机所有用户</h5><p>在 /etc/shadow和 /etc/passwd下查看用户和密码</p><p>在/etc/group查看用户组</p><h5 id="文件从属用户"><a href="#文件从属用户" class="headerlink" title="文件从属用户"></a>文件从属用户</h5><p>chown 用户名:组名  文件路径 </p><p>chown -R  student:stu  /tmp/tmp1</p><p>R是tmp1下的所有文件都改成stu用户组下的student用户</p><h5 id="文件权限"><a href="#文件权限" class="headerlink" title="文件权限"></a>文件权限</h5><p>r 可读  w 可写  x 可执行 用二进制表示就是 4 、2 、1</p><p>文件权限层级  用户   其次是   用户组  再者是  其他用户</p><p>chmod   777   文件名    表示用户、用户组、其他用户对该文件都是可读可写可执行</p><p>u表示 用户  g表示组  o表示其他用户</p><p>chmod  g+x   文件名 表示组用户增加了对该文件执行的权限</p><h4 id="让渡根用户权限"><a href="#让渡根用户权限" class="headerlink" title="让渡根用户权限"></a>让渡根用户权限</h4><p>vim /etc/sudoers 中</p><p>root     ALL=(ALL)     ALL      表示root 用户在任意主机上可以登陆执行任意命令</p><p>在其下添加</p><p>stu  mooc=(root)   /sbin/shutdown -h  5</p><p>stu 用户在mooc主机上能执行 shutdown -h 5 命令</p><p>在终端：sudo -u root  shutdown -h 5</p>]]></content>
+    
+    <summary type="html">
+    
+      &lt;h4 id=&quot;linux-用户和组&quot;&gt;&lt;a href=&quot;#linux-用户和组&quot; class=&quot;headerlink&quot; title=&quot;linux 用户和组&quot;&gt;&lt;/a&gt;linux 用户和组&lt;/h4&gt;&lt;p&gt;Linux用户有三种：超级用户、虚拟用户、普通用户。&lt;/p&gt;
+&lt;p&gt;超级用户：root   id为 0&lt;/p&gt;
+&lt;p&gt;虚拟用户：不能登陆主机是给程序使用的  如：mysql用户  id 在1-499之间&lt;/p&gt;
+&lt;p&gt;普通用户 ：id 在500之后&lt;/p&gt;
+    
+    </summary>
+    
+    
+      <category term="linux" scheme="http://yoursite.com/categories/linux/"/>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>初识vi</title>
+    <link href="http://yoursite.com/2020/06/18/%E5%88%9D%E8%AF%86vi/"/>
+    <id>http://yoursite.com/2020/06/18/%E5%88%9D%E8%AF%86vi/</id>
+    <published>2020-06-17T23:56:25.000Z</published>
+    <updated>2020-06-18T01:19:35.771Z</updated>
+    
+    <content type="html"><![CDATA[<h3 id="vi的使用"><a href="#vi的使用" class="headerlink" title="vi的使用"></a>vi的使用</h3><p>所有的linux系统都会内建vi文书编辑器，目前我们使用比较多的是vim编辑器</p><p>基本上vi/vim共分为三种模式：一般模式、插入模式、命令模式</p><a id="more"></a><h5 id="一般模式"><a href="#一般模式" class="headerlink" title="一般模式"></a>一般模式</h5><p>不能编辑文本，只能移动，复制，删除字符，移动光标等。</p><p> yy 键复制一行     nyy 从光标处向下复制n行</p><p>x  删除一个字符  nx  向后删除n个字符   dd   删除当前一行</p><h6 id="移动光标"><a href="#移动光标" class="headerlink" title="移动光标"></a>移动光标</h6><p>h  向左    j  向下    k 向上     l 向右</p><p>0 移动到这一行最前面的字符处</p><p>$ 移动到这一行的最后面的字符处</p><p>G 移动到文本的最后一行</p><p>gg 移动到文本的第一行</p><p>nG 移动到文本的第n行</p><h5 id="插入模式"><a href="#插入模式" class="headerlink" title="插入模式"></a>插入模式</h5><p>编辑文本</p><p>i 键切换到输入模式，可以编辑文本</p><h5 id="命令模式"><a href="#命令模式" class="headerlink" title="命令模式"></a>命令模式</h5><p>编辑完文本后，或退出或保存</p><p>：wq 是保存并退出</p><p>：set    nu     显示行号</p><p>：set   nonu  取消行号</p>]]></content>
+    
+    <summary type="html">
+    
+      &lt;h3 id=&quot;vi的使用&quot;&gt;&lt;a href=&quot;#vi的使用&quot; class=&quot;headerlink&quot; title=&quot;vi的使用&quot;&gt;&lt;/a&gt;vi的使用&lt;/h3&gt;&lt;p&gt;所有的linux系统都会内建vi文书编辑器，目前我们使用比较多的是vim编辑器&lt;/p&gt;
+&lt;p&gt;基本上vi/vim共分为三种模式：一般模式、插入模式、命令模式&lt;/p&gt;
+    
+    </summary>
+    
+    
+      <category term="linux" scheme="http://yoursite.com/categories/linux/"/>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>linux文件操作</title>
+    <link href="http://yoursite.com/2020/06/17/linux%E6%96%87%E4%BB%B6%E6%93%8D%E4%BD%9C/"/>
+    <id>http://yoursite.com/2020/06/17/linux%E6%96%87%E4%BB%B6%E6%93%8D%E4%BD%9C/</id>
+    <published>2020-06-17T06:06:32.000Z</published>
+    <updated>2020-06-17T06:47:41.271Z</updated>
+    
+    <content type="html"><![CDATA[<h4 id="linux文件夹-创建与删除"><a href="#linux文件夹-创建与删除" class="headerlink" title="linux文件夹 创建与删除"></a>linux文件夹 创建与删除</h4><h5 id="创建"><a href="#创建" class="headerlink" title="创建"></a>创建</h5><p>  mkdir  路径/文件名</p><p>如：<code>mkdir ./hello</code></p><p>迭代创建多个文件夹 使用参数 -p</p><p>如：<code>mkdir  -p  ./hello/world</code></p><a id="more"></a><h5 id="删除"><a href="#删除" class="headerlink" title="删除"></a>删除</h5><p>rm  -R   路径/文件夹</p><p>参数R是代表文件夹 </p><p>如 <code>rm -Rf  ./hello</code> 参数 f  表示不再询问直接操作</p><h5 id="另：文本创建是用-touch"><a href="#另：文本创建是用-touch" class="headerlink" title="另：文本创建是用 touch"></a>另：文本创建是用 touch</h5><p>touch  文件名   如： <code>touch  ./hello</code></p><h4 id="linux-复制与移动"><a href="#linux-复制与移动" class="headerlink" title="linux 复制与移动"></a>linux 复制与移动</h4><h5 id="复制"><a href="#复制" class="headerlink" title="复制"></a>复制</h5><p>cp  源文件   目标文件</p><p><code>cp -r  ./hello   ./hello2</code></p><p>复制多个文件且覆盖文件名  <code>\cp -f  ./hello  ~</code></p><h5 id="移动"><a href="#移动" class="headerlink" title="移动"></a>移动</h5><p>mv -f  源文件  目标文件</p><p><code>mv -f  ./hello   ./usr/local/hello2</code></p><h4 id="文件打包"><a href="#文件打包" class="headerlink" title="文件打包"></a>文件打包</h4><p>打包：相当于将多个文件放到一个文件夹里</p><p>tar  -cf   hello.tar    要打包的文件</p><p><code>tar -cf  hello.tar  ./hello ./hello2</code></p><p>c 代表创建文件  f 表示文件名 z表示gz格式的文件  x 解压缩</p><p>一般情况下打包和压缩是一起的所以可以如下操作</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">打包压缩 tar -zcf  hello.tar.gz  .&#x2F;hello  .&#x2F;hello2</span><br><span class="line">解包解压 tar -zxf  hello.tar.gz</span><br></pre></td></tr></table></figure><h4 id="查找文件"><a href="#查找文件" class="headerlink" title="查找文件"></a>查找文件</h4><h5 id="locate-查找"><a href="#locate-查找" class="headerlink" title="locate 查找"></a>locate 查找</h5><p>locate   ./hello  查找文件名为hello的文件，但有点瑕疵，不能及时查找，因为locate使用数据库mlocate查找的，而mlocate不能及时更新</p><h5 id="find-查找"><a href="#find-查找" class="headerlink" title="find  查找"></a>find  查找</h5><p>find  范围  条件 动作</p><p>在 ./usr/ 文件下 查找 姓名 是password的文件 然后查看</p><p><code>find   ./usr/   _name   password  -ls</code></p><p>与： a   或：o  非：!</p><p><code>find ./  \(-size -10M  -a  -mmin -10 -a -type f \) -exec rm -rf {} \;</code></p><p>exec 后跟shell命令 {} 是指找到的文件</p><h4 id="查看文件"><a href="#查看文件" class="headerlink" title="查看文件"></a>查看文件</h4><p>cat  一次性全部输出 适合查看较小的文本</p><p>less 查看文本，提供查找功能 /</p><p>head 前  tail 后 适合查看日志文本</p><p>head -n 20 ./hello  查看文本前20行</p>]]></content>
+    
+    <summary type="html">
+    
+      &lt;h4 id=&quot;linux文件夹-创建与删除&quot;&gt;&lt;a href=&quot;#linux文件夹-创建与删除&quot; class=&quot;headerlink&quot; title=&quot;linux文件夹 创建与删除&quot;&gt;&lt;/a&gt;linux文件夹 创建与删除&lt;/h4&gt;&lt;h5 id=&quot;创建&quot;&gt;&lt;a href=&quot;#创建&quot; class=&quot;headerlink&quot; title=&quot;创建&quot;&gt;&lt;/a&gt;创建&lt;/h5&gt;&lt;p&gt;  mkdir  路径/文件名&lt;/p&gt;
+&lt;p&gt;如：&lt;code&gt;mkdir ./hello&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;迭代创建多个文件夹 使用参数 -p&lt;/p&gt;
+&lt;p&gt;如：&lt;code&gt;mkdir  -p  ./hello/world&lt;/code&gt;&lt;/p&gt;
+    
+    </summary>
+    
+    
+      <category term="linux" scheme="http://yoursite.com/categories/linux/"/>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>初识linux</title>
+    <link href="http://yoursite.com/2020/06/16/%E5%88%9D%E8%AF%86linux/"/>
+    <id>http://yoursite.com/2020/06/16/%E5%88%9D%E8%AF%86linux/</id>
+    <published>2020-06-16T01:12:56.000Z</published>
+    <updated>2020-06-16T08:47:16.521Z</updated>
+    
+    <content type="html"><![CDATA[<h3 id="Linux是什么？"><a href="#Linux是什么？" class="headerlink" title="Linux是什么？"></a>Linux是什么？</h3><p>​      Linux，全称GNU/Linux，是一套免费使用和自由传播的类UNIX操作系统。以我个人理解就是跟windows系统一样都是运行在pc上的程序，但Linux主要被用到服务器上的。</p><h4 id="linux的安装"><a href="#linux的安装" class="headerlink" title="linux的安装"></a>linux的安装</h4><p>​     在虚拟机VMware Workstation进行安装。</p><ol><li><p>首先建立一台空白虚拟主机</p></li><li><p>在选择iso文件，启动虚拟机</p></li><li><p>一路next，但要注意几个要点，硬盘大小为20G 则磁盘分区时创建swap选择4096M，剩下的归根目录所有</p><a id="more"></a></li><li><p>预安装选择基本安装base server 勾选自定义布局，接下来选择网络数据库图形(图形界面不要安装KDE剩下都勾选)</p></li></ol><h5 id="linux硬盘管理"><a href="#linux硬盘管理" class="headerlink" title="linux硬盘管理"></a>linux硬盘管理</h5><p>  linux中的设备都存储在/dev/中，/dev/xxy     xx表示硬盘类型，一般都是sd类型的，y指a-z表示第几块的意思，一块硬盘有一个64k的分区表，每个分区占16k所以一块硬盘最多有4个主分区，最多一个扩展分区，扩展分区在划分逻辑分区，而逻辑分区都是从数字5开始的</p><p>硬盘操作使用<strong>fdisk</strong></p><p>查看硬盘：fdisk -l /dev/sda</p><p>硬盘分区：fdisk  /dev/sda  回车 </p><ul><li>输入n代表新建分区  </li><li>输入p代表创建主分区，填写1-4之间的数字 +100G 代表创建100G的主分区</li><li>之后再创建主分区或扩展分区<ul><li>e代表扩展分区  输入2  开始创建逻辑分区  输入 l 代表逻辑分区 +64G 表示64G的逻辑分区</li></ul></li><li>输入w表示写入分区表，撤销 q 重置</li></ul><h5 id="修改分区文件系统类型"><a href="#修改分区文件系统类型" class="headerlink" title="修改分区文件系统类型"></a>修改分区文件系统类型</h5><p>   默认文件类型是ext4 。fdisk /dev/sda 进入硬盘输入 l 查看硬盘支持的文件系统类型</p><p>c  w95 FAT32(LBA)字母c代表文件类型</p><ul><li>输入 t 表示修改文件系统类型</li><li>输入要修改的分区数字</li><li>输入要修改称的文件类型字母 如 c</li><li>输入 w 写入分区表</li></ul><p>fdisk  -l /dev/sda 查看文件类型</p><p>删除分区：fdisk /dev/sda 输入 d 再输入分区数字则删除分区</p><p>切记：创建完分区要挨个格式化</p><p> mkfs -t ext4  /dev/sda1</p>]]></content>
+    
+    <summary type="html">
+    
+      &lt;h3 id=&quot;Linux是什么？&quot;&gt;&lt;a href=&quot;#Linux是什么？&quot; class=&quot;headerlink&quot; title=&quot;Linux是什么？&quot;&gt;&lt;/a&gt;Linux是什么？&lt;/h3&gt;&lt;p&gt;​      Linux，全称GNU/Linux，是一套免费使用和自由传播的类UNIX操作系统。以我个人理解就是跟windows系统一样都是运行在pc上的程序，但Linux主要被用到服务器上的。&lt;/p&gt;
+&lt;h4 id=&quot;linux的安装&quot;&gt;&lt;a href=&quot;#linux的安装&quot; class=&quot;headerlink&quot; title=&quot;linux的安装&quot;&gt;&lt;/a&gt;linux的安装&lt;/h4&gt;&lt;p&gt;​     在虚拟机VMware Workstation进行安装。&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;p&gt;首先建立一台空白虚拟主机&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;在选择iso文件，启动虚拟机&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;一路next，但要注意几个要点，硬盘大小为20G 则磁盘分区时创建swap选择4096M，剩下的归根目录所有&lt;/p&gt;
+    
+    </summary>
+    
+    
+      <category term="linux" scheme="http://yoursite.com/categories/linux/"/>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>hexo侧边栏点击日志跳转报错</title>
+    <link href="http://yoursite.com/2020/02/08/hexo%E4%BE%A7%E8%BE%B9%E6%A0%8F%E7%82%B9%E5%87%BB%E6%97%A5%E5%BF%97%E8%B7%B3%E8%BD%AC%E6%8A%A5%E9%94%99/"/>
+    <id>http://yoursite.com/2020/02/08/hexo%E4%BE%A7%E8%BE%B9%E6%A0%8F%E7%82%B9%E5%87%BB%E6%97%A5%E5%BF%97%E8%B7%B3%E8%BD%AC%E6%8A%A5%E9%94%99/</id>
+    <published>2020-02-08T10:28:06.000Z</published>
+    <updated>2020-02-08T14:27:22.760Z</updated>
+    
+    <content type="html"><![CDATA[<h3 id="hexo菜单跳转问题"><a href="#hexo菜单跳转问题" class="headerlink" title="hexo菜单跳转问题"></a>hexo菜单跳转问题</h3><p>hexo 菜单只是在主题配置文件_config.yml中取消注释的话，你会发现点击菜单跳转界面是这样的</p><img src="/2020/02/08/hexo%E4%BE%A7%E8%BE%B9%E6%A0%8F%E7%82%B9%E5%87%BB%E6%97%A5%E5%BF%97%E8%B7%B3%E8%BD%AC%E6%8A%A5%E9%94%99/tiaozhuan.png" class=""><p>这是因为</p><p>home：/  || home</p><p>categories:  /categories/  || th</p><p>/跟||之间有空格造成的，删掉空格就可以了</p><h3 id="hexo点击日志跳转问题"><a href="#hexo点击日志跳转问题" class="headerlink" title="hexo点击日志跳转问题"></a>hexo点击日志跳转问题</h3><img src="/2020/02/08/hexo%E4%BE%A7%E8%BE%B9%E6%A0%8F%E7%82%B9%E5%87%BB%E6%97%A5%E5%BF%97%E8%B7%B3%E8%BD%AC%E6%8A%A5%E9%94%99/touxiang.png" class=""><p>点击日志，原本应该跳到归档页面，但现在出现Cannot GET /archives/C%7C%7archive/</p><a id="more"></a><p>在网上搜索半天也找不到答案，只得一步一步去寻找</p><p>在 themes\next\layout_macro\sidebar.swig下找到其样式结构</p><img src="/2020/02/08/hexo%E4%BE%A7%E8%BE%B9%E6%A0%8F%E7%82%B9%E5%87%BB%E6%97%A5%E5%BF%97%E8%B7%B3%E8%BD%AC%E6%8A%A5%E9%94%99/dai.png" class=""><p>当菜单栏有归档选项时，使用的链接是第一个<code>&lt;a&gt;</code>链接，看这段代码也能看出来操作的是菜单后半部分如：home： / ||home 中的/||home部分按||进行分割，但这段代码有问题应该为：</p><img src="/2020/02/08/hexo%E4%BE%A7%E8%BE%B9%E6%A0%8F%E7%82%B9%E5%87%BB%E6%97%A5%E5%BF%97%E8%B7%B3%E8%BD%AC%E6%8A%A5%E9%94%99/daima.png" class="">]]></content>
+    
+    <summary type="html">
+    
+      &lt;h3 id=&quot;hexo菜单跳转问题&quot;&gt;&lt;a href=&quot;#hexo菜单跳转问题&quot; class=&quot;headerlink&quot; title=&quot;hexo菜单跳转问题&quot;&gt;&lt;/a&gt;hexo菜单跳转问题&lt;/h3&gt;&lt;p&gt;hexo 菜单只是在主题配置文件_config.yml中取消注释的话，你会发现点击菜单跳转界面是这样的&lt;/p&gt;
+&lt;img src=&quot;/2020/02/08/hexo%E4%BE%A7%E8%BE%B9%E6%A0%8F%E7%82%B9%E5%87%BB%E6%97%A5%E5%BF%97%E8%B7%B3%E8%BD%AC%E6%8A%A5%E9%94%99/tiaozhuan.png&quot; class=&quot;&quot;&gt;
+
+&lt;p&gt;这是因为&lt;/p&gt;
+&lt;p&gt;home：/  || home&lt;/p&gt;
+&lt;p&gt;categories:  /categories/  || th&lt;/p&gt;
+&lt;p&gt;/跟||之间有空格造成的，删掉空格就可以了&lt;/p&gt;
+&lt;h3 id=&quot;hexo点击日志跳转问题&quot;&gt;&lt;a href=&quot;#hexo点击日志跳转问题&quot; class=&quot;headerlink&quot; title=&quot;hexo点击日志跳转问题&quot;&gt;&lt;/a&gt;hexo点击日志跳转问题&lt;/h3&gt;&lt;img src=&quot;/2020/02/08/hexo%E4%BE%A7%E8%BE%B9%E6%A0%8F%E7%82%B9%E5%87%BB%E6%97%A5%E5%BF%97%E8%B7%B3%E8%BD%AC%E6%8A%A5%E9%94%99/touxiang.png&quot; class=&quot;&quot;&gt;
+
+&lt;p&gt;点击日志，原本应该跳到归档页面，但现在出现Cannot GET /archives/C%7C%7archive/&lt;/p&gt;
+    
+    </summary>
+    
+    
+      <category term="hexo" scheme="http://yoursite.com/categories/hexo/"/>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>github+hexo关联搭建blog</title>
+    <link href="http://yoursite.com/2020/02/07/github-hexo%E5%85%B3%E8%81%94%E6%90%AD%E5%BB%BAblog/"/>
+    <id>http://yoursite.com/2020/02/07/github-hexo%E5%85%B3%E8%81%94%E6%90%AD%E5%BB%BAblog/</id>
+    <published>2020-02-07T05:11:27.000Z</published>
+    <updated>2020-02-07T06:43:16.871Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="准备工作"><a href="#准备工作" class="headerlink" title="准备工作"></a>准备工作</h2><p>1、搭建Node.js环境</p><p>2、搭建git环境</p><p>3、github配置</p><p>4、安装配置Hexo</p><h3 id="检测Node-js和git环境"><a href="#检测Node-js和git环境" class="headerlink" title="检测Node.js和git环境"></a>检测Node.js和git环境</h3><p>在命令提示符输入node -v 、npm -v  若出现版本号则说明Node.js安装成功</p><p>git –version 出现版本号则git安装成功</p><h3 id="github配置"><a href="#github配置" class="headerlink" title="github配置"></a>github配置</h3><p>创建仓库：Repository name 使用自己注册的用户名</p><p>勾选Initialize this repository with a README</p><p>在浏览器访问  用户名.github.io 如果可以访问则gtihub配置成功</p><h3 id="安装配置Hexo"><a href="#安装配置Hexo" class="headerlink" title="安装配置Hexo"></a>安装配置Hexo</h3><p>Hexo官方文档地址  <a href="https://hexo.io/zh-cn/" target="_blank" rel="noopener">https://hexo.io/zh-cn/</a></p><ol><li><p>本地新建文件夹比如：blog</p></li><li><p>命令提示符 npm install hexo-cli -g</p></li><li><p>打开git bash here初始化 hexo init、npm install 自动安装依赖列表中的所有模块</p></li><li><p>运行本地hexo服务 hexo server或者hexo s </p><p>如果hexo server提示找不到该指令：安装server  :npm install hexo-server</p></li><li><p>浏览器访问localhost:4000</p></li></ol><a id="more"></a><h3 id="github和hexo关联"><a href="#github和hexo关联" class="headerlink" title="github和hexo关联"></a>github和hexo关联</h3><p>通过 SSH Keys  使github和hexo关联</p><ul><li><p>生成SSH Keys</p><p>在blog打开git bash输入 ssh-keygen -t rsa -C “your_email”  命令一路回车获得密钥</p><p>完成后，根据提示信息中的文件地址<code>/c/Users/user/.ssh/id_rsa.pub</code> 找到 id_rsa.pub 文件，复制文件里面的内容</p></li><li><p>添加SSH Key到github</p><p>打开github，打开settings 选择 SSH and GPG keys选择New  SSh key</p><p>将复制内容添加到key中</p></li><li><p>测试</p><p>ssh -T <a href="mailto:git@github.com">git@github.com</a></p><p>输出Hi 用户名! You’ve successfully…..则成功了</p></li><li><p>配置git个人信息</p><p>git会根据用户的名字和邮箱来记录提交，github也是用这些信息来做权限的处理，输入下面的代码进行个人信息的设置：</p><p>git config –global user.name “”名称</p><p>git config –global user.email “”邮箱</p></li><li><p>配置Deployment</p><p>打开_config.yml文件找到Deployment</p><p>deploy:</p><p> type:git</p><p>repo:<a href="mailto:git@github.com">git@github.com</a>:git用户名/git用户名.github.io.git</p><p>branch:master</p></li><li><p>部署发布</p><p>hexo  g 部署</p><p>hexo  d 发布</p><p>hexo d  -g这是部署发布</p><p>浏览器输入git仓库的地址，访问失败则安装扩展</p><p>npm install hexo-deployer-git –save</p></li></ul><p>至此，github和hexo关联完成</p>]]></content>
+    
+    <summary type="html">
+    
+      &lt;h2 id=&quot;准备工作&quot;&gt;&lt;a href=&quot;#准备工作&quot; class=&quot;headerlink&quot; title=&quot;准备工作&quot;&gt;&lt;/a&gt;准备工作&lt;/h2&gt;&lt;p&gt;1、搭建Node.js环境&lt;/p&gt;
+&lt;p&gt;2、搭建git环境&lt;/p&gt;
+&lt;p&gt;3、github配置&lt;/p&gt;
+&lt;p&gt;4、安装配置Hexo&lt;/p&gt;
+&lt;h3 id=&quot;检测Node-js和git环境&quot;&gt;&lt;a href=&quot;#检测Node-js和git环境&quot; class=&quot;headerlink&quot; title=&quot;检测Node.js和git环境&quot;&gt;&lt;/a&gt;检测Node.js和git环境&lt;/h3&gt;&lt;p&gt;在命令提示符输入node -v 、npm -v  若出现版本号则说明Node.js安装成功&lt;/p&gt;
+&lt;p&gt;git –version 出现版本号则git安装成功&lt;/p&gt;
+&lt;h3 id=&quot;github配置&quot;&gt;&lt;a href=&quot;#github配置&quot; class=&quot;headerlink&quot; title=&quot;github配置&quot;&gt;&lt;/a&gt;github配置&lt;/h3&gt;&lt;p&gt;创建仓库：Repository name 使用自己注册的用户名&lt;/p&gt;
+&lt;p&gt;勾选Initialize this repository with a README&lt;/p&gt;
+&lt;p&gt;在浏览器访问  用户名.github.io 如果可以访问则gtihub配置成功&lt;/p&gt;
+&lt;h3 id=&quot;安装配置Hexo&quot;&gt;&lt;a href=&quot;#安装配置Hexo&quot; class=&quot;headerlink&quot; title=&quot;安装配置Hexo&quot;&gt;&lt;/a&gt;安装配置Hexo&lt;/h3&gt;&lt;p&gt;Hexo官方文档地址  &lt;a href=&quot;https://hexo.io/zh-cn/&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://hexo.io/zh-cn/&lt;/a&gt;&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;p&gt;本地新建文件夹比如：blog&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;命令提示符 npm install hexo-cli -g&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;打开git bash here初始化 hexo init、npm install 自动安装依赖列表中的所有模块&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;运行本地hexo服务 hexo server或者hexo s &lt;/p&gt;
+&lt;p&gt;如果hexo server提示找不到该指令：安装server  :npm install hexo-server&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;浏览器访问localhost:4000&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+    
+    </summary>
+    
+    
+      <category term="hexo" scheme="http://yoursite.com/categories/hexo/"/>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>你好！水无痕</title>
+    <link href="http://yoursite.com/2020/02/05/%E4%BD%A0%E5%A5%BD%EF%BC%81%E6%B0%B4%E6%97%A0%E7%97%95/"/>
+    <id>http://yoursite.com/2020/02/05/%E4%BD%A0%E5%A5%BD%EF%BC%81%E6%B0%B4%E6%97%A0%E7%97%95/</id>
+    <published>2020-02-05T04:33:25.000Z</published>
+    <updated>2020-02-06T08:36:50.901Z</updated>
+    
+    <content type="html"><![CDATA[<p>一个很偶然的机会，让我认识了hexo，然而5分钟后，我决定搭建一个自己的hexo博客，不为别的，就是因为免费好用！</p><p>千言万语一句话：Hello  World ! </p><img src="/2020/02/05/%E4%BD%A0%E5%A5%BD%EF%BC%81%E6%B0%B4%E6%97%A0%E7%97%95/hello.png" class="">]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;一个很偶然的机会，让我认识了hexo，然而5分钟后，我决定搭建一个自己的hexo博客，不为别的，就是因为免费好用！&lt;/p&gt;
+&lt;p&gt;千言万语一句话：Hello  World ! &lt;/p&gt;
+&lt;img src=&quot;/2020/02/05/%E4%BD%A0%E5%A5%BD%EF%
+      
+    
+    </summary>
+    
+    
+    
+  </entry>
+  
+</feed>
