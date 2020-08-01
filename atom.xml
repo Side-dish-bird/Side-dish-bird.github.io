@@ -3,11 +3,11 @@
   <title>水无痕</title>
   
   <subtitle>side-dish-bird.github.io</subtitle>
-  <link href="/atom.xml" rel="self"/>
+  <link href="/Side-dish-bird.github.io/atom.xml" rel="self"/>
   
-  <link href="http://yoursite.com/"/>
+  <link href="https://side-dish-bird.github.io/"/>
   <updated>2020-07-30T17:12:11.012Z</updated>
-  <id>http://yoursite.com/</id>
+  <id>https://side-dish-bird.github.io/</id>
   
   <author>
     <name>水无痕</name>
@@ -18,8 +18,8 @@
   
   <entry>
     <title>数据库视图事务等</title>
-    <link href="http://yoursite.com/2020/07/29/%E6%95%B0%E6%8D%AE%E5%BA%93%E8%A7%86%E5%9B%BE%E4%BA%8B%E5%8A%A1%E7%AD%89/"/>
-    <id>http://yoursite.com/2020/07/29/%E6%95%B0%E6%8D%AE%E5%BA%93%E8%A7%86%E5%9B%BE%E4%BA%8B%E5%8A%A1%E7%AD%89/</id>
+    <link href="https://side-dish-bird.github.io/2020/07/29/%E6%95%B0%E6%8D%AE%E5%BA%93%E8%A7%86%E5%9B%BE%E4%BA%8B%E5%8A%A1%E7%AD%89/"/>
+    <id>https://side-dish-bird.github.io/2020/07/29/%E6%95%B0%E6%8D%AE%E5%BA%93%E8%A7%86%E5%9B%BE%E4%BA%8B%E5%8A%A1%E7%AD%89/</id>
     <published>2020-07-29T09:33:52.000Z</published>
     <updated>2020-07-30T17:12:11.012Z</updated>
     
@@ -36,15 +36,15 @@
     </summary>
     
     
-      <category term="mysql" scheme="http://yoursite.com/categories/mysql/"/>
+      <category term="mysql" scheme="Https://side-dish-bird.github.io/categories/mysql/"/>
     
     
   </entry>
   
   <entry>
     <title>数据库表的认识</title>
-    <link href="http://yoursite.com/2020/07/27/%E6%95%B0%E6%8D%AE%E5%BA%93%E8%A1%A8%E7%9A%84%E8%AE%A4%E8%AF%86/"/>
-    <id>http://yoursite.com/2020/07/27/%E6%95%B0%E6%8D%AE%E5%BA%93%E8%A1%A8%E7%9A%84%E8%AE%A4%E8%AF%86/</id>
+    <link href="https://side-dish-bird.github.io/2020/07/27/%E6%95%B0%E6%8D%AE%E5%BA%93%E8%A1%A8%E7%9A%84%E8%AE%A4%E8%AF%86/"/>
+    <id>https://side-dish-bird.github.io/2020/07/27/%E6%95%B0%E6%8D%AE%E5%BA%93%E8%A1%A8%E7%9A%84%E8%AE%A4%E8%AF%86/</id>
     <published>2020-07-27T15:52:05.000Z</published>
     <updated>2020-07-29T09:30:02.071Z</updated>
     
@@ -60,15 +60,15 @@
     </summary>
     
     
-      <category term="mysql" scheme="http://yoursite.com/categories/mysql/"/>
+      <category term="mysql" scheme="Https://side-dish-bird.github.io/categories/mysql/"/>
     
     
   </entry>
   
   <entry>
     <title>select查询</title>
-    <link href="http://yoursite.com/2020/07/23/select%E6%9F%A5%E8%AF%A2/"/>
-    <id>http://yoursite.com/2020/07/23/select%E6%9F%A5%E8%AF%A2/</id>
+    <link href="https://side-dish-bird.github.io/2020/07/23/select%E6%9F%A5%E8%AF%A2/"/>
+    <id>https://side-dish-bird.github.io/2020/07/23/select%E6%9F%A5%E8%AF%A2/</id>
     <published>2020-07-22T23:35:43.000Z</published>
     <updated>2020-07-27T15:45:19.531Z</updated>
     
@@ -84,15 +84,15 @@
     </summary>
     
     
-      <category term="mysql" scheme="http://yoursite.com/categories/mysql/"/>
+      <category term="mysql" scheme="Https://side-dish-bird.github.io/categories/mysql/"/>
     
     
   </entry>
   
   <entry>
     <title>数据库简识</title>
-    <link href="http://yoursite.com/2020/07/21/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%AE%80%E8%AF%86/"/>
-    <id>http://yoursite.com/2020/07/21/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%AE%80%E8%AF%86/</id>
+    <link href="https://side-dish-bird.github.io/2020/07/21/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%AE%80%E8%AF%86/"/>
+    <id>https://side-dish-bird.github.io/2020/07/21/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%AE%80%E8%AF%86/</id>
     <published>2020-07-20T16:19:05.000Z</published>
     <updated>2020-07-22T23:30:14.702Z</updated>
     
@@ -108,15 +108,15 @@
     </summary>
     
     
-      <category term="mysql" scheme="http://yoursite.com/categories/mysql/"/>
+      <category term="mysql" scheme="Https://side-dish-bird.github.io/categories/mysql/"/>
     
     
   </entry>
   
   <entry>
     <title>mysql编译安装</title>
-    <link href="http://yoursite.com/2020/06/28/mysql%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85/"/>
-    <id>http://yoursite.com/2020/06/28/mysql%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85/</id>
+    <link href="https://side-dish-bird.github.io/2020/06/28/mysql%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85/"/>
+    <id>https://side-dish-bird.github.io/2020/06/28/mysql%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85/</id>
     <published>2020-06-28T08:51:39.000Z</published>
     <updated>2020-06-30T08:50:59.573Z</updated>
     
@@ -132,15 +132,15 @@
     </summary>
     
     
-      <category term="mysql" scheme="http://yoursite.com/categories/mysql/"/>
+      <category term="mysql" scheme="Https://side-dish-bird.github.io/categories/mysql/"/>
     
     
   </entry>
   
   <entry>
     <title>nginx+php整合</title>
-    <link href="http://yoursite.com/2020/06/27/nginx-php%E6%95%B4%E5%90%88/"/>
-    <id>http://yoursite.com/2020/06/27/nginx-php%E6%95%B4%E5%90%88/</id>
+    <link href="https://side-dish-bird.github.io/2020/06/27/nginx-php%E6%95%B4%E5%90%88/"/>
+    <id>https://side-dish-bird.github.io/2020/06/27/nginx-php%E6%95%B4%E5%90%88/</id>
     <published>2020-06-27T08:34:47.000Z</published>
     <updated>2020-06-27T08:50:43.180Z</updated>
     
@@ -159,15 +159,15 @@
     </summary>
     
     
-      <category term="php" scheme="http://yoursite.com/categories/php/"/>
+      <category term="php" scheme="Https://side-dish-bird.github.io/categories/php/"/>
     
     
   </entry>
   
   <entry>
     <title>nginx的pathInfo和重写</title>
-    <link href="http://yoursite.com/2020/06/23/nginx%E7%9A%84pathInfo%E5%92%8C%E9%87%8D%E5%86%99/"/>
-    <id>http://yoursite.com/2020/06/23/nginx%E7%9A%84pathInfo%E5%92%8C%E9%87%8D%E5%86%99/</id>
+    <link href="https://side-dish-bird.github.io/2020/06/23/nginx%E7%9A%84pathInfo%E5%92%8C%E9%87%8D%E5%86%99/"/>
+    <id>https://side-dish-bird.github.io/2020/06/23/nginx%E7%9A%84pathInfo%E5%92%8C%E9%87%8D%E5%86%99/</id>
     <published>2020-06-23T01:11:42.000Z</published>
     <updated>2020-06-23T01:40:03.166Z</updated>
     
@@ -184,15 +184,15 @@
     </summary>
     
     
-      <category term="nginx" scheme="http://yoursite.com/categories/nginx/"/>
+      <category term="nginx" scheme="Https://side-dish-bird.github.io/categories/nginx/"/>
     
     
   </entry>
   
   <entry>
     <title>nginx配置</title>
-    <link href="http://yoursite.com/2020/06/22/nginx%E9%85%8D%E7%BD%AE/"/>
-    <id>http://yoursite.com/2020/06/22/nginx%E9%85%8D%E7%BD%AE/</id>
+    <link href="https://side-dish-bird.github.io/2020/06/22/nginx%E9%85%8D%E7%BD%AE/"/>
+    <id>https://side-dish-bird.github.io/2020/06/22/nginx%E9%85%8D%E7%BD%AE/</id>
     <published>2020-06-22T00:56:10.000Z</published>
     <updated>2020-06-22T14:08:06.675Z</updated>
     
@@ -209,15 +209,15 @@
     </summary>
     
     
-      <category term="nginx" scheme="http://yoursite.com/categories/nginx/"/>
+      <category term="nginx" scheme="Https://side-dish-bird.github.io/categories/nginx/"/>
     
     
   </entry>
   
   <entry>
     <title>nginx服务器</title>
-    <link href="http://yoursite.com/2020/06/22/nginx%E6%9C%8D%E5%8A%A1%E5%99%A8/"/>
-    <id>http://yoursite.com/2020/06/22/nginx%E6%9C%8D%E5%8A%A1%E5%99%A8/</id>
+    <link href="https://side-dish-bird.github.io/2020/06/22/nginx%E6%9C%8D%E5%8A%A1%E5%99%A8/"/>
+    <id>https://side-dish-bird.github.io/2020/06/22/nginx%E6%9C%8D%E5%8A%A1%E5%99%A8/</id>
     <published>2020-06-22T00:18:32.000Z</published>
     <updated>2020-06-22T00:55:07.509Z</updated>
     
@@ -233,15 +233,15 @@
     </summary>
     
     
-      <category term="nginx" scheme="http://yoursite.com/categories/nginx/"/>
+      <category term="nginx" scheme="Https://side-dish-bird.github.io/categories/nginx/"/>
     
     
   </entry>
   
   <entry>
     <title>linux进程</title>
-    <link href="http://yoursite.com/2020/06/20/linux%E8%BF%9B%E7%A8%8B/"/>
-    <id>http://yoursite.com/2020/06/20/linux%E8%BF%9B%E7%A8%8B/</id>
+    <link href="https://side-dish-bird.github.io/2020/06/20/linux%E8%BF%9B%E7%A8%8B/"/>
+    <id>https://side-dish-bird.github.io/2020/06/20/linux%E8%BF%9B%E7%A8%8B/</id>
     <published>2020-06-20T01:06:12.000Z</published>
     <updated>2020-06-20T01:24:08.684Z</updated>
     
@@ -255,15 +255,15 @@
     </summary>
     
     
-      <category term="linux" scheme="http://yoursite.com/categories/linux/"/>
+      <category term="linux" scheme="Https://side-dish-bird.github.io/categories/linux/"/>
     
     
   </entry>
   
   <entry>
     <title>linux软件包管理</title>
-    <link href="http://yoursite.com/2020/06/19/linux%E8%BD%AF%E4%BB%B6%E5%8C%85%E7%AE%A1%E7%90%86/"/>
-    <id>http://yoursite.com/2020/06/19/linux%E8%BD%AF%E4%BB%B6%E5%8C%85%E7%AE%A1%E7%90%86/</id>
+    <link href="https://side-dish-bird.github.io/2020/06/19/linux%E8%BD%AF%E4%BB%B6%E5%8C%85%E7%AE%A1%E7%90%86/"/>
+    <id>https://side-dish-bird.github.io/2020/06/19/linux%E8%BD%AF%E4%BB%B6%E5%8C%85%E7%AE%A1%E7%90%86/</id>
     <published>2020-06-19T01:45:36.000Z</published>
     <updated>2020-06-20T00:54:30.933Z</updated>
     
@@ -276,15 +276,15 @@
     </summary>
     
     
-      <category term="linux" scheme="http://yoursite.com/categories/linux/"/>
+      <category term="linux" scheme="Https://side-dish-bird.github.io/categories/linux/"/>
     
     
   </entry>
   
   <entry>
     <title>linux网络管理</title>
-    <link href="http://yoursite.com/2020/06/19/linux%E7%BD%91%E7%BB%9C%E7%AE%A1%E7%90%86/"/>
-    <id>http://yoursite.com/2020/06/19/linux%E7%BD%91%E7%BB%9C%E7%AE%A1%E7%90%86/</id>
+    <link href="https://side-dish-bird.github.io/2020/06/19/linux%E7%BD%91%E7%BB%9C%E7%AE%A1%E7%90%86/"/>
+    <id>https://side-dish-bird.github.io/2020/06/19/linux%E7%BD%91%E7%BB%9C%E7%AE%A1%E7%90%86/</id>
     <published>2020-06-19T01:40:37.000Z</published>
     <updated>2020-06-19T01:41:11.836Z</updated>
     
@@ -299,15 +299,15 @@
     </summary>
     
     
-      <category term="linux" scheme="http://yoursite.com/categories/linux/"/>
+      <category term="linux" scheme="Https://side-dish-bird.github.io/categories/linux/"/>
     
     
   </entry>
   
   <entry>
     <title>linux文件挂载</title>
-    <link href="http://yoursite.com/2020/06/19/linux%E6%96%87%E4%BB%B6%E6%8C%82%E8%BD%BD/"/>
-    <id>http://yoursite.com/2020/06/19/linux%E6%96%87%E4%BB%B6%E6%8C%82%E8%BD%BD/</id>
+    <link href="https://side-dish-bird.github.io/2020/06/19/linux%E6%96%87%E4%BB%B6%E6%8C%82%E8%BD%BD/"/>
+    <id>https://side-dish-bird.github.io/2020/06/19/linux%E6%96%87%E4%BB%B6%E6%8C%82%E8%BD%BD/</id>
     <published>2020-06-19T01:02:34.000Z</published>
     <updated>2020-06-19T01:22:26.780Z</updated>
     
@@ -324,15 +324,15 @@
     </summary>
     
     
-      <category term="linux" scheme="http://yoursite.com/categories/linux/"/>
+      <category term="linux" scheme="Https://side-dish-bird.github.io/categories/linux/"/>
     
     
   </entry>
   
   <entry>
     <title>linux用户和组管理</title>
-    <link href="http://yoursite.com/2020/06/18/linux%E7%94%A8%E6%88%B7%E5%92%8C%E7%BB%84%E7%AE%A1%E7%90%86/"/>
-    <id>http://yoursite.com/2020/06/18/linux%E7%94%A8%E6%88%B7%E5%92%8C%E7%BB%84%E7%AE%A1%E7%90%86/</id>
+    <link href="https://side-dish-bird.github.io/2020/06/18/linux%E7%94%A8%E6%88%B7%E5%92%8C%E7%BB%84%E7%AE%A1%E7%90%86/"/>
+    <id>https://side-dish-bird.github.io/2020/06/18/linux%E7%94%A8%E6%88%B7%E5%92%8C%E7%BB%84%E7%AE%A1%E7%90%86/</id>
     <published>2020-06-18T14:14:11.000Z</published>
     <updated>2020-06-18T14:15:06.343Z</updated>
     
@@ -348,15 +348,15 @@
     </summary>
     
     
-      <category term="linux" scheme="http://yoursite.com/categories/linux/"/>
+      <category term="linux" scheme="Https://side-dish-bird.github.io/categories/linux/"/>
     
     
   </entry>
   
   <entry>
     <title>初识vi</title>
-    <link href="http://yoursite.com/2020/06/18/%E5%88%9D%E8%AF%86vi/"/>
-    <id>http://yoursite.com/2020/06/18/%E5%88%9D%E8%AF%86vi/</id>
+    <link href="https://side-dish-bird.github.io/2020/06/18/%E5%88%9D%E8%AF%86vi/"/>
+    <id>https://side-dish-bird.github.io/2020/06/18/%E5%88%9D%E8%AF%86vi/</id>
     <published>2020-06-17T23:56:25.000Z</published>
     <updated>2020-06-18T01:19:35.771Z</updated>
     
@@ -370,15 +370,15 @@
     </summary>
     
     
-      <category term="linux" scheme="http://yoursite.com/categories/linux/"/>
+      <category term="linux" scheme="Https://side-dish-bird.github.io/categories/linux/"/>
     
     
   </entry>
   
   <entry>
     <title>linux文件操作</title>
-    <link href="http://yoursite.com/2020/06/17/linux%E6%96%87%E4%BB%B6%E6%93%8D%E4%BD%9C/"/>
-    <id>http://yoursite.com/2020/06/17/linux%E6%96%87%E4%BB%B6%E6%93%8D%E4%BD%9C/</id>
+    <link href="https://side-dish-bird.github.io/2020/06/17/linux%E6%96%87%E4%BB%B6%E6%93%8D%E4%BD%9C/"/>
+    <id>https://side-dish-bird.github.io/2020/06/17/linux%E6%96%87%E4%BB%B6%E6%93%8D%E4%BD%9C/</id>
     <published>2020-06-17T06:06:32.000Z</published>
     <updated>2020-06-17T06:47:41.271Z</updated>
     
@@ -394,15 +394,15 @@
     </summary>
     
     
-      <category term="linux" scheme="http://yoursite.com/categories/linux/"/>
+      <category term="linux" scheme="Https://side-dish-bird.github.io/categories/linux/"/>
     
     
   </entry>
   
   <entry>
     <title>初识linux</title>
-    <link href="http://yoursite.com/2020/06/16/%E5%88%9D%E8%AF%86linux/"/>
-    <id>http://yoursite.com/2020/06/16/%E5%88%9D%E8%AF%86linux/</id>
+    <link href="https://side-dish-bird.github.io/2020/06/16/%E5%88%9D%E8%AF%86linux/"/>
+    <id>https://side-dish-bird.github.io/2020/06/16/%E5%88%9D%E8%AF%86linux/</id>
     <published>2020-06-16T01:12:56.000Z</published>
     <updated>2020-06-16T08:47:16.521Z</updated>
     
@@ -422,45 +422,45 @@
     </summary>
     
     
-      <category term="linux" scheme="http://yoursite.com/categories/linux/"/>
+      <category term="linux" scheme="Https://side-dish-bird.github.io/categories/linux/"/>
     
     
   </entry>
   
   <entry>
     <title>hexo侧边栏点击日志跳转报错</title>
-    <link href="http://yoursite.com/2020/02/08/hexo%E4%BE%A7%E8%BE%B9%E6%A0%8F%E7%82%B9%E5%87%BB%E6%97%A5%E5%BF%97%E8%B7%B3%E8%BD%AC%E6%8A%A5%E9%94%99/"/>
-    <id>http://yoursite.com/2020/02/08/hexo%E4%BE%A7%E8%BE%B9%E6%A0%8F%E7%82%B9%E5%87%BB%E6%97%A5%E5%BF%97%E8%B7%B3%E8%BD%AC%E6%8A%A5%E9%94%99/</id>
+    <link href="https://side-dish-bird.github.io/2020/02/08/hexo%E4%BE%A7%E8%BE%B9%E6%A0%8F%E7%82%B9%E5%87%BB%E6%97%A5%E5%BF%97%E8%B7%B3%E8%BD%AC%E6%8A%A5%E9%94%99/"/>
+    <id>https://side-dish-bird.github.io/2020/02/08/hexo%E4%BE%A7%E8%BE%B9%E6%A0%8F%E7%82%B9%E5%87%BB%E6%97%A5%E5%BF%97%E8%B7%B3%E8%BD%AC%E6%8A%A5%E9%94%99/</id>
     <published>2020-02-08T10:28:06.000Z</published>
     <updated>2020-02-08T14:27:22.760Z</updated>
     
-    <content type="html"><![CDATA[<h3 id="hexo菜单跳转问题"><a href="#hexo菜单跳转问题" class="headerlink" title="hexo菜单跳转问题"></a>hexo菜单跳转问题</h3><p>hexo 菜单只是在主题配置文件_config.yml中取消注释的话，你会发现点击菜单跳转界面是这样的</p><img src="/2020/02/08/hexo%E4%BE%A7%E8%BE%B9%E6%A0%8F%E7%82%B9%E5%87%BB%E6%97%A5%E5%BF%97%E8%B7%B3%E8%BD%AC%E6%8A%A5%E9%94%99/tiaozhuan.png" class=""><p>这是因为</p><p>home：/  || home</p><p>categories:  /categories/  || th</p><p>/跟||之间有空格造成的，删掉空格就可以了</p><h3 id="hexo点击日志跳转问题"><a href="#hexo点击日志跳转问题" class="headerlink" title="hexo点击日志跳转问题"></a>hexo点击日志跳转问题</h3><img src="/2020/02/08/hexo%E4%BE%A7%E8%BE%B9%E6%A0%8F%E7%82%B9%E5%87%BB%E6%97%A5%E5%BF%97%E8%B7%B3%E8%BD%AC%E6%8A%A5%E9%94%99/touxiang.png" class=""><p>点击日志，原本应该跳到归档页面，但现在出现Cannot GET /archives/C%7C%7archive/</p><a id="more"></a><p>在网上搜索半天也找不到答案，只得一步一步去寻找</p><p>在 themes\next\layout_macro\sidebar.swig下找到其样式结构</p><img src="/2020/02/08/hexo%E4%BE%A7%E8%BE%B9%E6%A0%8F%E7%82%B9%E5%87%BB%E6%97%A5%E5%BF%97%E8%B7%B3%E8%BD%AC%E6%8A%A5%E9%94%99/dai.png" class=""><p>当菜单栏有归档选项时，使用的链接是第一个<code>&lt;a&gt;</code>链接，看这段代码也能看出来操作的是菜单后半部分如：home： / ||home 中的/||home部分按||进行分割，但这段代码有问题应该为：</p><img src="/2020/02/08/hexo%E4%BE%A7%E8%BE%B9%E6%A0%8F%E7%82%B9%E5%87%BB%E6%97%A5%E5%BF%97%E8%B7%B3%E8%BD%AC%E6%8A%A5%E9%94%99/daima.png" class="">]]></content>
+    <content type="html"><![CDATA[<h3 id="hexo菜单跳转问题"><a href="#hexo菜单跳转问题" class="headerlink" title="hexo菜单跳转问题"></a>hexo菜单跳转问题</h3><p>hexo 菜单只是在主题配置文件_config.yml中取消注释的话，你会发现点击菜单跳转界面是这样的</p><img src="/Side-dish-bird.github.io/2020/02/08/hexo%E4%BE%A7%E8%BE%B9%E6%A0%8F%E7%82%B9%E5%87%BB%E6%97%A5%E5%BF%97%E8%B7%B3%E8%BD%AC%E6%8A%A5%E9%94%99/tiaozhuan.png" class=""><p>这是因为</p><p>home：/  || home</p><p>categories:  /categories/  || th</p><p>/跟||之间有空格造成的，删掉空格就可以了</p><h3 id="hexo点击日志跳转问题"><a href="#hexo点击日志跳转问题" class="headerlink" title="hexo点击日志跳转问题"></a>hexo点击日志跳转问题</h3><img src="/Side-dish-bird.github.io/2020/02/08/hexo%E4%BE%A7%E8%BE%B9%E6%A0%8F%E7%82%B9%E5%87%BB%E6%97%A5%E5%BF%97%E8%B7%B3%E8%BD%AC%E6%8A%A5%E9%94%99/touxiang.png" class=""><p>点击日志，原本应该跳到归档页面，但现在出现Cannot GET /archives/C%7C%7archive/</p><a id="more"></a><p>在网上搜索半天也找不到答案，只得一步一步去寻找</p><p>在 themes\next\layout_macro\sidebar.swig下找到其样式结构</p><img src="/Side-dish-bird.github.io/2020/02/08/hexo%E4%BE%A7%E8%BE%B9%E6%A0%8F%E7%82%B9%E5%87%BB%E6%97%A5%E5%BF%97%E8%B7%B3%E8%BD%AC%E6%8A%A5%E9%94%99/dai.png" class=""><p>当菜单栏有归档选项时，使用的链接是第一个<code>&lt;a&gt;</code>链接，看这段代码也能看出来操作的是菜单后半部分如：home： / ||home 中的/||home部分按||进行分割，但这段代码有问题应该为：</p><img src="/Side-dish-bird.github.io/2020/02/08/hexo%E4%BE%A7%E8%BE%B9%E6%A0%8F%E7%82%B9%E5%87%BB%E6%97%A5%E5%BF%97%E8%B7%B3%E8%BD%AC%E6%8A%A5%E9%94%99/daima.png" class="">]]></content>
     
     <summary type="html">
     
       &lt;h3 id=&quot;hexo菜单跳转问题&quot;&gt;&lt;a href=&quot;#hexo菜单跳转问题&quot; class=&quot;headerlink&quot; title=&quot;hexo菜单跳转问题&quot;&gt;&lt;/a&gt;hexo菜单跳转问题&lt;/h3&gt;&lt;p&gt;hexo 菜单只是在主题配置文件_config.yml中取消注释的话，你会发现点击菜单跳转界面是这样的&lt;/p&gt;
-&lt;img src=&quot;/2020/02/08/hexo%E4%BE%A7%E8%BE%B9%E6%A0%8F%E7%82%B9%E5%87%BB%E6%97%A5%E5%BF%97%E8%B7%B3%E8%BD%AC%E6%8A%A5%E9%94%99/tiaozhuan.png&quot; class=&quot;&quot;&gt;
+&lt;img src=&quot;/Side-dish-bird.github.io/2020/02/08/hexo%E4%BE%A7%E8%BE%B9%E6%A0%8F%E7%82%B9%E5%87%BB%E6%97%A5%E5%BF%97%E8%B7%B3%E8%BD%AC%E6%8A%A5%E9%94%99/tiaozhuan.png&quot; class=&quot;&quot;&gt;
 
 &lt;p&gt;这是因为&lt;/p&gt;
 &lt;p&gt;home：/  || home&lt;/p&gt;
 &lt;p&gt;categories:  /categories/  || th&lt;/p&gt;
 &lt;p&gt;/跟||之间有空格造成的，删掉空格就可以了&lt;/p&gt;
-&lt;h3 id=&quot;hexo点击日志跳转问题&quot;&gt;&lt;a href=&quot;#hexo点击日志跳转问题&quot; class=&quot;headerlink&quot; title=&quot;hexo点击日志跳转问题&quot;&gt;&lt;/a&gt;hexo点击日志跳转问题&lt;/h3&gt;&lt;img src=&quot;/2020/02/08/hexo%E4%BE%A7%E8%BE%B9%E6%A0%8F%E7%82%B9%E5%87%BB%E6%97%A5%E5%BF%97%E8%B7%B3%E8%BD%AC%E6%8A%A5%E9%94%99/touxiang.png&quot; class=&quot;&quot;&gt;
+&lt;h3 id=&quot;hexo点击日志跳转问题&quot;&gt;&lt;a href=&quot;#hexo点击日志跳转问题&quot; class=&quot;headerlink&quot; title=&quot;hexo点击日志跳转问题&quot;&gt;&lt;/a&gt;hexo点击日志跳转问题&lt;/h3&gt;&lt;img src=&quot;/Side-dish-bird.github.io/2020/02/08/hexo%E4%BE%A7%E8%BE%B9%E6%A0%8F%E7%82%B9%E5%87%BB%E6%97%A5%E5%BF%97%E8%B7%B3%E8%BD%AC%E6%8A%A5%E9%94%99/touxiang.png&quot; class=&quot;&quot;&gt;
 
 &lt;p&gt;点击日志，原本应该跳到归档页面，但现在出现Cannot GET /archives/C%7C%7archive/&lt;/p&gt;
     
     </summary>
     
     
-      <category term="hexo" scheme="http://yoursite.com/categories/hexo/"/>
+      <category term="hexo" scheme="Https://side-dish-bird.github.io/categories/hexo/"/>
     
     
   </entry>
   
   <entry>
     <title>github+hexo关联搭建blog</title>
-    <link href="http://yoursite.com/2020/02/07/github-hexo%E5%85%B3%E8%81%94%E6%90%AD%E5%BB%BAblog/"/>
-    <id>http://yoursite.com/2020/02/07/github-hexo%E5%85%B3%E8%81%94%E6%90%AD%E5%BB%BAblog/</id>
+    <link href="https://side-dish-bird.github.io/2020/02/07/github-hexo%E5%85%B3%E8%81%94%E6%90%AD%E5%BB%BAblog/"/>
+    <id>https://side-dish-bird.github.io/2020/02/07/github-hexo%E5%85%B3%E8%81%94%E6%90%AD%E5%BB%BAblog/</id>
     <published>2020-02-07T05:11:27.000Z</published>
     <updated>2020-02-07T06:43:16.871Z</updated>
     
@@ -495,19 +495,19 @@
     </summary>
     
     
-      <category term="hexo" scheme="http://yoursite.com/categories/hexo/"/>
+      <category term="hexo" scheme="Https://side-dish-bird.github.io/categories/hexo/"/>
     
     
   </entry>
   
   <entry>
     <title>你好！水无痕</title>
-    <link href="http://yoursite.com/2020/02/05/%E4%BD%A0%E5%A5%BD%EF%BC%81%E6%B0%B4%E6%97%A0%E7%97%95/"/>
-    <id>http://yoursite.com/2020/02/05/%E4%BD%A0%E5%A5%BD%EF%BC%81%E6%B0%B4%E6%97%A0%E7%97%95/</id>
+    <link href="https://side-dish-bird.github.io/2020/02/05/%E4%BD%A0%E5%A5%BD%EF%BC%81%E6%B0%B4%E6%97%A0%E7%97%95/"/>
+    <id>https://side-dish-bird.github.io/2020/02/05/%E4%BD%A0%E5%A5%BD%EF%BC%81%E6%B0%B4%E6%97%A0%E7%97%95/</id>
     <published>2020-02-05T04:33:25.000Z</published>
     <updated>2020-02-06T08:36:50.901Z</updated>
     
-    <content type="html"><![CDATA[<p>一个很偶然的机会，让我认识了hexo，然而5分钟后，我决定搭建一个自己的hexo博客，不为别的，就是因为免费好用！</p><p>千言万语一句话：Hello  World ! </p><img src="/2020/02/05/%E4%BD%A0%E5%A5%BD%EF%BC%81%E6%B0%B4%E6%97%A0%E7%97%95/hello.png" class="">]]></content>
+    <content type="html"><![CDATA[<p>一个很偶然的机会，让我认识了hexo，然而5分钟后，我决定搭建一个自己的hexo博客，不为别的，就是因为免费好用！</p><p>千言万语一句话：Hello  World ! </p><img src="/Side-dish-bird.github.io/2020/02/05/%E4%BD%A0%E5%A5%BD%EF%BC%81%E6%B0%B4%E6%97%A0%E7%97%95/hello.png" class="">]]></content>
     
     <summary type="html">
     
@@ -515,7 +515,7 @@
       
         &lt;p&gt;一个很偶然的机会，让我认识了hexo，然而5分钟后，我决定搭建一个自己的hexo博客，不为别的，就是因为免费好用！&lt;/p&gt;
 &lt;p&gt;千言万语一句话：Hello  World ! &lt;/p&gt;
-&lt;img src=&quot;/2020/02/05/%E4%BD%A0%E5%A5%BD%EF%
+&lt;img src=&quot;/Side-dish-bird.github.io/2020/02/
       
     
     </summary>
