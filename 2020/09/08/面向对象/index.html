@@ -1,0 +1,891 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/head.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/head.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/head.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="水无痕" type="application/atom+xml" />
+
+
+
+
+
+
+<meta name="description" content="何为面向对象？在面向对象的程序设计（oop)中，对象是一个由信息及对信息进行处理的描述所组成的整体，是对现实世界的抽象。万物皆对象 对象的主要三个特性：  对象的行为：可以对 对象施加那些操作，开灯，关灯就是行为 对象的形态：当施加那些方法是对象如何响应，颜色，尺寸，外型 对象的表示：对象的表示就相当于身份证，具体区分在相同的行为与状态下有什么不同  怎学习面向对象？ 类声明语法，声明一个stud">
+<meta property="og:type" content="article">
+<meta property="og:title" content="面向对象">
+<meta property="og:url" content="http://yoursite.com/2020/09/08/%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1/index.html">
+<meta property="og:site_name" content="水无痕">
+<meta property="og:description" content="何为面向对象？在面向对象的程序设计（oop)中，对象是一个由信息及对信息进行处理的描述所组成的整体，是对现实世界的抽象。万物皆对象 对象的主要三个特性：  对象的行为：可以对 对象施加那些操作，开灯，关灯就是行为 对象的形态：当施加那些方法是对象如何响应，颜色，尺寸，外型 对象的表示：对象的表示就相当于身份证，具体区分在相同的行为与状态下有什么不同  怎学习面向对象？ 类声明语法，声明一个stud">
+<meta property="article:published_time" content="2020-09-08T00:40:26.000Z">
+<meta property="article:modified_time" content="2020-09-08T01:55:48.059Z">
+<meta property="article:author" content="水无痕">
+<meta name="twitter:card" content="summary">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"right","display":"post","offset":12,"b2t":true,"scrollpercent":true,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":5},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2020/09/08/面向对象/"/>
+
+
+
+
+
+  <title>面向对象 | 水无痕</title>
+  
+
+
+
+
+
+
+
+
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-right page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">水无痕</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">side-dish-bird.github.io</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/09/08/%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="水无痕">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="水无痕">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">面向对象</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-09-08T08:40:26+08:00">
+                2020-09-08
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/php/" itemprop="url" rel="index">
+                    <span itemprop="name">php</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv">阅读量<i class="fa fa-file-o"></i>
+            <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>次
+            </span>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h4 id="何为面向对象？"><a href="#何为面向对象？" class="headerlink" title="何为面向对象？"></a>何为面向对象？</h4><p>在面向对象的程序设计（oop)中，对象是一个由信息及对信息进行处理的描述所组成的整体，是对现实世界的抽象。万物皆对象</p>
+<p>对象的主要三个特性：</p>
+<ol>
+<li>对象的行为：可以对 对象施加那些操作，开灯，关灯就是行为</li>
+<li>对象的形态：当施加那些方法是对象如何响应，颜色，尺寸，外型</li>
+<li>对象的表示：对象的表示就相当于身份证，具体区分在相同的行为与状态下有什么不同</li>
+</ol>
+<h5 id="怎学习面向对象？"><a href="#怎学习面向对象？" class="headerlink" title="怎学习面向对象？"></a>怎学习面向对象？</h5><ul>
+<li>类声明语法，声明一个student类，有score属性和study方法</li>
+<li>权限封装，知道public，protected，private各自的可见范围</li>
+<li>继承，写A类，再写B类 继承自A类，且要重写A类中的某个方法</li>
+<li>静态属性和静态方法，知道static静态方法需要用类名::方法名()调用</li>
+<li>魔术方法，了解常用魔术方法分别在什么时间调用</li>
+<li>写一个抽象类，并用2个子类，分别继承实现，分析2个子类有什么共同特点</li>
+<li>写一个接口，并用2个子类分别继承，分析2个类有什么共同点</li>
+</ul>
+<h5 id="什么是类？"><a href="#什么是类？" class="headerlink" title="什么是类？"></a>什么是类？</h5><p>定义了一件事物的抽象特点，类的定义包含了数据的形式以及对数据的操作</p>
+<p>就是大量的，同类事物共同特点的抽象描述。</p>
+<p>而对象，是以类做模板，形成的一个具体实例</p>
+<h5 id="类的三大特征：封装，继承，多态"><a href="#类的三大特征：封装，继承，多态" class="headerlink" title="类的三大特征：封装，继承，多态"></a>类的三大特征：封装，继承，多态</h5><p>封装：封装对象内部的某些属性和方法，为外部不可见，开放某些接口，来操作受保护的内部方法或属性</p>
+<p>​           protected 类中protected属性，在对象实例化之后，在类外部调用该属性是不允许的，类内部可以控制</p>
+<p>继承：某个类可以继承另一个类的属性和方法</p>
+<p>​           class 子类  extends 父类</p>
+<p>final：最终的，使用final修饰的属性和方法，可以被继承但不能重写</p>
+<p>​           final修饰类，则该类不能被继承</p>
+<p>权限：</p>
+<p>​       public                公有            可以被外部，子类，本类中调用</p>
+<p>​       proteceted     被保护          外部不可调用，子类，本类中可以调用</p>
+<p>​       private             私有            外部，子类都不可调用，本类可以调用</p>
+<h5 id="静态属性和静态方法"><a href="#静态属性和静态方法" class="headerlink" title="静态属性和静态方法"></a>静态属性和静态方法</h5><p>​        类的静态属性和普通对象的属性不一样，静态属性属于类所有，一个类在页面中可以声明一次，因此一个类的静态属性在内存中中有一份。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">例：static  public  $legs;</span><br><span class="line">调用：类名：：$legs;</span><br></pre></td></tr></table></figure>
+
+<p>类常量：避免常量名重复，不能使用。</p>
+<p>​               类常量只在类内部起作用的常量</p>
+<p><code>define(&#39;PI&#39;,3.1415926);定义常量</code></p>
+<p><code>const PI=3.1415926;类常量</code></p>
+<p>调用：类名::类常量</p>
+<h5 id="this是谁？"><a href="#this是谁？" class="headerlink" title="this是谁？"></a>this是谁？</h5><p>$this是一个虚拟变量，专门指 当前调用的对象</p>
+<h5 id="self-和parent"><a href="#self-和parent" class="headerlink" title="self 和parent"></a>self 和parent</h5><p>$this 代表 本对象</p>
+<p>self  代表 本类</p>
+<p>parent 代表父类</p>
+<h5 id="单例模式"><a href="#单例模式" class="headerlink" title="单例模式"></a>单例模式</h5><p>单例模式用到的知识就是静态属性和方法</p>
+<ul>
+<li>不允许类new操作  给构造方法添加权限 protected</li>
+<li>在类内部开放一个接口，来实例化对象</li>
+<li>在接口里加判断 new对象，返回静态变量</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">class single&#123;</span><br><span class="line">&#x2F;&#x2F;不允许类new操作</span><br><span class="line">protected function __construct()&#123;</span><br><span class="line">&#125;</span><br><span class="line">    &#x2F;&#x2F;定义一个静态变量用来存储对象</span><br><span class="line">    public static $ins&#x3D;null;</span><br><span class="line">    &#x2F;&#x2F;开放一个接口</span><br><span class="line">    public static function getins()&#123;</span><br><span class="line">     &#x2F;&#x2F;加判断</span><br><span class="line">     if(self::$ins)&#123;</span><br><span class="line">       return self::$ins;</span><br><span class="line">     &#125;else&#123;</span><br><span class="line">        self::$ins&#x3D;new self();</span><br><span class="line">        return self::$ins;</span><br><span class="line">     &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h5 id="魔术方法："><a href="#魔术方法：" class="headerlink" title="魔术方法："></a>魔术方法：</h5><p>​    某种场景下，能够自动调用的方法<br>​    如：_construct、_destruct、_set、_get、_isset、_unset、_call<br>​    _construct(): 构造方法,new 实例时,自动调用<br>​    _destruct(): 析构方法,对象销毁时自动调用<br>​    _get(属性名): 当读取对象的一个不可见属性时,自动调用,并返回值不可见： 未定义或无权访问时<br>​    __set(属性名,属性值): 当对一个不可见的属性赋值时,自动调用<br>​    _isset(属性名): 当用isset,或empty判断一个不可见属性时,自动调用<br>​    _unset(属性名): 当unset一个不可见属性时,自动调用<br>​    _call()：当调用不存在的方法时，自动调用</p>
+<h5 id="抽象类和抽象方法"><a href="#抽象类和抽象方法" class="headerlink" title="抽象类和抽象方法"></a>抽象类和抽象方法</h5><p>类前要加abstract ，则为抽象类</p>
+<p>方法前也可以加abstarct ，则为抽象方法</p>
+<p>抽象方法没有方法体</p>
+<p>抽象类中也可以有已经实现的方法，但只要有一个抽象方法，则类就是抽象的</p>
+<p>抽象类不能实例化</p>
+<p>子类继承抽象类必须实现其抽象方法</p>
+<h5 id="接口"><a href="#接口" class="headerlink" title="接口"></a>接口</h5><p>抽象类可以理解为“类的模板”，接口则是“方法”的模板</p>
+<p>即，接口的粒度更小，用于描述通用的方法，</p>
+<p>接口本身就是抽象的，方法前不用加abstract</p>
+<p>接口里的方法，只能是public</p>
+<p>类可以同时实现多个接口</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">interface iTemplate&#123;</span><br><span class="line">    public fucntion setVariable($name);</span><br><span class="line">    &#125;</span><br><span class="line">    class Template implements iTemplate&#123;</span><br><span class="line">     public function setVariable($name)&#123;</span><br><span class="line"></span><br><span class="line">     &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h5 id="异常"><a href="#异常" class="headerlink" title="异常"></a>异常</h5><p>在需要出错的地方</p>
+<p>抛出异常：throw  new Exception(‘string’,int);</p>
+<p>捕捉异常：</p>
+<pre><code>try{
+ 抛出异常的地方
+}catch(Exception $e){
+ //捕捉到异常
+ echo &apos;文件:&apos;,$e-&gt;getFile()
+ echo &apos;行:&apos;,$e-&gt;getLine()
+ echo &apos;错误信息:&apos;,$e-&gt;getMessage()
+}</code></pre><p>   什么时间用异常：不该出错的地方，却有可能出错，就用异常<br>   如：连接数据库，不应该出错，<br>   如：查询用户是否存在，可能返回true/false，此时就用return</p>
+<h5 id="命名空间"><a href="#命名空间" class="headerlink" title="命名空间"></a>命名空间</h5><p>引入命名空间，声明某个空间，避免重名  </p>
+<pre><code>例: 写2个.php 测试
+    文件: test1.php
+    namespace zixueit;
+    class Mysqli {
+    public $test = &apos;my-mysqli&apos;;
+    }
+    文件:test2.php
+    require(&apos;./test1.php&apos;);
+    print_r(new MySQLi());
+    print_r(new \zixue\MySQLi());
+    // 也可以先use,new时就不用加路径了
+    use \zixueit\Mysqli;
+    print_r(new Mysqli());
+ namespace的声明，必须在页面第一行
+ namespace声明后，其后的类，函数，都被封锁在命名空间内
+ require/include其他带有命名空间的页面，自身的空间，并没有受干扰
+ 如果想明确的使用某空间下的类, 可以从根空间,逐步寻找,如\zixueit\Class();
+ 如果频繁用某个空间下的类,可以先use声明
+ 自动加载函数的参数,包含 &quot;空间路径\类名&quot;</code></pre>
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2020/09/07/session%E5%92%8Ccookie/" rel="next" title="session和cookie">
+                <i class="fa fa-chevron-left"></i> session和cookie
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="lv-container" data-id="city" data-uid="MTAyMC80ODQ3MC8yNDk2NA=="></div>
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/avatar.png"
+                alt="水无痕" />
+            
+              <p class="site-author-name" itemprop="name">水无痕</p>
+              <p class="site-description motion-element" itemprop="description">横刀立马笑江湖,浓情寡义叹红尘</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">22</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">5</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:1747615798@qq.com/" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="http://aganr.com/about/" target="_blank" title="QQ">
+                      
+                        <i class="fa fa-fw fa-qq"></i>QQ</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-block">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                友情链接
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://baidu.com/" title="百度" target="_blank">百度</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#何为面向对象？"><span class="nav-number">1.</span> <span class="nav-text">何为面向对象？</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#怎学习面向对象？"><span class="nav-number">1.1.</span> <span class="nav-text">怎学习面向对象？</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#什么是类？"><span class="nav-number">1.2.</span> <span class="nav-text">什么是类？</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#类的三大特征：封装，继承，多态"><span class="nav-number">1.3.</span> <span class="nav-text">类的三大特征：封装，继承，多态</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#静态属性和静态方法"><span class="nav-number">1.4.</span> <span class="nav-text">静态属性和静态方法</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#this是谁？"><span class="nav-number">1.5.</span> <span class="nav-text">this是谁？</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#self-和parent"><span class="nav-number">1.6.</span> <span class="nav-text">self 和parent</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#单例模式"><span class="nav-number">1.7.</span> <span class="nav-text">单例模式</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#魔术方法："><span class="nav-number">1.8.</span> <span class="nav-text">魔术方法：</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#抽象类和抽象方法"><span class="nav-number">1.9.</span> <span class="nav-text">抽象类和抽象方法</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#接口"><span class="nav-number">1.10.</span> <span class="nav-text">接口</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#异常"><span class="nav-number">1.11.</span> <span class="nav-text">异常</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#命名空间"><span class="nav-number">1.12.</span> <span class="nav-text">命名空间</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+        <div class="back-to-top">
+          <i class="fa fa-arrow-up"></i>
+          
+            <span id="scrollpercent"><span>0</span>%</span>
+          
+        </div>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">水无痕</span>
+
+  
+</div>
+
+
+
+
+
+
+
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      本站访客数<i class="fa fa-user"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      人次
+    </span>
+  
+
+  
+    <span class="site-pv">
+      本站总访问量<i class="fa fa-eye"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      次
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+    <script type="text/javascript">
+      (function(d, s) {
+        var j, e = d.getElementsByTagName(s)[0];
+        if (typeof LivereTower === 'function') { return; }
+        j = d.createElement(s);
+        j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+        j.async = true;
+        e.parentNode.insertBefore(j, e);
+      })(document, 'script');
+    </script>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

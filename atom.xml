@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2020-09-08T00:34:45.768Z</updated>
+  <updated>2020-09-08T01:55:48.059Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -15,6 +15,30 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>面向对象</title>
+    <link href="http://yoursite.com/2020/09/08/%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1/"/>
+    <id>http://yoursite.com/2020/09/08/%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1/</id>
+    <published>2020-09-08T00:40:26.000Z</published>
+    <updated>2020-09-08T01:55:48.059Z</updated>
+    
+    <content type="html"><![CDATA[<h4 id="何为面向对象？"><a href="#何为面向对象？" class="headerlink" title="何为面向对象？"></a>何为面向对象？</h4><p>在面向对象的程序设计（oop)中，对象是一个由信息及对信息进行处理的描述所组成的整体，是对现实世界的抽象。万物皆对象</p><p>对象的主要三个特性：</p><ol><li>对象的行为：可以对 对象施加那些操作，开灯，关灯就是行为</li><li>对象的形态：当施加那些方法是对象如何响应，颜色，尺寸，外型</li><li>对象的表示：对象的表示就相当于身份证，具体区分在相同的行为与状态下有什么不同</li></ol><h5 id="怎学习面向对象？"><a href="#怎学习面向对象？" class="headerlink" title="怎学习面向对象？"></a>怎学习面向对象？</h5><ul><li>类声明语法，声明一个student类，有score属性和study方法</li><li>权限封装，知道public，protected，private各自的可见范围</li><li>继承，写A类，再写B类 继承自A类，且要重写A类中的某个方法</li><li>静态属性和静态方法，知道static静态方法需要用类名::方法名()调用</li><li>魔术方法，了解常用魔术方法分别在什么时间调用</li><li>写一个抽象类，并用2个子类，分别继承实现，分析2个子类有什么共同特点</li><li>写一个接口，并用2个子类分别继承，分析2个类有什么共同点</li></ul><h5 id="什么是类？"><a href="#什么是类？" class="headerlink" title="什么是类？"></a>什么是类？</h5><p>定义了一件事物的抽象特点，类的定义包含了数据的形式以及对数据的操作</p><p>就是大量的，同类事物共同特点的抽象描述。</p><p>而对象，是以类做模板，形成的一个具体实例</p><h5 id="类的三大特征：封装，继承，多态"><a href="#类的三大特征：封装，继承，多态" class="headerlink" title="类的三大特征：封装，继承，多态"></a>类的三大特征：封装，继承，多态</h5><p>封装：封装对象内部的某些属性和方法，为外部不可见，开放某些接口，来操作受保护的内部方法或属性</p><p>​           protected 类中protected属性，在对象实例化之后，在类外部调用该属性是不允许的，类内部可以控制</p><p>继承：某个类可以继承另一个类的属性和方法</p><p>​           class 子类  extends 父类</p><p>final：最终的，使用final修饰的属性和方法，可以被继承但不能重写</p><p>​           final修饰类，则该类不能被继承</p><p>权限：</p><p>​       public                公有            可以被外部，子类，本类中调用</p><p>​       proteceted     被保护          外部不可调用，子类，本类中可以调用</p><p>​       private             私有            外部，子类都不可调用，本类可以调用</p><h5 id="静态属性和静态方法"><a href="#静态属性和静态方法" class="headerlink" title="静态属性和静态方法"></a>静态属性和静态方法</h5><p>​        类的静态属性和普通对象的属性不一样，静态属性属于类所有，一个类在页面中可以声明一次，因此一个类的静态属性在内存中中有一份。</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">例：static  public  $legs;</span><br><span class="line">调用：类名：：$legs;</span><br></pre></td></tr></table></figure><p>类常量：避免常量名重复，不能使用。</p><p>​               类常量只在类内部起作用的常量</p><p><code>define(&#39;PI&#39;,3.1415926);定义常量</code></p><p><code>const PI=3.1415926;类常量</code></p><p>调用：类名::类常量</p><h5 id="this是谁？"><a href="#this是谁？" class="headerlink" title="this是谁？"></a>this是谁？</h5><p>$this是一个虚拟变量，专门指 当前调用的对象</p><h5 id="self-和parent"><a href="#self-和parent" class="headerlink" title="self 和parent"></a>self 和parent</h5><p>$this 代表 本对象</p><p>self  代表 本类</p><p>parent 代表父类</p><h5 id="单例模式"><a href="#单例模式" class="headerlink" title="单例模式"></a>单例模式</h5><p>单例模式用到的知识就是静态属性和方法</p><ul><li>不允许类new操作  给构造方法添加权限 protected</li><li>在类内部开放一个接口，来实例化对象</li><li>在接口里加判断 new对象，返回静态变量</li></ul><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">class single&#123;</span><br><span class="line">&#x2F;&#x2F;不允许类new操作</span><br><span class="line">protected function __construct()&#123;</span><br><span class="line">&#125;</span><br><span class="line">    &#x2F;&#x2F;定义一个静态变量用来存储对象</span><br><span class="line">    public static $ins&#x3D;null;</span><br><span class="line">    &#x2F;&#x2F;开放一个接口</span><br><span class="line">    public static function getins()&#123;</span><br><span class="line">     &#x2F;&#x2F;加判断</span><br><span class="line">     if(self::$ins)&#123;</span><br><span class="line">       return self::$ins;</span><br><span class="line">     &#125;else&#123;</span><br><span class="line">        self::$ins&#x3D;new self();</span><br><span class="line">        return self::$ins;</span><br><span class="line">     &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><h5 id="魔术方法："><a href="#魔术方法：" class="headerlink" title="魔术方法："></a>魔术方法：</h5><p>​    某种场景下，能够自动调用的方法<br>​    如：_construct、_destruct、_set、_get、_isset、_unset、_call<br>​    _construct(): 构造方法,new 实例时,自动调用<br>​    _destruct(): 析构方法,对象销毁时自动调用<br>​    _get(属性名): 当读取对象的一个不可见属性时,自动调用,并返回值不可见： 未定义或无权访问时<br>​    __set(属性名,属性值): 当对一个不可见的属性赋值时,自动调用<br>​    _isset(属性名): 当用isset,或empty判断一个不可见属性时,自动调用<br>​    _unset(属性名): 当unset一个不可见属性时,自动调用<br>​    _call()：当调用不存在的方法时，自动调用</p><h5 id="抽象类和抽象方法"><a href="#抽象类和抽象方法" class="headerlink" title="抽象类和抽象方法"></a>抽象类和抽象方法</h5><p>类前要加abstract ，则为抽象类</p><p>方法前也可以加abstarct ，则为抽象方法</p><p>抽象方法没有方法体</p><p>抽象类中也可以有已经实现的方法，但只要有一个抽象方法，则类就是抽象的</p><p>抽象类不能实例化</p><p>子类继承抽象类必须实现其抽象方法</p><h5 id="接口"><a href="#接口" class="headerlink" title="接口"></a>接口</h5><p>抽象类可以理解为“类的模板”，接口则是“方法”的模板</p><p>即，接口的粒度更小，用于描述通用的方法，</p><p>接口本身就是抽象的，方法前不用加abstract</p><p>接口里的方法，只能是public</p><p>类可以同时实现多个接口</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">interface iTemplate&#123;</span><br><span class="line">    public fucntion setVariable($name);</span><br><span class="line">    &#125;</span><br><span class="line">    class Template implements iTemplate&#123;</span><br><span class="line">     public function setVariable($name)&#123;</span><br><span class="line"></span><br><span class="line">     &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><h5 id="异常"><a href="#异常" class="headerlink" title="异常"></a>异常</h5><p>在需要出错的地方</p><p>抛出异常：throw  new Exception(‘string’,int);</p><p>捕捉异常：</p><pre><code>try{ 抛出异常的地方}catch(Exception $e){ //捕捉到异常 echo &apos;文件:&apos;,$e-&gt;getFile() echo &apos;行:&apos;,$e-&gt;getLine() echo &apos;错误信息:&apos;,$e-&gt;getMessage()}</code></pre><p>   什么时间用异常：不该出错的地方，却有可能出错，就用异常<br>   如：连接数据库，不应该出错，<br>   如：查询用户是否存在，可能返回true/false，此时就用return</p><h5 id="命名空间"><a href="#命名空间" class="headerlink" title="命名空间"></a>命名空间</h5><p>引入命名空间，声明某个空间，避免重名  </p><pre><code>例: 写2个.php 测试    文件: test1.php    namespace zixueit;    class Mysqli {    public $test = &apos;my-mysqli&apos;;    }    文件:test2.php    require(&apos;./test1.php&apos;);    print_r(new MySQLi());    print_r(new \zixue\MySQLi());    // 也可以先use,new时就不用加路径了    use \zixueit\Mysqli;    print_r(new Mysqli()); namespace的声明，必须在页面第一行 namespace声明后，其后的类，函数，都被封锁在命名空间内 require/include其他带有命名空间的页面，自身的空间，并没有受干扰 如果想明确的使用某空间下的类, 可以从根空间,逐步寻找,如\zixueit\Class(); 如果频繁用某个空间下的类,可以先use声明 自动加载函数的参数,包含 &quot;空间路径\类名&quot;</code></pre>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h4 id=&quot;何为面向对象？&quot;&gt;&lt;a href=&quot;#何为面向对象？&quot; class=&quot;headerlink&quot; title=&quot;何为面向对象？&quot;&gt;&lt;/a&gt;何为面向对象？&lt;/h4&gt;&lt;p&gt;在面向对象的程序设计（oop)中，对象是一个由信息及对信息进行处理的描述所组成的整体，是对现实世界的
+      
+    
+    </summary>
+    
+    
+      <category term="php" scheme="http://yoursite.com/categories/php/"/>
+    
+    
+  </entry>
   
   <entry>
     <title>session和cookie</title>
@@ -472,49 +496,6 @@
 &lt;h3 id=&quot;hexo点击日志跳转问题&quot;&gt;&lt;a href=&quot;#hexo点击日志跳转问题&quot; class=&quot;headerlink&quot; title=&quot;hexo点击日志跳转问题&quot;&gt;&lt;/a&gt;hexo点击日志跳转问题&lt;/h3&gt;&lt;img src=&quot;/Side-dish-bird.github.io/2020/02/08/hexo%E4%BE%A7%E8%BE%B9%E6%A0%8F%E7%82%B9%E5%87%BB%E6%97%A5%E5%BF%97%E8%B7%B3%E8%BD%AC%E6%8A%A5%E9%94%99/touxiang.png&quot; class=&quot;&quot;&gt;
 
 &lt;p&gt;点击日志，原本应该跳到归档页面，但现在出现Cannot GET /archives/C%7C%7archive/&lt;/p&gt;
-    
-    </summary>
-    
-    
-      <category term="hexo" scheme="http://yoursite.com/categories/hexo/"/>
-    
-    
-  </entry>
-  
-  <entry>
-    <title>github+hexo关联搭建blog</title>
-    <link href="http://yoursite.com/2020/02/07/github-hexo%E5%85%B3%E8%81%94%E6%90%AD%E5%BB%BAblog/"/>
-    <id>http://yoursite.com/2020/02/07/github-hexo%E5%85%B3%E8%81%94%E6%90%AD%E5%BB%BAblog/</id>
-    <published>2020-02-07T05:11:27.000Z</published>
-    <updated>2020-02-07T06:43:16.871Z</updated>
-    
-    <content type="html"><![CDATA[<h2 id="准备工作"><a href="#准备工作" class="headerlink" title="准备工作"></a>准备工作</h2><p>1、搭建Node.js环境</p><p>2、搭建git环境</p><p>3、github配置</p><p>4、安装配置Hexo</p><h3 id="检测Node-js和git环境"><a href="#检测Node-js和git环境" class="headerlink" title="检测Node.js和git环境"></a>检测Node.js和git环境</h3><p>在命令提示符输入node -v 、npm -v  若出现版本号则说明Node.js安装成功</p><p>git –version 出现版本号则git安装成功</p><h3 id="github配置"><a href="#github配置" class="headerlink" title="github配置"></a>github配置</h3><p>创建仓库：Repository name 使用自己注册的用户名</p><p>勾选Initialize this repository with a README</p><p>在浏览器访问  用户名.github.io 如果可以访问则gtihub配置成功</p><h3 id="安装配置Hexo"><a href="#安装配置Hexo" class="headerlink" title="安装配置Hexo"></a>安装配置Hexo</h3><p>Hexo官方文档地址  <a href="https://hexo.io/zh-cn/" target="_blank" rel="noopener">https://hexo.io/zh-cn/</a></p><ol><li><p>本地新建文件夹比如：blog</p></li><li><p>命令提示符 npm install hexo-cli -g</p></li><li><p>打开git bash here初始化 hexo init、npm install 自动安装依赖列表中的所有模块</p></li><li><p>运行本地hexo服务 hexo server或者hexo s </p><p>如果hexo server提示找不到该指令：安装server  :npm install hexo-server</p></li><li><p>浏览器访问localhost:4000</p></li></ol><a id="more"></a><h3 id="github和hexo关联"><a href="#github和hexo关联" class="headerlink" title="github和hexo关联"></a>github和hexo关联</h3><p>通过 SSH Keys  使github和hexo关联</p><ul><li><p>生成SSH Keys</p><p>在blog打开git bash输入 ssh-keygen -t rsa -C “your_email”  命令一路回车获得密钥</p><p>完成后，根据提示信息中的文件地址<code>/c/Users/user/.ssh/id_rsa.pub</code> 找到 id_rsa.pub 文件，复制文件里面的内容</p></li><li><p>添加SSH Key到github</p><p>打开github，打开settings 选择 SSH and GPG keys选择New  SSh key</p><p>将复制内容添加到key中</p></li><li><p>测试</p><p>ssh -T <a href="mailto:git@github.com">git@github.com</a></p><p>输出Hi 用户名! You’ve successfully…..则成功了</p></li><li><p>配置git个人信息</p><p>git会根据用户的名字和邮箱来记录提交，github也是用这些信息来做权限的处理，输入下面的代码进行个人信息的设置：</p><p>git config –global user.name “”名称</p><p>git config –global user.email “”邮箱</p></li><li><p>配置Deployment</p><p>打开_config.yml文件找到Deployment</p><p>deploy:</p><p> type:git</p><p>repo:<a href="mailto:git@github.com">git@github.com</a>:git用户名/git用户名.github.io.git</p><p>branch:master</p></li><li><p>部署发布</p><p>hexo  g 部署</p><p>hexo  d 发布</p><p>hexo d  -g这是部署发布</p><p>浏览器输入git仓库的地址，访问失败则安装扩展</p><p>npm install hexo-deployer-git –save</p></li></ul><p>至此，github和hexo关联完成</p>]]></content>
-    
-    <summary type="html">
-    
-      &lt;h2 id=&quot;准备工作&quot;&gt;&lt;a href=&quot;#准备工作&quot; class=&quot;headerlink&quot; title=&quot;准备工作&quot;&gt;&lt;/a&gt;准备工作&lt;/h2&gt;&lt;p&gt;1、搭建Node.js环境&lt;/p&gt;
-&lt;p&gt;2、搭建git环境&lt;/p&gt;
-&lt;p&gt;3、github配置&lt;/p&gt;
-&lt;p&gt;4、安装配置Hexo&lt;/p&gt;
-&lt;h3 id=&quot;检测Node-js和git环境&quot;&gt;&lt;a href=&quot;#检测Node-js和git环境&quot; class=&quot;headerlink&quot; title=&quot;检测Node.js和git环境&quot;&gt;&lt;/a&gt;检测Node.js和git环境&lt;/h3&gt;&lt;p&gt;在命令提示符输入node -v 、npm -v  若出现版本号则说明Node.js安装成功&lt;/p&gt;
-&lt;p&gt;git –version 出现版本号则git安装成功&lt;/p&gt;
-&lt;h3 id=&quot;github配置&quot;&gt;&lt;a href=&quot;#github配置&quot; class=&quot;headerlink&quot; title=&quot;github配置&quot;&gt;&lt;/a&gt;github配置&lt;/h3&gt;&lt;p&gt;创建仓库：Repository name 使用自己注册的用户名&lt;/p&gt;
-&lt;p&gt;勾选Initialize this repository with a README&lt;/p&gt;
-&lt;p&gt;在浏览器访问  用户名.github.io 如果可以访问则gtihub配置成功&lt;/p&gt;
-&lt;h3 id=&quot;安装配置Hexo&quot;&gt;&lt;a href=&quot;#安装配置Hexo&quot; class=&quot;headerlink&quot; title=&quot;安装配置Hexo&quot;&gt;&lt;/a&gt;安装配置Hexo&lt;/h3&gt;&lt;p&gt;Hexo官方文档地址  &lt;a href=&quot;https://hexo.io/zh-cn/&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://hexo.io/zh-cn/&lt;/a&gt;&lt;/p&gt;
-&lt;ol&gt;
-&lt;li&gt;&lt;p&gt;本地新建文件夹比如：blog&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;&lt;p&gt;命令提示符 npm install hexo-cli -g&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;&lt;p&gt;打开git bash here初始化 hexo init、npm install 自动安装依赖列表中的所有模块&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;&lt;p&gt;运行本地hexo服务 hexo server或者hexo s &lt;/p&gt;
-&lt;p&gt;如果hexo server提示找不到该指令：安装server  :npm install hexo-server&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;&lt;p&gt;浏览器访问localhost:4000&lt;/p&gt;
-&lt;/li&gt;
-&lt;/ol&gt;
     
     </summary>
     
