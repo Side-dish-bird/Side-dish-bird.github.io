@@ -3,11 +3,11 @@
   <title>水无痕</title>
   
   <subtitle>side-dish-bird.github.io</subtitle>
-  <link href="/Side-dish-bird.github.io/atom.xml" rel="self"/>
+  <link href="/atom.xml" rel="self"/>
   
-  <link href="https://side-dish-bird.github.io/"/>
-  <updated>2020-07-30T17:12:11.012Z</updated>
-  <id>https://side-dish-bird.github.io/</id>
+  <link href="http://yoursite.com/"/>
+  <updated>2020-09-08T00:34:45.768Z</updated>
+  <id>http://yoursite.com/</id>
   
   <author>
     <name>水无痕</name>
@@ -17,9 +17,33 @@
   <generator uri="https://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>session和cookie</title>
+    <link href="http://yoursite.com/2020/09/07/session%E5%92%8Ccookie/"/>
+    <id>http://yoursite.com/2020/09/07/session%E5%92%8Ccookie/</id>
+    <published>2020-09-07T00:16:54.000Z</published>
+    <updated>2020-09-08T00:34:45.768Z</updated>
+    
+    <content type="html"><![CDATA[<h4 id="session和cookie的产生"><a href="#session和cookie的产生" class="headerlink" title="session和cookie的产生"></a>session和cookie的产生</h4><p>无论是什么变量，在php中是无法跨越到两个页面的。那如何像会员登陆一样，在每个页面都可以获取这个变量？</p><p>于是session和cookie产生了，利用cookie和session跟浏览器配合，共同达到这样一个效果。</p><h5 id="cookie和session的区别："><a href="#cookie和session的区别：" class="headerlink" title="cookie和session的区别："></a>cookie和session的区别：</h5><ol><li>cookie数据存放在客户的浏览器上，session数据是存放在服务器上。</li><li>cookie存储类型字符串、数字。session存储类型字符串、数字、数组、对象。</li><li>cookie不是很安全，别人可以分析存放在本地的cookie并进行cookie欺骗，考虑到安全应当使用session</li><li>单个cookie保存的数据不能超过4k，很多浏览器都限制一个站点最多保存20个cookie</li><li>session会在一定时间内保存在服务器上，当访问增多，会比较占用你服务器的性能，考虑到减轻服务器性能方面，应当使用cookie</li></ol><h5 id="cookie"><a href="#cookie" class="headerlink" title="cookie"></a>cookie</h5><p>客户端请求服务器，服务器会给客户端分配一个cookie暗号，下次请求客户端会带着cookie去访问服务器</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">浏览器——请求———&gt;服务器</span><br><span class="line"></span><br><span class="line">浏览器&lt;——分配cookie—响应—服务器</span><br><span class="line"></span><br><span class="line">浏览器——携带cookie—请求—&gt;服务器</span><br></pre></td></tr></table></figure><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">设置cookie</span><br><span class="line">在1.php中设置：</span><br><span class="line">setcookie(&#39;user&#39;,&#39;lisi&#39;);</span><br><span class="line">在2.php中获得：</span><br><span class="line">print_r($_COOKIE);</span><br></pre></td></tr></table></figure><p>在2.php中是怎么传递过去的？</p><p>php变量是无法跨页面的，我们能达到这个效果，是因为浏览器每次都会在请求头信息中，将这个变量带过来</p><p>cookie弊端：</p><ol><li>如果setcookie设置了cookie。$_COOKIE想获取cookie的值，需要在下一次请求中才可以访问到。</li><li>cookie被附加在每个http请求中，无形中增加了流量。</li><li>cookie默认是在当前目录下有效，如果是这样，大型的网站无法做到全站登陆，cookie可以往下级目录识别，往上级目录跳是没有办法的。</li></ol><p>清除cookie:</p><p><code>setcookie(key,&#39;&#39;,0);</code> </p><h4 id="session"><a href="#session" class="headerlink" title="session"></a>session</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F;开启session</span><br><span class="line">session_start();</span><br><span class="line">&#x2F;&#x2F;给session赋值</span><br><span class="line">$_SESSION[&#39;area&#39;]&#x3D;&#39;beijing&#39;;</span><br><span class="line">&#x2F;&#x2F;销毁session</span><br><span class="line">session_destroy();</span><br></pre></td></tr></table></figure><p>无论读取，销毁都要先开启session</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">浏览器————请求————&gt;服务器（开启空间存储session信息）</span><br><span class="line">浏览器&lt;————分配cookie———服务器（分配session_id通过cookie）</span><br><span class="line">浏览器——携带cookie————&gt;服务器（响应返回session信息)</span><br></pre></td></tr></table></figure><p>session跟cookie不同，可以往上跳，因为session有效路径是根目录</p><p>问题：如果浏览器禁用了cookie，还可不可以使用session？</p><p>答：cookie是用来传递session_id的，禁用cookie则session不能使用。</p><p>​        但服务器需要的是session_id，我们只要把session_id传过去就可以，利用地址栏传递也是可以的</p><p><code>localhost/study/6.php?PHPSESSID=kaqed4gv5o8m7ju0ibpount8ur6</code></p><p>但这种方式不建议使用，给别人发链接的时候，会暴漏了自己的session</p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h4 id=&quot;session和cookie的产生&quot;&gt;&lt;a href=&quot;#session和cookie的产生&quot; class=&quot;headerlink&quot; title=&quot;session和cookie的产生&quot;&gt;&lt;/a&gt;session和cookie的产生&lt;/h4&gt;&lt;p&gt;无论是什么变量，在p
+      
+    
+    </summary>
+    
+    
+      <category term="php" scheme="http://yoursite.com/categories/php/"/>
+    
+    
+  </entry>
+  
+  <entry>
     <title>数据库视图事务等</title>
-    <link href="https://side-dish-bird.github.io/2020/07/29/%E6%95%B0%E6%8D%AE%E5%BA%93%E8%A7%86%E5%9B%BE%E4%BA%8B%E5%8A%A1%E7%AD%89/"/>
-    <id>https://side-dish-bird.github.io/2020/07/29/%E6%95%B0%E6%8D%AE%E5%BA%93%E8%A7%86%E5%9B%BE%E4%BA%8B%E5%8A%A1%E7%AD%89/</id>
+    <link href="http://yoursite.com/2020/07/29/%E6%95%B0%E6%8D%AE%E5%BA%93%E8%A7%86%E5%9B%BE%E4%BA%8B%E5%8A%A1%E7%AD%89/"/>
+    <id>http://yoursite.com/2020/07/29/%E6%95%B0%E6%8D%AE%E5%BA%93%E8%A7%86%E5%9B%BE%E4%BA%8B%E5%8A%A1%E7%AD%89/</id>
     <published>2020-07-29T09:33:52.000Z</published>
     <updated>2020-07-30T17:12:11.012Z</updated>
     
@@ -36,15 +60,15 @@
     </summary>
     
     
-      <category term="mysql" scheme="Https://side-dish-bird.github.io/categories/mysql/"/>
+      <category term="mysql" scheme="http://yoursite.com/categories/mysql/"/>
     
     
   </entry>
   
   <entry>
     <title>数据库表的认识</title>
-    <link href="https://side-dish-bird.github.io/2020/07/27/%E6%95%B0%E6%8D%AE%E5%BA%93%E8%A1%A8%E7%9A%84%E8%AE%A4%E8%AF%86/"/>
-    <id>https://side-dish-bird.github.io/2020/07/27/%E6%95%B0%E6%8D%AE%E5%BA%93%E8%A1%A8%E7%9A%84%E8%AE%A4%E8%AF%86/</id>
+    <link href="http://yoursite.com/2020/07/27/%E6%95%B0%E6%8D%AE%E5%BA%93%E8%A1%A8%E7%9A%84%E8%AE%A4%E8%AF%86/"/>
+    <id>http://yoursite.com/2020/07/27/%E6%95%B0%E6%8D%AE%E5%BA%93%E8%A1%A8%E7%9A%84%E8%AE%A4%E8%AF%86/</id>
     <published>2020-07-27T15:52:05.000Z</published>
     <updated>2020-07-29T09:30:02.071Z</updated>
     
@@ -60,15 +84,15 @@
     </summary>
     
     
-      <category term="mysql" scheme="Https://side-dish-bird.github.io/categories/mysql/"/>
+      <category term="mysql" scheme="http://yoursite.com/categories/mysql/"/>
     
     
   </entry>
   
   <entry>
     <title>select查询</title>
-    <link href="https://side-dish-bird.github.io/2020/07/23/select%E6%9F%A5%E8%AF%A2/"/>
-    <id>https://side-dish-bird.github.io/2020/07/23/select%E6%9F%A5%E8%AF%A2/</id>
+    <link href="http://yoursite.com/2020/07/23/select%E6%9F%A5%E8%AF%A2/"/>
+    <id>http://yoursite.com/2020/07/23/select%E6%9F%A5%E8%AF%A2/</id>
     <published>2020-07-22T23:35:43.000Z</published>
     <updated>2020-07-27T15:45:19.531Z</updated>
     
@@ -84,15 +108,15 @@
     </summary>
     
     
-      <category term="mysql" scheme="Https://side-dish-bird.github.io/categories/mysql/"/>
+      <category term="mysql" scheme="http://yoursite.com/categories/mysql/"/>
     
     
   </entry>
   
   <entry>
     <title>数据库简识</title>
-    <link href="https://side-dish-bird.github.io/2020/07/21/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%AE%80%E8%AF%86/"/>
-    <id>https://side-dish-bird.github.io/2020/07/21/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%AE%80%E8%AF%86/</id>
+    <link href="http://yoursite.com/2020/07/21/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%AE%80%E8%AF%86/"/>
+    <id>http://yoursite.com/2020/07/21/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%AE%80%E8%AF%86/</id>
     <published>2020-07-20T16:19:05.000Z</published>
     <updated>2020-07-22T23:30:14.702Z</updated>
     
@@ -108,15 +132,15 @@
     </summary>
     
     
-      <category term="mysql" scheme="Https://side-dish-bird.github.io/categories/mysql/"/>
+      <category term="mysql" scheme="http://yoursite.com/categories/mysql/"/>
     
     
   </entry>
   
   <entry>
     <title>mysql编译安装</title>
-    <link href="https://side-dish-bird.github.io/2020/06/28/mysql%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85/"/>
-    <id>https://side-dish-bird.github.io/2020/06/28/mysql%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85/</id>
+    <link href="http://yoursite.com/2020/06/28/mysql%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85/"/>
+    <id>http://yoursite.com/2020/06/28/mysql%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85/</id>
     <published>2020-06-28T08:51:39.000Z</published>
     <updated>2020-06-30T08:50:59.573Z</updated>
     
@@ -132,15 +156,15 @@
     </summary>
     
     
-      <category term="mysql" scheme="Https://side-dish-bird.github.io/categories/mysql/"/>
+      <category term="mysql" scheme="http://yoursite.com/categories/mysql/"/>
     
     
   </entry>
   
   <entry>
     <title>nginx+php整合</title>
-    <link href="https://side-dish-bird.github.io/2020/06/27/nginx-php%E6%95%B4%E5%90%88/"/>
-    <id>https://side-dish-bird.github.io/2020/06/27/nginx-php%E6%95%B4%E5%90%88/</id>
+    <link href="http://yoursite.com/2020/06/27/nginx-php%E6%95%B4%E5%90%88/"/>
+    <id>http://yoursite.com/2020/06/27/nginx-php%E6%95%B4%E5%90%88/</id>
     <published>2020-06-27T08:34:47.000Z</published>
     <updated>2020-06-27T08:50:43.180Z</updated>
     
@@ -159,15 +183,15 @@
     </summary>
     
     
-      <category term="php" scheme="Https://side-dish-bird.github.io/categories/php/"/>
+      <category term="php" scheme="http://yoursite.com/categories/php/"/>
     
     
   </entry>
   
   <entry>
     <title>nginx的pathInfo和重写</title>
-    <link href="https://side-dish-bird.github.io/2020/06/23/nginx%E7%9A%84pathInfo%E5%92%8C%E9%87%8D%E5%86%99/"/>
-    <id>https://side-dish-bird.github.io/2020/06/23/nginx%E7%9A%84pathInfo%E5%92%8C%E9%87%8D%E5%86%99/</id>
+    <link href="http://yoursite.com/2020/06/23/nginx%E7%9A%84pathInfo%E5%92%8C%E9%87%8D%E5%86%99/"/>
+    <id>http://yoursite.com/2020/06/23/nginx%E7%9A%84pathInfo%E5%92%8C%E9%87%8D%E5%86%99/</id>
     <published>2020-06-23T01:11:42.000Z</published>
     <updated>2020-06-23T01:40:03.166Z</updated>
     
@@ -184,15 +208,15 @@
     </summary>
     
     
-      <category term="nginx" scheme="Https://side-dish-bird.github.io/categories/nginx/"/>
+      <category term="nginx" scheme="http://yoursite.com/categories/nginx/"/>
     
     
   </entry>
   
   <entry>
     <title>nginx配置</title>
-    <link href="https://side-dish-bird.github.io/2020/06/22/nginx%E9%85%8D%E7%BD%AE/"/>
-    <id>https://side-dish-bird.github.io/2020/06/22/nginx%E9%85%8D%E7%BD%AE/</id>
+    <link href="http://yoursite.com/2020/06/22/nginx%E9%85%8D%E7%BD%AE/"/>
+    <id>http://yoursite.com/2020/06/22/nginx%E9%85%8D%E7%BD%AE/</id>
     <published>2020-06-22T00:56:10.000Z</published>
     <updated>2020-06-22T14:08:06.675Z</updated>
     
@@ -209,15 +233,15 @@
     </summary>
     
     
-      <category term="nginx" scheme="Https://side-dish-bird.github.io/categories/nginx/"/>
+      <category term="nginx" scheme="http://yoursite.com/categories/nginx/"/>
     
     
   </entry>
   
   <entry>
     <title>nginx服务器</title>
-    <link href="https://side-dish-bird.github.io/2020/06/22/nginx%E6%9C%8D%E5%8A%A1%E5%99%A8/"/>
-    <id>https://side-dish-bird.github.io/2020/06/22/nginx%E6%9C%8D%E5%8A%A1%E5%99%A8/</id>
+    <link href="http://yoursite.com/2020/06/22/nginx%E6%9C%8D%E5%8A%A1%E5%99%A8/"/>
+    <id>http://yoursite.com/2020/06/22/nginx%E6%9C%8D%E5%8A%A1%E5%99%A8/</id>
     <published>2020-06-22T00:18:32.000Z</published>
     <updated>2020-06-22T00:55:07.509Z</updated>
     
@@ -233,15 +257,15 @@
     </summary>
     
     
-      <category term="nginx" scheme="Https://side-dish-bird.github.io/categories/nginx/"/>
+      <category term="nginx" scheme="http://yoursite.com/categories/nginx/"/>
     
     
   </entry>
   
   <entry>
     <title>linux进程</title>
-    <link href="https://side-dish-bird.github.io/2020/06/20/linux%E8%BF%9B%E7%A8%8B/"/>
-    <id>https://side-dish-bird.github.io/2020/06/20/linux%E8%BF%9B%E7%A8%8B/</id>
+    <link href="http://yoursite.com/2020/06/20/linux%E8%BF%9B%E7%A8%8B/"/>
+    <id>http://yoursite.com/2020/06/20/linux%E8%BF%9B%E7%A8%8B/</id>
     <published>2020-06-20T01:06:12.000Z</published>
     <updated>2020-06-20T01:24:08.684Z</updated>
     
@@ -255,15 +279,15 @@
     </summary>
     
     
-      <category term="linux" scheme="Https://side-dish-bird.github.io/categories/linux/"/>
+      <category term="linux" scheme="http://yoursite.com/categories/linux/"/>
     
     
   </entry>
   
   <entry>
     <title>linux软件包管理</title>
-    <link href="https://side-dish-bird.github.io/2020/06/19/linux%E8%BD%AF%E4%BB%B6%E5%8C%85%E7%AE%A1%E7%90%86/"/>
-    <id>https://side-dish-bird.github.io/2020/06/19/linux%E8%BD%AF%E4%BB%B6%E5%8C%85%E7%AE%A1%E7%90%86/</id>
+    <link href="http://yoursite.com/2020/06/19/linux%E8%BD%AF%E4%BB%B6%E5%8C%85%E7%AE%A1%E7%90%86/"/>
+    <id>http://yoursite.com/2020/06/19/linux%E8%BD%AF%E4%BB%B6%E5%8C%85%E7%AE%A1%E7%90%86/</id>
     <published>2020-06-19T01:45:36.000Z</published>
     <updated>2020-06-20T00:54:30.933Z</updated>
     
@@ -276,15 +300,15 @@
     </summary>
     
     
-      <category term="linux" scheme="Https://side-dish-bird.github.io/categories/linux/"/>
+      <category term="linux" scheme="http://yoursite.com/categories/linux/"/>
     
     
   </entry>
   
   <entry>
     <title>linux网络管理</title>
-    <link href="https://side-dish-bird.github.io/2020/06/19/linux%E7%BD%91%E7%BB%9C%E7%AE%A1%E7%90%86/"/>
-    <id>https://side-dish-bird.github.io/2020/06/19/linux%E7%BD%91%E7%BB%9C%E7%AE%A1%E7%90%86/</id>
+    <link href="http://yoursite.com/2020/06/19/linux%E7%BD%91%E7%BB%9C%E7%AE%A1%E7%90%86/"/>
+    <id>http://yoursite.com/2020/06/19/linux%E7%BD%91%E7%BB%9C%E7%AE%A1%E7%90%86/</id>
     <published>2020-06-19T01:40:37.000Z</published>
     <updated>2020-06-19T01:41:11.836Z</updated>
     
@@ -299,15 +323,15 @@
     </summary>
     
     
-      <category term="linux" scheme="Https://side-dish-bird.github.io/categories/linux/"/>
+      <category term="linux" scheme="http://yoursite.com/categories/linux/"/>
     
     
   </entry>
   
   <entry>
     <title>linux文件挂载</title>
-    <link href="https://side-dish-bird.github.io/2020/06/19/linux%E6%96%87%E4%BB%B6%E6%8C%82%E8%BD%BD/"/>
-    <id>https://side-dish-bird.github.io/2020/06/19/linux%E6%96%87%E4%BB%B6%E6%8C%82%E8%BD%BD/</id>
+    <link href="http://yoursite.com/2020/06/19/linux%E6%96%87%E4%BB%B6%E6%8C%82%E8%BD%BD/"/>
+    <id>http://yoursite.com/2020/06/19/linux%E6%96%87%E4%BB%B6%E6%8C%82%E8%BD%BD/</id>
     <published>2020-06-19T01:02:34.000Z</published>
     <updated>2020-06-19T01:22:26.780Z</updated>
     
@@ -324,15 +348,15 @@
     </summary>
     
     
-      <category term="linux" scheme="Https://side-dish-bird.github.io/categories/linux/"/>
+      <category term="linux" scheme="http://yoursite.com/categories/linux/"/>
     
     
   </entry>
   
   <entry>
     <title>linux用户和组管理</title>
-    <link href="https://side-dish-bird.github.io/2020/06/18/linux%E7%94%A8%E6%88%B7%E5%92%8C%E7%BB%84%E7%AE%A1%E7%90%86/"/>
-    <id>https://side-dish-bird.github.io/2020/06/18/linux%E7%94%A8%E6%88%B7%E5%92%8C%E7%BB%84%E7%AE%A1%E7%90%86/</id>
+    <link href="http://yoursite.com/2020/06/18/linux%E7%94%A8%E6%88%B7%E5%92%8C%E7%BB%84%E7%AE%A1%E7%90%86/"/>
+    <id>http://yoursite.com/2020/06/18/linux%E7%94%A8%E6%88%B7%E5%92%8C%E7%BB%84%E7%AE%A1%E7%90%86/</id>
     <published>2020-06-18T14:14:11.000Z</published>
     <updated>2020-06-18T14:15:06.343Z</updated>
     
@@ -348,15 +372,15 @@
     </summary>
     
     
-      <category term="linux" scheme="Https://side-dish-bird.github.io/categories/linux/"/>
+      <category term="linux" scheme="http://yoursite.com/categories/linux/"/>
     
     
   </entry>
   
   <entry>
     <title>初识vi</title>
-    <link href="https://side-dish-bird.github.io/2020/06/18/%E5%88%9D%E8%AF%86vi/"/>
-    <id>https://side-dish-bird.github.io/2020/06/18/%E5%88%9D%E8%AF%86vi/</id>
+    <link href="http://yoursite.com/2020/06/18/%E5%88%9D%E8%AF%86vi/"/>
+    <id>http://yoursite.com/2020/06/18/%E5%88%9D%E8%AF%86vi/</id>
     <published>2020-06-17T23:56:25.000Z</published>
     <updated>2020-06-18T01:19:35.771Z</updated>
     
@@ -370,15 +394,15 @@
     </summary>
     
     
-      <category term="linux" scheme="Https://side-dish-bird.github.io/categories/linux/"/>
+      <category term="linux" scheme="http://yoursite.com/categories/linux/"/>
     
     
   </entry>
   
   <entry>
     <title>linux文件操作</title>
-    <link href="https://side-dish-bird.github.io/2020/06/17/linux%E6%96%87%E4%BB%B6%E6%93%8D%E4%BD%9C/"/>
-    <id>https://side-dish-bird.github.io/2020/06/17/linux%E6%96%87%E4%BB%B6%E6%93%8D%E4%BD%9C/</id>
+    <link href="http://yoursite.com/2020/06/17/linux%E6%96%87%E4%BB%B6%E6%93%8D%E4%BD%9C/"/>
+    <id>http://yoursite.com/2020/06/17/linux%E6%96%87%E4%BB%B6%E6%93%8D%E4%BD%9C/</id>
     <published>2020-06-17T06:06:32.000Z</published>
     <updated>2020-06-17T06:47:41.271Z</updated>
     
@@ -394,15 +418,15 @@
     </summary>
     
     
-      <category term="linux" scheme="Https://side-dish-bird.github.io/categories/linux/"/>
+      <category term="linux" scheme="http://yoursite.com/categories/linux/"/>
     
     
   </entry>
   
   <entry>
     <title>初识linux</title>
-    <link href="https://side-dish-bird.github.io/2020/06/16/%E5%88%9D%E8%AF%86linux/"/>
-    <id>https://side-dish-bird.github.io/2020/06/16/%E5%88%9D%E8%AF%86linux/</id>
+    <link href="http://yoursite.com/2020/06/16/%E5%88%9D%E8%AF%86linux/"/>
+    <id>http://yoursite.com/2020/06/16/%E5%88%9D%E8%AF%86linux/</id>
     <published>2020-06-16T01:12:56.000Z</published>
     <updated>2020-06-16T08:47:16.521Z</updated>
     
@@ -422,15 +446,15 @@
     </summary>
     
     
-      <category term="linux" scheme="Https://side-dish-bird.github.io/categories/linux/"/>
+      <category term="linux" scheme="http://yoursite.com/categories/linux/"/>
     
     
   </entry>
   
   <entry>
     <title>hexo侧边栏点击日志跳转报错</title>
-    <link href="https://side-dish-bird.github.io/2020/02/08/hexo%E4%BE%A7%E8%BE%B9%E6%A0%8F%E7%82%B9%E5%87%BB%E6%97%A5%E5%BF%97%E8%B7%B3%E8%BD%AC%E6%8A%A5%E9%94%99/"/>
-    <id>https://side-dish-bird.github.io/2020/02/08/hexo%E4%BE%A7%E8%BE%B9%E6%A0%8F%E7%82%B9%E5%87%BB%E6%97%A5%E5%BF%97%E8%B7%B3%E8%BD%AC%E6%8A%A5%E9%94%99/</id>
+    <link href="http://yoursite.com/2020/02/08/hexo%E4%BE%A7%E8%BE%B9%E6%A0%8F%E7%82%B9%E5%87%BB%E6%97%A5%E5%BF%97%E8%B7%B3%E8%BD%AC%E6%8A%A5%E9%94%99/"/>
+    <id>http://yoursite.com/2020/02/08/hexo%E4%BE%A7%E8%BE%B9%E6%A0%8F%E7%82%B9%E5%87%BB%E6%97%A5%E5%BF%97%E8%B7%B3%E8%BD%AC%E6%8A%A5%E9%94%99/</id>
     <published>2020-02-08T10:28:06.000Z</published>
     <updated>2020-02-08T14:27:22.760Z</updated>
     
@@ -452,15 +476,15 @@
     </summary>
     
     
-      <category term="hexo" scheme="Https://side-dish-bird.github.io/categories/hexo/"/>
+      <category term="hexo" scheme="http://yoursite.com/categories/hexo/"/>
     
     
   </entry>
   
   <entry>
     <title>github+hexo关联搭建blog</title>
-    <link href="https://side-dish-bird.github.io/2020/02/07/github-hexo%E5%85%B3%E8%81%94%E6%90%AD%E5%BB%BAblog/"/>
-    <id>https://side-dish-bird.github.io/2020/02/07/github-hexo%E5%85%B3%E8%81%94%E6%90%AD%E5%BB%BAblog/</id>
+    <link href="http://yoursite.com/2020/02/07/github-hexo%E5%85%B3%E8%81%94%E6%90%AD%E5%BB%BAblog/"/>
+    <id>http://yoursite.com/2020/02/07/github-hexo%E5%85%B3%E8%81%94%E6%90%AD%E5%BB%BAblog/</id>
     <published>2020-02-07T05:11:27.000Z</published>
     <updated>2020-02-07T06:43:16.871Z</updated>
     
@@ -495,31 +519,7 @@
     </summary>
     
     
-      <category term="hexo" scheme="Https://side-dish-bird.github.io/categories/hexo/"/>
-    
-    
-  </entry>
-  
-  <entry>
-    <title>你好！水无痕</title>
-    <link href="https://side-dish-bird.github.io/2020/02/05/%E4%BD%A0%E5%A5%BD%EF%BC%81%E6%B0%B4%E6%97%A0%E7%97%95/"/>
-    <id>https://side-dish-bird.github.io/2020/02/05/%E4%BD%A0%E5%A5%BD%EF%BC%81%E6%B0%B4%E6%97%A0%E7%97%95/</id>
-    <published>2020-02-05T04:33:25.000Z</published>
-    <updated>2020-02-06T08:36:50.901Z</updated>
-    
-    <content type="html"><![CDATA[<p>一个很偶然的机会，让我认识了hexo，然而5分钟后，我决定搭建一个自己的hexo博客，不为别的，就是因为免费好用！</p><p>千言万语一句话：Hello  World ! </p><img src="/Side-dish-bird.github.io/2020/02/05/%E4%BD%A0%E5%A5%BD%EF%BC%81%E6%B0%B4%E6%97%A0%E7%97%95/hello.png" class="">]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;p&gt;一个很偶然的机会，让我认识了hexo，然而5分钟后，我决定搭建一个自己的hexo博客，不为别的，就是因为免费好用！&lt;/p&gt;
-&lt;p&gt;千言万语一句话：Hello  World ! &lt;/p&gt;
-&lt;img src=&quot;/Side-dish-bird.github.io/2020/02/
-      
-    
-    </summary>
-    
+      <category term="hexo" scheme="http://yoursite.com/categories/hexo/"/>
     
     
   </entry>
