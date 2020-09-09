@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2020-09-08T01:55:48.059Z</updated>
+  <updated>2020-09-09T01:35:42.613Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -15,6 +15,31 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>正则</title>
+    <link href="http://yoursite.com/2020/09/09/%E6%AD%A3%E5%88%99/"/>
+    <id>http://yoursite.com/2020/09/09/%E6%AD%A3%E5%88%99/</id>
+    <published>2020-09-09T01:11:02.000Z</published>
+    <updated>2020-09-09T01:35:42.613Z</updated>
+    
+    <content type="html"><![CDATA[<h4 id="正则"><a href="#正则" class="headerlink" title="正则"></a>正则</h4><p>正则表达式不是哪一门编程语言，是一个独立的知识，比C语言更古老，正则是字符串规律的描述字符串。</p><h4 id="正则三段式"><a href="#正则三段式" class="headerlink" title="正则三段式"></a>正则三段式</h4><h5 id="1、从哪里找？"><a href="#1、从哪里找？" class="headerlink" title="1、从哪里找？"></a>1、从哪里找？</h5><p>位置符，从字符串什么地方开始查找</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">^ 匹配字符串的开始</span><br><span class="line">$ 匹配字符串的结尾</span><br><span class="line">\b匹配单词的开始和结尾</span><br><span class="line">\B匹配单词的非边界</span><br></pre></td></tr></table></figure><h5 id="2、找谁？"><a href="#2、找谁？" class="headerlink" title="2、找谁？"></a>2、找谁？</h5><p>   /匹配字符/</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">字符集合[ace],[123456789]</span><br><span class="line">字符补集[^qxz]不再qxz范围内</span><br><span class="line">字符范围[a-z0-9]</span><br><span class="line">.   代表任意字符，不含换行</span><br><span class="line">\w  [a-zA-Z0-9_]</span><br><span class="line">\W  \w的补集</span><br><span class="line">\s  空白符，包括\n\r\t\v等</span><br><span class="line">\S  非空白符</span><br><span class="line">\d  [0-9]</span><br><span class="line">\D  非数字</span><br></pre></td></tr></table></figure><h5 id="3、找几个"><a href="#3、找几个" class="headerlink" title="3、找几个"></a>3、找几个</h5><p>限定符</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">[a-z]&#123;5&#125; 表示找出5个a-z范围内的字母</span><br><span class="line">&#123;1，&#125;  表示至少一个    用+表示</span><br><span class="line">&#123;0，1&#125; 表示最多一个    用？表示</span><br><span class="line">&#123;0，&#125;  表示零次或多次  用*表示</span><br><span class="line">&#123;n,m&#125; 表示匹配n-m次</span><br></pre></td></tr></table></figure><h5 id="贪婪模式和非贪婪模式"><a href="#贪婪模式和非贪婪模式" class="headerlink" title="贪婪模式和非贪婪模式"></a>贪婪模式和非贪婪模式</h5><p>贪婪：查找到最后一个匹配的字母则结束，中间有符合的也不会停下来，而是继续查找到最后一个匹配</p><p>非贪婪：查找到一个则匹配出来，一旦匹配到就停止查找</p><p>在限定符后加？如：/g.+?d/ 表示非贪婪模式</p><h5 id="反向引用"><a href="#反向引用" class="headerlink" title="反向引用"></a>反向引用</h5><p>引用前面定义好的规则：将之前定义好的规则用()包括起来，用\1或$1引用</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">$str&#x3D;&#39;txt php java o2o javascript android object-c ruby&#39;;</span><br><span class="line">$patt&#x3D;&#39;&#x2F;\b([a-z])\w+\1\b&#x2F;&#39;;</span><br><span class="line">preg_match_all($patt,$str,$ma);</span><br><span class="line">print_r($ma);</span><br><span class="line">([a-z])就是被引用的规则 \1表示应用规则的标识</span><br></pre></td></tr></table></figure>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h4 id=&quot;正则&quot;&gt;&lt;a href=&quot;#正则&quot; class=&quot;headerlink&quot; title=&quot;正则&quot;&gt;&lt;/a&gt;正则&lt;/h4&gt;&lt;p&gt;正则表达式不是哪一门编程语言，是一个独立的知识，比C语言更古老，正则是字符串规律的描述字符串。&lt;/p&gt;
+&lt;h4 id=&quot;正则三段式&quot;&gt;&lt;a 
+      
+    
+    </summary>
+    
+    
+      <category term="php" scheme="http://yoursite.com/categories/php/"/>
+    
+    
+  </entry>
   
   <entry>
     <title>面向对象</title>
@@ -471,36 +496,6 @@
     
     
       <category term="linux" scheme="http://yoursite.com/categories/linux/"/>
-    
-    
-  </entry>
-  
-  <entry>
-    <title>hexo侧边栏点击日志跳转报错</title>
-    <link href="http://yoursite.com/2020/02/08/hexo%E4%BE%A7%E8%BE%B9%E6%A0%8F%E7%82%B9%E5%87%BB%E6%97%A5%E5%BF%97%E8%B7%B3%E8%BD%AC%E6%8A%A5%E9%94%99/"/>
-    <id>http://yoursite.com/2020/02/08/hexo%E4%BE%A7%E8%BE%B9%E6%A0%8F%E7%82%B9%E5%87%BB%E6%97%A5%E5%BF%97%E8%B7%B3%E8%BD%AC%E6%8A%A5%E9%94%99/</id>
-    <published>2020-02-08T10:28:06.000Z</published>
-    <updated>2020-02-08T14:27:22.760Z</updated>
-    
-    <content type="html"><![CDATA[<h3 id="hexo菜单跳转问题"><a href="#hexo菜单跳转问题" class="headerlink" title="hexo菜单跳转问题"></a>hexo菜单跳转问题</h3><p>hexo 菜单只是在主题配置文件_config.yml中取消注释的话，你会发现点击菜单跳转界面是这样的</p><img src="/Side-dish-bird.github.io/2020/02/08/hexo%E4%BE%A7%E8%BE%B9%E6%A0%8F%E7%82%B9%E5%87%BB%E6%97%A5%E5%BF%97%E8%B7%B3%E8%BD%AC%E6%8A%A5%E9%94%99/tiaozhuan.png" class=""><p>这是因为</p><p>home：/  || home</p><p>categories:  /categories/  || th</p><p>/跟||之间有空格造成的，删掉空格就可以了</p><h3 id="hexo点击日志跳转问题"><a href="#hexo点击日志跳转问题" class="headerlink" title="hexo点击日志跳转问题"></a>hexo点击日志跳转问题</h3><img src="/Side-dish-bird.github.io/2020/02/08/hexo%E4%BE%A7%E8%BE%B9%E6%A0%8F%E7%82%B9%E5%87%BB%E6%97%A5%E5%BF%97%E8%B7%B3%E8%BD%AC%E6%8A%A5%E9%94%99/touxiang.png" class=""><p>点击日志，原本应该跳到归档页面，但现在出现Cannot GET /archives/C%7C%7archive/</p><a id="more"></a><p>在网上搜索半天也找不到答案，只得一步一步去寻找</p><p>在 themes\next\layout_macro\sidebar.swig下找到其样式结构</p><img src="/Side-dish-bird.github.io/2020/02/08/hexo%E4%BE%A7%E8%BE%B9%E6%A0%8F%E7%82%B9%E5%87%BB%E6%97%A5%E5%BF%97%E8%B7%B3%E8%BD%AC%E6%8A%A5%E9%94%99/dai.png" class=""><p>当菜单栏有归档选项时，使用的链接是第一个<code>&lt;a&gt;</code>链接，看这段代码也能看出来操作的是菜单后半部分如：home： / ||home 中的/||home部分按||进行分割，但这段代码有问题应该为：</p><img src="/Side-dish-bird.github.io/2020/02/08/hexo%E4%BE%A7%E8%BE%B9%E6%A0%8F%E7%82%B9%E5%87%BB%E6%97%A5%E5%BF%97%E8%B7%B3%E8%BD%AC%E6%8A%A5%E9%94%99/daima.png" class="">]]></content>
-    
-    <summary type="html">
-    
-      &lt;h3 id=&quot;hexo菜单跳转问题&quot;&gt;&lt;a href=&quot;#hexo菜单跳转问题&quot; class=&quot;headerlink&quot; title=&quot;hexo菜单跳转问题&quot;&gt;&lt;/a&gt;hexo菜单跳转问题&lt;/h3&gt;&lt;p&gt;hexo 菜单只是在主题配置文件_config.yml中取消注释的话，你会发现点击菜单跳转界面是这样的&lt;/p&gt;
-&lt;img src=&quot;/Side-dish-bird.github.io/2020/02/08/hexo%E4%BE%A7%E8%BE%B9%E6%A0%8F%E7%82%B9%E5%87%BB%E6%97%A5%E5%BF%97%E8%B7%B3%E8%BD%AC%E6%8A%A5%E9%94%99/tiaozhuan.png&quot; class=&quot;&quot;&gt;
-
-&lt;p&gt;这是因为&lt;/p&gt;
-&lt;p&gt;home：/  || home&lt;/p&gt;
-&lt;p&gt;categories:  /categories/  || th&lt;/p&gt;
-&lt;p&gt;/跟||之间有空格造成的，删掉空格就可以了&lt;/p&gt;
-&lt;h3 id=&quot;hexo点击日志跳转问题&quot;&gt;&lt;a href=&quot;#hexo点击日志跳转问题&quot; class=&quot;headerlink&quot; title=&quot;hexo点击日志跳转问题&quot;&gt;&lt;/a&gt;hexo点击日志跳转问题&lt;/h3&gt;&lt;img src=&quot;/Side-dish-bird.github.io/2020/02/08/hexo%E4%BE%A7%E8%BE%B9%E6%A0%8F%E7%82%B9%E5%87%BB%E6%97%A5%E5%BF%97%E8%B7%B3%E8%BD%AC%E6%8A%A5%E9%94%99/touxiang.png&quot; class=&quot;&quot;&gt;
-
-&lt;p&gt;点击日志，原本应该跳到归档页面，但现在出现Cannot GET /archives/C%7C%7archive/&lt;/p&gt;
-    
-    </summary>
-    
-    
-      <category term="hexo" scheme="http://yoursite.com/categories/hexo/"/>
     
     
   </entry>

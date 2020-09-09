@@ -81,14 +81,14 @@
 
 
 
-<meta name="description" content="table 表的创建12345678create  database lianxi charset utf8;&#x2F;&#x2F;创建数据库lianxi  数据库的字符集utf8use lianxi; &#x2F;&#x2F;使用数据库create table salary(                &#x2F;&#x2F;创建表salaryname char(4) not null d">
+<meta name="description" content="正则正则表达式不是哪一门编程语言，是一个独立的知识，比C语言更古老，正则是字符串规律的描述字符串。 正则三段式1、从哪里找？位置符，从字符串什么地方开始查找 1234^ 匹配字符串的开始$ 匹配字符串的结尾\b匹配单词的开始和结尾\B匹配单词的非边界  2、找谁？   &#x2F;匹配字符&#x2F; 12345678910字符集合[ace],[123456789]字符补集[^qxz]不再qxz范围内字符范围[a-z">
 <meta property="og:type" content="article">
-<meta property="og:title" content="数据库表的认识">
-<meta property="og:url" content="http://yoursite.com/2020/07/27/%E6%95%B0%E6%8D%AE%E5%BA%93%E8%A1%A8%E7%9A%84%E8%AE%A4%E8%AF%86/index.html">
+<meta property="og:title" content="正则">
+<meta property="og:url" content="http://yoursite.com/2020/09/09/%E6%AD%A3%E5%88%99/index.html">
 <meta property="og:site_name" content="水无痕">
-<meta property="og:description" content="table 表的创建12345678create  database lianxi charset utf8;&#x2F;&#x2F;创建数据库lianxi  数据库的字符集utf8use lianxi; &#x2F;&#x2F;使用数据库create table salary(                &#x2F;&#x2F;创建表salaryname char(4) not null d">
-<meta property="article:published_time" content="2020-07-27T15:52:05.000Z">
-<meta property="article:modified_time" content="2020-07-29T09:30:02.071Z">
+<meta property="og:description" content="正则正则表达式不是哪一门编程语言，是一个独立的知识，比C语言更古老，正则是字符串规律的描述字符串。 正则三段式1、从哪里找？位置符，从字符串什么地方开始查找 1234^ 匹配字符串的开始$ 匹配字符串的结尾\b匹配单词的开始和结尾\B匹配单词的非边界  2、找谁？   &#x2F;匹配字符&#x2F; 12345678910字符集合[ace],[123456789]字符补集[^qxz]不再qxz范围内字符范围[a-z">
+<meta property="article:published_time" content="2020-09-09T01:11:02.000Z">
+<meta property="article:modified_time" content="2020-09-09T01:35:42.613Z">
 <meta property="article:author" content="水无痕">
 <meta name="twitter:card" content="summary">
 
@@ -120,13 +120,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2020/07/27/数据库表的认识/"/>
+  <link rel="canonical" href="http://yoursite.com/2020/09/09/正则/"/>
 
 
 
 
 
-  <title>数据库表的认识 | 水无痕</title>
+  <title>正则 | 水无痕</title>
   
 
 
@@ -253,7 +253,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/07/27/%E6%95%B0%E6%8D%AE%E5%BA%93%E8%A1%A8%E7%9A%84%E8%AE%A4%E8%AF%86/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/09/09/%E6%AD%A3%E5%88%99/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="水无痕">
@@ -270,7 +270,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">数据库表的认识</h1>
+          <h1 class="post-title" itemprop="name headline">正则</h1>
         
 
         <div class="post-meta">
@@ -282,8 +282,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-07-27T23:52:05+08:00">
-                2020-07-27
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-09-09T09:11:02+08:00">
+                2020-09-09
               </time>
             
 
@@ -305,8 +305,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/mysql/" itemprop="url" rel="index">
-                    <span itemprop="name">mysql</span>
+                  <a href="/categories/php/" itemprop="url" rel="index">
+                    <span itemprop="name">php</span>
                   </a>
                 </span>
 
@@ -347,63 +347,24 @@
       
 
       
-        <h4 id="table-表的创建"><a href="#table-表的创建" class="headerlink" title="table 表的创建"></a>table 表的创建</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">create  database lianxi charset utf8;&#x2F;&#x2F;创建数据库lianxi  数据库的字符集utf8</span><br><span class="line">use lianxi; &#x2F;&#x2F;使用数据库</span><br><span class="line">create table salary(                &#x2F;&#x2F;创建表salary</span><br><span class="line">name char(4) not null default &#39;&#39;,</span><br><span class="line">gender char(1) not null default &#39;&#39;,</span><br><span class="line">com varchar(20) not null default &#39;&#39;,</span><br><span class="line">money decimal(6,2) not null default 0.00,</span><br><span class="line">fb smallint not null default 0)engine myisam charset utf8;  &#x2F;&#x2F;引擎是myisam  表的字符集是utf8;</span><br></pre></td></tr></table></figure>
+        <h4 id="正则"><a href="#正则" class="headerlink" title="正则"></a>正则</h4><p>正则表达式不是哪一门编程语言，是一个独立的知识，比C语言更古老，正则是字符串规律的描述字符串。</p>
+<h4 id="正则三段式"><a href="#正则三段式" class="headerlink" title="正则三段式"></a>正则三段式</h4><h5 id="1、从哪里找？"><a href="#1、从哪里找？" class="headerlink" title="1、从哪里找？"></a>1、从哪里找？</h5><p>位置符，从字符串什么地方开始查找</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">^ 匹配字符串的开始</span><br><span class="line">$ 匹配字符串的结尾</span><br><span class="line">\b匹配单词的开始和结尾</span><br><span class="line">\B匹配单词的非边界</span><br></pre></td></tr></table></figure>
 
-<h5 id="整型列"><a href="#整型列" class="headerlink" title="整型列"></a>整型列</h5><p>mysql中 各种列的类型及特点</p>
-<p>列类型大致分为3类：</p>
-<p>​     整值型：整型，浮点型，定点型（比较精确）</p>
-<p>​     字符串：char , varchar , text</p>
-<p>​     日期时间类型：2012-12-13   14:25:23 </p>
-<p>整型：</p>
-<p>一个字节有8位，每个位上有0,1两种可能</p>
-<p>一个列，占的字节越多，存储的范围越大。</p>
-<p>tinyint               1个字节    -128-127     0-255</p>
-<p>smallint            2个字节     -32768-32767      0-65535</p>
-<p>mediumint      3个字节    -8388608-8388607    0-16777215</p>
-<p>int                     4个字节     -2147483648-2147483647    0-4294967295</p>
-<p>bigint               8个字节     -9223372036854775808-9223372036854775807    0-18446744073709551615</p>
-<p>无符号范围很容易理解就是8位全为0或全为1的值，有符号的呢？在计算机内最高为表示符号0为正，1为负。有符号的其实计算的是后7位的值。</p>
-<h5 id="整型列的可选参数"><a href="#整型列的可选参数" class="headerlink" title="整型列的可选参数"></a>整型列的可选参数</h5><p>unsigned：无符号类型</p>
-<p>zerofill:零填充 默认是无符号类型 如<code>数据类型 int(4) 表示数据应是4位。如果添加的数据只有2位则前面用零补齐</code></p>
-<h5 id="浮点列与定点列"><a href="#浮点列与定点列" class="headerlink" title="浮点列与定点列"></a>浮点列与定点列</h5><p>float 浮点型   <code>float(5,2)5表示精度，总位数，2表示标度，小数点后的位数 如：999.99</code></p>
-<p>double 范围更大的浮点型</p>
-<p>decimal 定点型 更准确 一般用于钱</p>
-<h5 id="字符型列"><a href="#字符型列" class="headerlink" title="字符型列"></a>字符型列</h5><p>char   varchar   text/blob  enum</p>
-<p>char 定长存储内容</p>
-<p>varchar 变长存储内容</p>
-<p>char和varchar区别：</p>
-<p>char(10) 不管字符长度多少，都是存储10个字符的宽度</p>
-<p>varchar(10)最多存储10个字符，用多少占多少。</p>
-<p>char速度更快。适用于固定长或简短的数据</p>
-<p>varchar适用于不定长的数据</p>
-<p>text文本类型：</p>
-<p> 可以存比较大的文本段，搜索速度稍慢。因此如果不是特别大的内容，建议用char,varchar代替</p>
-<p>enum枚举类型：定义好，只能在某几个枚举范围内，</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&#96;create table t(gender enum(&#39;boy&#39;,&#39;girl&#39;));&#96;</span><br><span class="line">insert into t values(&#39;boy&#39;);   只能存储boy或girl类型</span><br></pre></td></tr></table></figure>
+<h5 id="2、找谁？"><a href="#2、找谁？" class="headerlink" title="2、找谁？"></a>2、找谁？</h5><p>   /匹配字符/</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">字符集合[ace],[123456789]</span><br><span class="line">字符补集[^qxz]不再qxz范围内</span><br><span class="line">字符范围[a-z0-9]</span><br><span class="line">.   代表任意字符，不含换行</span><br><span class="line">\w  [a-zA-Z0-9_]</span><br><span class="line">\W  \w的补集</span><br><span class="line">\s  空白符，包括\n\r\t\v等</span><br><span class="line">\S  非空白符</span><br><span class="line">\d  [0-9]</span><br><span class="line">\D  非数字</span><br></pre></td></tr></table></figure>
 
-<h5 id="日期时间列"><a href="#日期时间列" class="headerlink" title="日期时间列"></a>日期时间列</h5><p>日期时间类型：year  1901-2155</p>
-<p>​                           date    1000/01/01-9999/12/31</p>
-<p>​                           time   -838:59:59-838:59:59</p>
-<p>​                           datetime     1000/01/01 00:00:00-9999:12:31 23:59:59</p>
-<p>​                           时间戳： 1970-01-01 00:00:00 到当前的秒数</p>
-<p>​                           一般存储注册时间，商品发布时间等，并不是用datetime存储，而是用时间戳</p>
-<p>​                            因为datetime虽然直观，但计算不便</p>
-<p>timestamp时间戳  如果我们插入改行，时间戳这列会自动插入当前时间戳</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">create table t(id int,tt timestamp);</span><br><span class="line">timestamp列的显示格式与datetime列相同</span><br></pre></td></tr></table></figure>
+<h5 id="3、找几个"><a href="#3、找几个" class="headerlink" title="3、找几个"></a>3、找几个</h5><p>限定符</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">[a-z]&#123;5&#125; 表示找出5个a-z范围内的字母</span><br><span class="line">&#123;1，&#125;  表示至少一个    用+表示</span><br><span class="line">&#123;0，1&#125; 表示最多一个    用？表示</span><br><span class="line">&#123;0，&#125;  表示零次或多次  用*表示</span><br><span class="line">&#123;n,m&#125; 表示匹配n-m次</span><br></pre></td></tr></table></figure>
 
-<h6 id="主键与自增"><a href="#主键与自增" class="headerlink" title="主键与自增"></a>主键与自增</h6><p>primary key 能够区分每一行的列，如id</p>
-<p>主键不能重复。</p>
-<p>主键往往和auto_increment一起出现，但并不意味着他们两个必须要绑定在一起使用。</p>
-<p>不声明主键直接使用auto_increment，但必须有索引，才能成功</p>
-<p><code>create table t(id int auto_increment,name char(5),index id(id));</code></p>
-<h5 id="列的删除增加与修改"><a href="#列的删除增加与修改" class="headerlink" title="列的删除增加与修改"></a>列的删除增加与修改</h5><p>alter table 表名 add 列名  列类型  列属性   添加新列</p>
-<p><code>alter table user add height tinyint unsigned not null default 0</code></p>
-<p>alter table 表名  change  旧列名  新列名  新类型  列属性</p>
-<p><code>alter table user change height shengao smallint not null default 0</code></p>
-<p>alter table 表名  modify  列名 新属性    //只修改属性</p>
-<p><code>alter table user modify height tinyint not null default 0</code></p>
-<p>alter table  表名  drop  [column] 列名</p>
-<p><code>alter table user  drop column height</code></p>
+<h5 id="贪婪模式和非贪婪模式"><a href="#贪婪模式和非贪婪模式" class="headerlink" title="贪婪模式和非贪婪模式"></a>贪婪模式和非贪婪模式</h5><p>贪婪：查找到最后一个匹配的字母则结束，中间有符合的也不会停下来，而是继续查找到最后一个匹配</p>
+<p>非贪婪：查找到一个则匹配出来，一旦匹配到就停止查找</p>
+<p>在限定符后加？如：/g.+?d/ 表示非贪婪模式</p>
+<h5 id="反向引用"><a href="#反向引用" class="headerlink" title="反向引用"></a>反向引用</h5><p>引用前面定义好的规则：将之前定义好的规则用()包括起来，用\1或$1引用</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">$str&#x3D;&#39;txt php java o2o javascript android object-c ruby&#39;;</span><br><span class="line">$patt&#x3D;&#39;&#x2F;\b([a-z])\w+\1\b&#x2F;&#39;;</span><br><span class="line">preg_match_all($patt,$str,$ma);</span><br><span class="line">print_r($ma);</span><br><span class="line">([a-z])就是被引用的规则 \1表示应用规则的标识</span><br></pre></td></tr></table></figure>
+
+
+
 
       
     </div>
@@ -428,8 +389,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2020/07/23/select%E6%9F%A5%E8%AF%A2/" rel="next" title="select查询">
-                <i class="fa fa-chevron-left"></i> select查询
+              <a href="/2020/09/08/%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1/" rel="next" title="面向对象">
+                <i class="fa fa-chevron-left"></i> 面向对象
               </a>
             
           </div>
@@ -437,10 +398,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2020/07/29/%E6%95%B0%E6%8D%AE%E5%BA%93%E8%A7%86%E5%9B%BE%E4%BA%8B%E5%8A%A1%E7%AD%89/" rel="prev" title="数据库视图事务等">
-                数据库视图事务等 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -609,7 +566,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#table-表的创建"><span class="nav-number">1.</span> <span class="nav-text">table 表的创建</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#整型列"><span class="nav-number">1.1.</span> <span class="nav-text">整型列</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#整型列的可选参数"><span class="nav-number">1.2.</span> <span class="nav-text">整型列的可选参数</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#浮点列与定点列"><span class="nav-number">1.3.</span> <span class="nav-text">浮点列与定点列</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#字符型列"><span class="nav-number">1.4.</span> <span class="nav-text">字符型列</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#日期时间列"><span class="nav-number">1.5.</span> <span class="nav-text">日期时间列</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#主键与自增"><span class="nav-number">1.5.1.</span> <span class="nav-text">主键与自增</span></a></li></ol></li><li class="nav-item nav-level-5"><a class="nav-link" href="#列的删除增加与修改"><span class="nav-number">1.6.</span> <span class="nav-text">列的删除增加与修改</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#正则"><span class="nav-number">1.</span> <span class="nav-text">正则</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#正则三段式"><span class="nav-number">2.</span> <span class="nav-text">正则三段式</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#1、从哪里找？"><span class="nav-number">2.1.</span> <span class="nav-text">1、从哪里找？</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2、找谁？"><span class="nav-number">2.2.</span> <span class="nav-text">2、找谁？</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#3、找几个"><span class="nav-number">2.3.</span> <span class="nav-text">3、找几个</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#贪婪模式和非贪婪模式"><span class="nav-number">2.4.</span> <span class="nav-text">贪婪模式和非贪婪模式</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#反向引用"><span class="nav-number">2.5.</span> <span class="nav-text">反向引用</span></a></li></ol></li></ol></div>
             
 
           </div>
