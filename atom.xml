@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2020-09-09T01:35:42.613Z</updated>
+  <updated>2020-09-10T01:35:21.426Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -15,6 +15,31 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>http协议</title>
+    <link href="http://yoursite.com/2020/09/09/http%E5%8D%8F%E8%AE%AE/"/>
+    <id>http://yoursite.com/2020/09/09/http%E5%8D%8F%E8%AE%AE/</id>
+    <published>2020-09-09T01:39:46.000Z</published>
+    <updated>2020-09-10T01:35:21.426Z</updated>
+    
+    <content type="html"><![CDATA[<h4 id="协议"><a href="#协议" class="headerlink" title="协议"></a>协议</h4><p>http：超文本传输协议，详细的规定了万维网服务器与客户端之间数据传送的通信规则</p><p>http是一个基于TCP/IP通信协议来传递数据(HTML文件，图片文件，查询结果等)。属于应用层的面向对象的协议</p><p>http协议工作于客户端-服务端架构为上，浏览器作为HTTP客户端通过URL向HTTP服务端即WEB服务器发送所有请求。WEB服务器根据接收到的请求后，向客户端发送响应信息。</p><h5 id="主要特点"><a href="#主要特点" class="headerlink" title="主要特点"></a>主要特点</h5><p>1、简单快速：客户向服务器请求服务时，只需传送请求方法和路径。请求方法常用的有GET,POST，HEAD。每种方法规定了客户与服务器联系的类型不同。由于HTTP协议简单，使得HTTP服务器的程序规模小，因而通信速度很快。</p><p>2、灵活：http允许传输任意类型的数据对象</p><p>3、无连接：无连接的含义是限制每次连接只处理一个请求。服务器处理完客户的请求，并收到客户的应答后，即断开连接。</p><p>4、无状态：HTTP协议是无状态协议，无状态是指协议对于事物处理没有记忆能力，缺少状态意味着如果后续处理需要前面的信息，则它必须重传，这样可能导致每次连接传送的数据量增大，另一方面，在服务器不需要先前信息时它的应答就较快。</p><p>http请求和响应都分三部分：</p><p>打开DOS窗口  建立连接  <code>telnet localhost 80</code>   然后写请求规则去请求服务器</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">请求格式：</span><br><span class="line"></span><br><span class="line">   请求行： GET&#x2F;POST(请求方式)   &#x2F;01.php(访问路径)  HTTP&#x2F;1.1(协议规则)</span><br><span class="line"></span><br><span class="line">   请求头： host :localhost(要访问的主机)</span><br><span class="line"></span><br><span class="line">​          post提交时需添加 Content-type: application&#x2F;x-www-form-urlencoded</span><br><span class="line"></span><br><span class="line">​          post提交数据的长度Content-length: 10</span><br><span class="line"></span><br><span class="line">   空行</span><br><span class="line"></span><br><span class="line">   主体信息    key&#x3D;12&amp;name&#x3D;aa(要传递的信息)&#x2F;&#x2F;如果要发送cookie则这样写Cookie:username&#x3D;lisi;age&#x3D;12;</span><br><span class="line">返回的响应格式：</span><br><span class="line">响应行       响应协议http&#x2F;1.1  状态码200  状态码响应描述ok</span><br><span class="line">响应头       server:apache&#x2F;2.2.2</span><br><span class="line"></span><br><span class="line">响应主体     主体信息</span><br></pre></td></tr></table></figure><h5 id="HTTP之状态码"><a href="#HTTP之状态码" class="headerlink" title="HTTP之状态码"></a>HTTP之状态码</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">1xx：指示信息--表示请求已接收，继续处理</span><br><span class="line">2xx：成功--表示请求已被成功接收、理解、接受</span><br><span class="line">3xx：重定向--要完成请求必须进行更进一步的操作</span><br><span class="line">4xx：客户端错误--请求有语法错误或请求无法实现</span><br><span class="line">5xx：服务器端错误--服务器未能实现合法的请求</span><br></pre></td></tr></table></figure>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h4 id=&quot;协议&quot;&gt;&lt;a href=&quot;#协议&quot; class=&quot;headerlink&quot; title=&quot;协议&quot;&gt;&lt;/a&gt;协议&lt;/h4&gt;&lt;p&gt;http：超文本传输协议，详细的规定了万维网服务器与客户端之间数据传送的通信规则&lt;/p&gt;
+&lt;p&gt;http是一个基于TCP/IP通信协议来传递
+      
+    
+    </summary>
+    
+    
+      <category term="php" scheme="http://yoursite.com/categories/php/"/>
+    
+    
+  </entry>
   
   <entry>
     <title>正则</title>
@@ -463,34 +488,6 @@
 &lt;p&gt;如：&lt;code&gt;mkdir ./hello&lt;/code&gt;&lt;/p&gt;
 &lt;p&gt;迭代创建多个文件夹 使用参数 -p&lt;/p&gt;
 &lt;p&gt;如：&lt;code&gt;mkdir  -p  ./hello/world&lt;/code&gt;&lt;/p&gt;
-    
-    </summary>
-    
-    
-      <category term="linux" scheme="http://yoursite.com/categories/linux/"/>
-    
-    
-  </entry>
-  
-  <entry>
-    <title>初识linux</title>
-    <link href="http://yoursite.com/2020/06/16/%E5%88%9D%E8%AF%86linux/"/>
-    <id>http://yoursite.com/2020/06/16/%E5%88%9D%E8%AF%86linux/</id>
-    <published>2020-06-16T01:12:56.000Z</published>
-    <updated>2020-06-16T08:47:16.521Z</updated>
-    
-    <content type="html"><![CDATA[<h3 id="Linux是什么？"><a href="#Linux是什么？" class="headerlink" title="Linux是什么？"></a>Linux是什么？</h3><p>​      Linux，全称GNU/Linux，是一套免费使用和自由传播的类UNIX操作系统。以我个人理解就是跟windows系统一样都是运行在pc上的程序，但Linux主要被用到服务器上的。</p><h4 id="linux的安装"><a href="#linux的安装" class="headerlink" title="linux的安装"></a>linux的安装</h4><p>​     在虚拟机VMware Workstation进行安装。</p><ol><li><p>首先建立一台空白虚拟主机</p></li><li><p>在选择iso文件，启动虚拟机</p></li><li><p>一路next，但要注意几个要点，硬盘大小为20G 则磁盘分区时创建swap选择4096M，剩下的归根目录所有</p><a id="more"></a></li><li><p>预安装选择基本安装base server 勾选自定义布局，接下来选择网络数据库图形(图形界面不要安装KDE剩下都勾选)</p></li></ol><h5 id="linux硬盘管理"><a href="#linux硬盘管理" class="headerlink" title="linux硬盘管理"></a>linux硬盘管理</h5><p>  linux中的设备都存储在/dev/中，/dev/xxy     xx表示硬盘类型，一般都是sd类型的，y指a-z表示第几块的意思，一块硬盘有一个64k的分区表，每个分区占16k所以一块硬盘最多有4个主分区，最多一个扩展分区，扩展分区在划分逻辑分区，而逻辑分区都是从数字5开始的</p><p>硬盘操作使用<strong>fdisk</strong></p><p>查看硬盘：fdisk -l /dev/sda</p><p>硬盘分区：fdisk  /dev/sda  回车 </p><ul><li>输入n代表新建分区  </li><li>输入p代表创建主分区，填写1-4之间的数字 +100G 代表创建100G的主分区</li><li>之后再创建主分区或扩展分区<ul><li>e代表扩展分区  输入2  开始创建逻辑分区  输入 l 代表逻辑分区 +64G 表示64G的逻辑分区</li></ul></li><li>输入w表示写入分区表，撤销 q 重置</li></ul><h5 id="修改分区文件系统类型"><a href="#修改分区文件系统类型" class="headerlink" title="修改分区文件系统类型"></a>修改分区文件系统类型</h5><p>   默认文件类型是ext4 。fdisk /dev/sda 进入硬盘输入 l 查看硬盘支持的文件系统类型</p><p>c  w95 FAT32(LBA)字母c代表文件类型</p><ul><li>输入 t 表示修改文件系统类型</li><li>输入要修改的分区数字</li><li>输入要修改称的文件类型字母 如 c</li><li>输入 w 写入分区表</li></ul><p>fdisk  -l /dev/sda 查看文件类型</p><p>删除分区：fdisk /dev/sda 输入 d 再输入分区数字则删除分区</p><p>切记：创建完分区要挨个格式化</p><p> mkfs -t ext4  /dev/sda1</p>]]></content>
-    
-    <summary type="html">
-    
-      &lt;h3 id=&quot;Linux是什么？&quot;&gt;&lt;a href=&quot;#Linux是什么？&quot; class=&quot;headerlink&quot; title=&quot;Linux是什么？&quot;&gt;&lt;/a&gt;Linux是什么？&lt;/h3&gt;&lt;p&gt;​      Linux，全称GNU/Linux，是一套免费使用和自由传播的类UNIX操作系统。以我个人理解就是跟windows系统一样都是运行在pc上的程序，但Linux主要被用到服务器上的。&lt;/p&gt;
-&lt;h4 id=&quot;linux的安装&quot;&gt;&lt;a href=&quot;#linux的安装&quot; class=&quot;headerlink&quot; title=&quot;linux的安装&quot;&gt;&lt;/a&gt;linux的安装&lt;/h4&gt;&lt;p&gt;​     在虚拟机VMware Workstation进行安装。&lt;/p&gt;
-&lt;ol&gt;
-&lt;li&gt;&lt;p&gt;首先建立一台空白虚拟主机&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;&lt;p&gt;在选择iso文件，启动虚拟机&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;&lt;p&gt;一路next，但要注意几个要点，硬盘大小为20G 则磁盘分区时创建swap选择4096M，剩下的归根目录所有&lt;/p&gt;
     
     </summary>
     
