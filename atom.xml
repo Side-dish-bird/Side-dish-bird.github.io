@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2020-09-17T17:29:14.469Z</updated>
+  <updated>2020-09-19T17:13:03.129Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -15,6 +15,31 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>jquery</title>
+    <link href="http://yoursite.com/2020/09/19/jquery/"/>
+    <id>http://yoursite.com/2020/09/19/jquery/</id>
+    <published>2020-09-19T15:51:13.000Z</published>
+    <updated>2020-09-19T17:13:03.129Z</updated>
+    
+    <content type="html"><![CDATA[<h4 id="jQuery是什么？"><a href="#jQuery是什么？" class="headerlink" title="jQuery是什么？"></a>jQuery是什么？</h4><p>是封装了常用js操作函数的一个库文件</p><p>jQuery=javascript+Query 即 强大的DOM节点查询</p><p>下载</p><p>从官方网站下载时，jquery的文件名格式如下：</p><p>jquery-1.x.x-min.js 或 jquery-1.x.x.js</p><p>官方网站：<code>http://jquery.com</code></p><p>官方手册：<code>http://api.jquery.com</code></p><h5 id="选择器"><a href="#选择器" class="headerlink" title="选择器"></a>选择器</h5><p><strong>基本选择器</strong></p><p>选择器：id   <code>$(&#39;#test1&#39;).css(&#39;background&#39;,&#39;gray&#39;);</code></p><p>​              标签<code>$(&#39;p&#39;).css(&#39;background&#39;,&#39;gray&#39;);</code></p><p>​               类<code>$(&#39;.test1&#39;).css(&#39;background&#39;,&#39;gray&#39;);</code></p><p>​              群组<code>$(&#39;#test1&#39;,&#39;.test1&#39;,&#39;p&#39;);</code></p><p>层次选择器：</p><p>​             <code>$(&#39;#test p&#39;)</code>  空格代表祖先和后代的关系</p><p>​            <code>$(&#39;#test &gt; p&#39;)</code>父子关系</p><p>​            <code>$(&#39;#test +p&#39;)</code>下一个弟弟，挨着的元素 </p><p>​          <code>$(&#39;#test ~ p&#39;)</code>所有弟弟p标签</p><p>属性选择器：</p><p>​          <code>$(&quot;input[name=&#39;email&#39;]&quot;).css(&#39;background&#39;,&#39;gray&#39;);</code> </p><h4 id="过滤器"><a href="#过滤器" class="headerlink" title="过滤器"></a>过滤器</h4><p>如果选择器选出的结果仍不够细，可以用过滤器，进一步筛选， 过滤器一般写在”选择器”之后，如”选择器:过滤器”;</p><p><strong>基础过滤器</strong></p><p>   是根据对象的索引值来查找</p><pre><code>$(&apos;li:first&apos;).css(&apos;background&apos;,&apos;red&apos;); //  找第 1 个$(&apos;li:odd&apos;).css(&apos;background&apos;,&apos;blue&apos;); //  找第奇数个 , 从 0 计数$(&apos;li:eq(2)&apos;).css(&apos;background&apos; , &apos;purple&apos;); //  找第 2 个 , 从 0 计数</code></pre><p><strong>内容过滤器</strong></p><p>​        $(‘tr:contains(字符)’) 内容过滤<br>​         $(‘div:has(h1)’) 含有h1标签<br>​         $(‘a[href]’) 找含有href属性的a标签   </p><p><strong>操作属性</strong></p><pre><code>普通属性$(&apos;img&apos;).attr(&apos;src&apos;,&apos;on.jpg&apos;); css属性$(&apos;p&apos;).css(&quot;background&quot;,&quot;red&quot;);布尔属性：$(&apos;input:checkbox&apos;).prop(&apos;checked&apos;,true);</code></pre><p><strong>节点操作</strong></p><pre><code> 删除DOM节点$(&apos;li:last&apos;).remove(); 清空内容 $(&apos;li:last&apos;).empty();  增加节点$(&apos;ul&apos;).after($(&apos;&lt;ol&gt;&lt;li&gt;哈哈&lt;/li&gt;&lt;/ol&gt;&apos;));$(&apos;ol&apos;).append($(&apos;ul li:last&apos;));  节点包裹$(&apos;input:text&apos;).wrap(&apos;&lt;p&gt;&lt;/p&gt;&apos;);//input标签分别包裹在&lt;p&gt;标签里$(&apos;input:text&apos;).wrapAll(&apos;&lt;p&gt;&lt;/p&gt;&apos;);// 所有inpuy标签包裹在一个&lt;p&gt;标签里$(&apos;li&apos;).wrapInner(&apos;&lt;b&gt;&lt;/b&gt;&apos;);//包裹文本不包括节点</code></pre><h5 id="jquery与DOM对象的关系和转换"><a href="#jquery与DOM对象的关系和转换" class="headerlink" title="jquery与DOM对象的关系和转换"></a>jquery与DOM对象的关系和转换</h5><p>$()返回的是什么？是jquery对象不是dom对象。dom对象装在了jquery对象里索引分别是0，1，2….<br>       <em>jquery对象转为DOM对象</em><br>            var li=$(‘li’)[0];//得到第一个li<br>    <em>DOM对象转为jquery对象</em><br>        var li=document.getElementsByTagName(‘li’)[3];<br>        $(li).css(‘background’,’gray’);</p><h5 id="jquery对象遍历"><a href="#jquery对象遍历" class="headerlink" title="jquery对象遍历"></a>jquery对象遍历</h5><pre><code>   jquery对象.each(function(){    //里面的this指的是dom对象});    </code></pre><h4 id="事件"><a href="#事件" class="headerlink" title="事件"></a>事件</h4><p>原生事件和jquery事件除了语法上稍显区别，最重要的是绑定次数：</p><p>原生多次绑定事件会被最后一次覆盖前面的事件。而jquery绑定事件都会执行。</p><h5 id="独特的ready事件"><a href="#独特的ready事件" class="headerlink" title="独特的ready事件"></a>独特的ready事件</h5><p>相当于原生的onload属性，但ready不同。onload是在加载完毕后执行，ready是一开始就先执行<br>    $(document).ready(function(){});简写：$(function(){})</p><h5 id="jquery特有的绑定函数："><a href="#jquery特有的绑定函数：" class="headerlink" title="jquery特有的绑定函数："></a>jquery特有的绑定函数：</h5><p>​    bing() unbing()<br>​      //绑定click事件<br>​    $(‘#test’).bind(‘click’,function(){});<br>​      //取消绑定click事件<br>​    $(‘#test’).unbind(‘click’);<br>​      //绑定一次事件，执行一次<br>​    $(‘#test’).one(‘click’,function(){});<br>​      //动态绑定，为后来增加的节点也绑定<br>​    $(‘.test’).live(‘click’,function(){});</p><h5 id="事件委托"><a href="#事件委托" class="headerlink" title="事件委托"></a>事件委托</h5><p>​    给父元素绑定事件，子元素都能执行<br>​    使用 on()函数<br>​    <code>$(ul).on(&#39;click&#39;,&#39;li&#39;,function(){});</code></p><h5 id="事件对象"><a href="#事件对象" class="headerlink" title="事件对象"></a>事件对象</h5><p> <code>$(&#39;div&#39;).click(function(ev){    alert(ev.type + &#39;:&#39; +ev.which);    });</code></p><h5 id="Ajax之GET请求："><a href="#Ajax之GET请求：" class="headerlink" title="Ajax之GET请求："></a>Ajax之GET请求：</h5><p>​      //get请求  res是返回的值<br>​    $.get(url,function(res){ }  ;</p><h5 id="Ajax之POST请求"><a href="#Ajax之POST请求" class="headerlink" title="Ajax之POST请求"></a>Ajax之POST请求</h5><p>​        //data可以是字符串，也可以是对象方式<br>​       <code>//data=&#39;username=lisi&amp;email=lisi@qq.com&#39;​       // data={&#39;username&#39;:&#39;lisi&#39;,&#39;email&#39;:lisi@qq.com}​     $.post(url,data,function(res){​     }</code></p><h5 id="json格式的返回值"><a href="#json格式的返回值" class="headerlink" title="json格式的返回值"></a>json格式的返回值</h5><pre><code>   //第三个参数声明返回的格式   //有键值对的返回对象格式的json，没有键值对的返回数组格式的json$.get(url,function(res){},&apos;json&apos;);</code></pre><h5 id="ajax事件监听函数"><a href="#ajax事件监听函数" class="headerlink" title="ajax事件监听函数"></a>ajax事件监听函数</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">&lt;body&gt;</span><br><span class="line">    &lt;h1&gt;$.ajax()&lt;&#x2F;h1&gt;</span><br><span class="line">    &lt;form action&#x3D;&quot;&quot;&gt;</span><br><span class="line">    &lt;input type&#x3D;&quot;submit&quot; value&#x3D;&quot; 提交 &quot; &#x2F;&gt;</span><br><span class="line">    &lt;&#x2F;form&gt;</span><br><span class="line">&lt;&#x2F;body&gt;</span><br><span class="line">&lt;script&gt;</span><br><span class="line">    $(&#39;form&#39;).submit(function()&#123;</span><br><span class="line">    var param &#x3D; &#123;</span><br><span class="line">    url : &#39;33.php&#39;,</span><br><span class="line">    type : &#39;post&#39;,</span><br><span class="line">    data : &#123;u:&#39;lisi&#39;,pass:&#39;11111&#39;&#125;,</span><br><span class="line">    success:function(res)&#123;</span><br><span class="line">    alert(res);</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;;</span><br><span class="line">    $.ajax(&#39;2.php&#39;,param);</span><br><span class="line">    &#125;);</span><br><span class="line">    &#x2F;&#x2F;ajax开始了 监听全局ajax</span><br><span class="line">    &#x2F;&#x2F; ajaxStart() ajaxSuccess() 这几个函数 , 只能绑定 $(document) 节点上 .(from jQuery1.8+)</span><br><span class="line">    $(document).ajaxStart(function()&#123;</span><br><span class="line">    $(&#39;input&#39;).val(&#39; 提交中 &#39;);</span><br><span class="line">    &#125;);</span><br><span class="line">&lt;&#x2F;script&gt;</span><br></pre></td></tr></table></figure>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h4 id=&quot;jQuery是什么？&quot;&gt;&lt;a href=&quot;#jQuery是什么？&quot; class=&quot;headerlink&quot; title=&quot;jQuery是什么？&quot;&gt;&lt;/a&gt;jQuery是什么？&lt;/h4&gt;&lt;p&gt;是封装了常用js操作函数的一个库文件&lt;/p&gt;
+&lt;p&gt;jQuery=javas
+      
+    
+    </summary>
+    
+    
+      <category term="php" scheme="http://yoursite.com/categories/php/"/>
+    
+    
+  </entry>
   
   <entry>
     <title>ajax</title>
@@ -469,30 +494,6 @@
         &lt;h4 id=&quot;文件挂载&quot;&gt;&lt;a href=&quot;#文件挂载&quot; class=&quot;headerlink&quot; title=&quot;文件挂载&quot;&gt;&lt;/a&gt;文件挂载&lt;/h4&gt;&lt;p&gt;Linux 是树形结构存储的，硬盘、设备等需要挂载到文件上才能访问使用。&lt;/p&gt;
 &lt;p&gt;创建文件：&lt;code&gt;mkdir -
       
-    
-    </summary>
-    
-    
-      <category term="linux" scheme="http://yoursite.com/categories/linux/"/>
-    
-    
-  </entry>
-  
-  <entry>
-    <title>linux用户和组管理</title>
-    <link href="http://yoursite.com/2020/06/18/linux%E7%94%A8%E6%88%B7%E5%92%8C%E7%BB%84%E7%AE%A1%E7%90%86/"/>
-    <id>http://yoursite.com/2020/06/18/linux%E7%94%A8%E6%88%B7%E5%92%8C%E7%BB%84%E7%AE%A1%E7%90%86/</id>
-    <published>2020-06-18T14:14:11.000Z</published>
-    <updated>2020-06-18T14:15:06.343Z</updated>
-    
-    <content type="html"><![CDATA[<h4 id="linux-用户和组"><a href="#linux-用户和组" class="headerlink" title="linux 用户和组"></a>linux 用户和组</h4><p>Linux用户有三种：超级用户、虚拟用户、普通用户。</p><p>超级用户：root   id为 0</p><p>虚拟用户：不能登陆主机是给程序使用的  如：mysql用户  id 在1-499之间</p><p>普通用户 ：id 在500之后</p><a id="more"></a><h5 id="用户管理"><a href="#用户管理" class="headerlink" title="用户管理"></a>用户管理</h5><p>添加用户： useradd  student  创建student用户</p><p>添加密码： passwd 密码</p><p>删除用户：userdel  student </p><p>查看用户： id  student</p><p>修改用户：usermod  -l  student2 student  将student用户名改为 student2</p><p>usermod 可以修改用户信息</p><p>usermod -c 用户描述  -u 600 -g  主用户组 -G 用户组  -s  shell命令</p><h5 id="组管理"><a href="#组管理" class="headerlink" title="组管理"></a>组管理</h5><p>添加组：groupadd   stu </p><p>删除组：groupdel   stu</p><h5 id="查看主机所有用户"><a href="#查看主机所有用户" class="headerlink" title="查看主机所有用户"></a>查看主机所有用户</h5><p>在 /etc/shadow和 /etc/passwd下查看用户和密码</p><p>在/etc/group查看用户组</p><h5 id="文件从属用户"><a href="#文件从属用户" class="headerlink" title="文件从属用户"></a>文件从属用户</h5><p>chown 用户名:组名  文件路径 </p><p>chown -R  student:stu  /tmp/tmp1</p><p>R是tmp1下的所有文件都改成stu用户组下的student用户</p><h5 id="文件权限"><a href="#文件权限" class="headerlink" title="文件权限"></a>文件权限</h5><p>r 可读  w 可写  x 可执行 用二进制表示就是 4 、2 、1</p><p>文件权限层级  用户   其次是   用户组  再者是  其他用户</p><p>chmod   777   文件名    表示用户、用户组、其他用户对该文件都是可读可写可执行</p><p>u表示 用户  g表示组  o表示其他用户</p><p>chmod  g+x   文件名 表示组用户增加了对该文件执行的权限</p><h4 id="让渡根用户权限"><a href="#让渡根用户权限" class="headerlink" title="让渡根用户权限"></a>让渡根用户权限</h4><p>vim /etc/sudoers 中</p><p>root     ALL=(ALL)     ALL      表示root 用户在任意主机上可以登陆执行任意命令</p><p>在其下添加</p><p>stu  mooc=(root)   /sbin/shutdown -h  5</p><p>stu 用户在mooc主机上能执行 shutdown -h 5 命令</p><p>在终端：sudo -u root  shutdown -h 5</p>]]></content>
-    
-    <summary type="html">
-    
-      &lt;h4 id=&quot;linux-用户和组&quot;&gt;&lt;a href=&quot;#linux-用户和组&quot; class=&quot;headerlink&quot; title=&quot;linux 用户和组&quot;&gt;&lt;/a&gt;linux 用户和组&lt;/h4&gt;&lt;p&gt;Linux用户有三种：超级用户、虚拟用户、普通用户。&lt;/p&gt;
-&lt;p&gt;超级用户：root   id为 0&lt;/p&gt;
-&lt;p&gt;虚拟用户：不能登陆主机是给程序使用的  如：mysql用户  id 在1-499之间&lt;/p&gt;
-&lt;p&gt;普通用户 ：id 在500之后&lt;/p&gt;
     
     </summary>
     
