@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2020-10-22T15:28:34.504Z</updated>
+  <updated>2020-10-25T15:16:44.851Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -15,6 +15,30 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>mysql优化</title>
+    <link href="http://yoursite.com/2020/10/25/mysql%E4%BC%98%E5%8C%96/"/>
+    <id>http://yoursite.com/2020/10/25/mysql%E4%BC%98%E5%8C%96/</id>
+    <published>2020-10-25T12:27:29.000Z</published>
+    <updated>2020-10-25T15:16:44.851Z</updated>
+    
+    <content type="html"><![CDATA[<h5 id="建表原则"><a href="#建表原则" class="headerlink" title="建表原则"></a><strong>建表原则</strong></h5><h5 id="表的优化与列类型选择"><a href="#表的优化与列类型选择" class="headerlink" title="表的优化与列类型选择"></a><em>表的优化与列类型选择</em></h5><h5 id="表的优化"><a href="#表的优化" class="headerlink" title="表的优化"></a>表的优化</h5><ol><li><p>定长与变长分离</p><p>如：id  int 占4个字节，char(4)占4个字符长度，也是定长，time。即每一单元值占的字节是固定的</p><p>核心且常用字段，宜建成定长，放在一张表</p><p>而varchar，text,blob这种变长字段，适合单放一张表，用主键与核心表关联起来</p></li><li><p>常用字段和不常用字段要分离</p><p>需要结合网站具体的业务来分析，分析字段的查询场景，查询频率低的字段，单拆出来</p></li><li><p>在1对多，需要关联统计的字段，添加冗余字段</p><p>例：有栏目表和文章表俩表，现要求显示栏目下的文章个数</p><p>方法一：俩表联查。 //比较消耗资源</p><p>方法二：在栏目表添加一个字段用来记录文章数，添加一个文章则 该字段+1//冗余字段，但效率高了</p></li></ol><h5 id="列的选择原则"><a href="#列的选择原则" class="headerlink" title="列的选择原则"></a>列的选择原则</h5><ol><li><p>字段类型优先级 。整型 &gt; date, time &gt; enum , char &gt; varchar &gt; blob, text</p><p>列的特点分析：</p><p>整型：定长 没有国家，地区之分 没有字符集的差异</p><p>​            比如：tinyint  1,2,3,4,5, &lt;–&gt; char(1) a,b,c,d,e</p><p>​                        从空间上，都是占1个字节，但是order by 排序，前者快</p><p>​                       原因：后者需要考虑字符集与校对集(就是排序规则)</p></li></ol><p>​        time: 定长  运算快 节省空间 考虑时区  写sql时不方便 where &gt; ‘2005-10-12’;</p><p>​       enum:能起约束值的目的，内部用整型来存储，但与char联查时，内部要经历串与值的变化</p><p>​       char: 定长 考虑字符集和排序校对集<br>​       varchar: 不定长 要考虑字符集的转换与排序时的校对集，速度慢</p><p>​       text/blob ：无法使用内存临时表  排序等操作只能在磁盘上进行</p><p>​        <em>附：关于date time 的选择，直接选择 int  unsigned not null 存储时间戳</em></p><ol start="2"><li><p>够用就行，不要慷慨(如smallint varchar(N))</p><p>原因：大的字段浪费内存，影响速度</p><p>以年龄为例：tinyint  unsigned not null 可以存储255岁，足够，用int 则浪费3个字节</p><p>以varchar(100),varchar(300)存储的内容相同，但在表联查时varchar(300)要花更多的时间</p></li><li><p>尽量避免用null</p><p>null不利于索引，要用特殊的字节来标注。在磁盘上占据的空间其实更大</p></li></ol><h5 id="索引优化策略"><a href="#索引优化策略" class="headerlink" title="索引优化策略"></a>索引优化策略</h5><p>​      何为索引？答：一种使得查询高效的数据结构</p><p>   索引类型：</p><ol><li>btree索引</li></ol><p>​    名叫btree索引，大的方面看，都用的平衡树，但具体的实现上，各引擎稍有不同</p><p>​    比如严格的说：NDB引擎，使用的是T-tree</p><p>​     myisam  innodb中默认用B-tree索引</p><p>​     但抽象一下，B-tree系统可理解为’排好序的快速查找结构’. </p><ol start="2"><li><p>hash索引</p><p>在memory表里默认是hash索引，hash的理论查询时间复杂度为0</p><p>疑问：既然hash的查找如此高效，为什么不都用hash索引？</p><p>答：1：hash函数计算后的结构是随机的，如果在磁盘上放置数据，比如主键为id为例,那么随着id的增长，id对应的行，在磁盘上随机放置</p><p>2：没法对范围查询进行优化(id随机没有规律造成的)</p><p>3：无法利用前缀索引，比如在btree中，field列的值”helloworld” 并加索引，查询xx=helloword自然可以利用索引。xx=hello也可以利用索引(左前缀索引)</p><p>4:排序也无法优化</p><p>5：必须回行，就是说，通过索引拿到数据位置，必须回到表中取数据</p></li></ol><p>btree索引的常见误区</p><p>​     在where条件常用的列上都加索引</p><p>​     例：where cat_id=3 and price&gt;100 //查询第3个栏目，100元以上的商品</p><p>​     误：cat_id 和price 上都加上索引</p><p>​    错：只能用上cat_id 或 price 索引，因为是独立的索引，同时只能用上一个</p><p>   在多列上建立索引后，查询哪个列，索引都将发挥作用</p><p>​    误：多列索引上，索引发挥作用，需要满足做前缀要求</p><p>​    以index(a,b,c)为例，注意和顺序有关</p><p>​    a,b,c上的索引是否生效跟前一个有关，c索引依靠b,b索引依靠a。如果b没使用上则c索引也不生效。b使用上一部分索引c也同样不生效</p><p><code>mysql&gt;explain select * from table where id=3 \G</code> 查看索引使用情况</p><p>一道面试题：</p><p>有商品表，有主键goods_id，栏目列cat_id，价格price</p><p>说：在价格列上已经加了索引，但按价格查询还是很慢</p><p>问可能是什么原因，怎么解决？</p><p>答：在实际场景中，一个电商网站的商品分类很多，直接在所有商品中，按价格查商品，是极少的，一般客户都来到分类下，然后再查</p><p>改正：去掉单独的price列的索引，加(cat_id,price)复合索引，再查询</p><h5 id="聚簇索引与非聚簇索引"><a href="#聚簇索引与非聚簇索引" class="headerlink" title="聚簇索引与非聚簇索引"></a>聚簇索引与非聚簇索引</h5><p>查询大原则：</p><p>​     sql语句优化</p><p>​     sql语句的时间花在哪里？</p><p>​      答：等待时间，执行时间</p><p>​     这两个时间并非孤立的，如果单条语句执行的快了，对其它语句的锁定的也就少了</p><p>​     所以我们来分析如何降低执行时间。</p><p>sql语句的执行时间，又花在哪了？</p><p>​      答：查找—&gt;沿着索引查找，慢者可能全表扫描</p><p>​              取出—&gt;查到行后，把数据取出来</p><p>如何查询快？</p><p>​      查询快：联合索引的顺序，区分度，索引长度</p><p>​      取得快：索引覆盖</p><p>​       传输的少，更少的行和列</p><p>简述：explain：查看索引的使用情况</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">   explain select goods_id,goods_name from ecs_goods \G</span><br><span class="line">          id:1</span><br><span class="line"> select_type:simple     &#x2F;&#x2F;简单查询,没有子查询</span><br><span class="line">       table:ecs_goods  &#x2F;&#x2F;表名</span><br><span class="line">       type:ALL        &#x2F;&#x2F;扫描类型,all是扫描了所有</span><br><span class="line">possible_keys:NULL     &#x2F;&#x2F;可能用到的索引</span><br><span class="line">        key:NULL       &#x2F;&#x2F;真正用到的索引</span><br><span class="line">    key_len:NULL       &#x2F;&#x2F;使用的索引的最大长度</span><br><span class="line">        ref:NULL       &#x2F;&#x2F;引用关系</span><br><span class="line">       rows:33         &#x2F;&#x2F;本次要查出的行数</span><br><span class="line">       Extra:</span><br></pre></td></tr></table></figure><h5 id="强制使用索引：不推荐使用"><a href="#强制使用索引：不推荐使用" class="headerlink" title="强制使用索引：不推荐使用"></a>强制使用索引：不推荐使用</h5><p>​     use index(primary)强制使用主键索引<br>​    select id from area use index(primary) where pid=69;</p><h5 id="limit及翻页优化"><a href="#limit及翻页优化" class="headerlink" title="limit及翻页优化"></a>limit及翻页优化</h5><p>   limit offset,N  当offset非常大时,效率极低<br>   原因是mysql并不是跳过 offset行,然后单取 N 行,而是取offset+N行,返回放弃前offset行,返回N行<br>   效率较低,当offset越大时,效率越低。</p><p>   优化：<br>     1.从业务上解决<br>       办法：不允许翻过100页<br>       以百度为例,一般翻页到70页左右<br>     2.不用offset 用条件查询<br>        例：<br>         <code>mysql&gt;select id,name from lx_com limit 5000000,10;</code><br>       改为：<br>        <code>mysql&gt;select id,name from lx_com where id&gt;5000000 limit 10;</code><br>     但有个弊端,数据不能删除,id得保持。如果非要物理删除,还要用offset精确查询,还不限制用户分页怎么办？<br>      分析：优化思路是不查,少查,查索引,少取列<br>      我们现在必须要查,则只查索引,不查数据,得到id,再用id去查具体条目,这种技巧就是延迟关联<br>     <code>mysql&gt;select id,name from lx_com inner join(select id from lx_com limit 5000000,10)as tmp on lx_com.id=tmp.id;</code></p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h5 id=&quot;建表原则&quot;&gt;&lt;a href=&quot;#建表原则&quot; class=&quot;headerlink&quot; title=&quot;建表原则&quot;&gt;&lt;/a&gt;&lt;strong&gt;建表原则&lt;/strong&gt;&lt;/h5&gt;&lt;h5 id=&quot;表的优化与列类型选择&quot;&gt;&lt;a href=&quot;#表的优化与列类型选择&quot; class=
+      
+    
+    </summary>
+    
+    
+      <category term="mysql" scheme="http://yoursite.com/categories/mysql/"/>
+    
+    
+  </entry>
   
   <entry>
     <title>设计模式</title>
@@ -473,27 +497,6 @@
     
       &lt;h4 id=&quot;进程&quot;&gt;&lt;a href=&quot;#进程&quot; class=&quot;headerlink&quot; title=&quot;进程&quot;&gt;&lt;/a&gt;进程&lt;/h4&gt;&lt;p&gt;程序是什么？程序其实就是动作指令的集合，而执行程序的过程就是进程！&lt;/p&gt;
 &lt;p&gt;查看进程：&lt;code&gt;ps -Af&lt;/code&gt;&lt;/p&gt;
-    
-    </summary>
-    
-    
-      <category term="linux" scheme="http://yoursite.com/categories/linux/"/>
-    
-    
-  </entry>
-  
-  <entry>
-    <title>linux软件包管理</title>
-    <link href="http://yoursite.com/2020/06/19/linux%E8%BD%AF%E4%BB%B6%E5%8C%85%E7%AE%A1%E7%90%86/"/>
-    <id>http://yoursite.com/2020/06/19/linux%E8%BD%AF%E4%BB%B6%E5%8C%85%E7%AE%A1%E7%90%86/</id>
-    <published>2020-06-19T01:45:36.000Z</published>
-    <updated>2020-06-20T00:54:30.933Z</updated>
-    
-    <content type="html"><![CDATA[<h4 id="rpm管理器"><a href="#rpm管理器" class="headerlink" title="rpm管理器"></a>rpm管理器</h4><p>linux 发行版本众多，基于各个版本开发的软件并不能在各个版本中使用，而二进制编译对于普通用户相对困难，因而RPM应运而生，RPM是将二进制源码，依赖库配置文件打包，RPM是linux统一默认的安装器。</p><a id="more"></a><p>下载软件：wget  软件链接地址</p><p>查询是否安装：rpm -q 软件名</p><p>安装：rpm -ivh  xx-版本号.rpm</p><p>v是软件信息，h安装进度</p><p>卸载：rpm -e  软件包名xx-版本号</p><p>RPM弊端：无法解决软件依赖关系。因而yum出现了，yum是解决了依赖关系但安装程序还是RPM</p><h4 id="yum"><a href="#yum" class="headerlink" title="yum"></a>yum</h4><p>使用yum先清除软件缓存，yum clean all</p><p>缓存软件源信息，提高搜索速度：yum makecache</p><p>安装：yum    install    软件名</p><p><code>如：yum install gcc-c++</code></p><p>查询：<code>yum list gcc-c++</code></p><p>详细信息：<code>yum info gcc</code></p><p>更新：<code>yum update gcc</code></p><p>卸载：<code>yum remove gcc</code></p><h5 id="配置yum源"><a href="#配置yum源" class="headerlink" title="配置yum源"></a>配置yum源</h5><p>系统自带的yum源稳定，但也存在版本陈旧，资源略少等问题，所以需要配置yum源</p><ol><li>首先下载合适版本源软件包 如：repoforge源</li><li>安装 rpm -ivh  源软件包.rpm</li><li>源顺序插件：先使用系统自带的源，没有找到再使用配置的源</li></ol><p>​        <code>yum install  yum-plugin-prioritise</code></p><ol start="4"><li>配置文件 ： cd  /etc/yum.repos.d  官方源文件 vim centos-Base.repo在三个软件仓库里设置优先级priority=1</li><li>配置repoforge源文件设置优先级 <code>vim rpmforge.repo priority=10</code></li></ol>]]></content>
-    
-    <summary type="html">
-    
-      &lt;h4 id=&quot;rpm管理器&quot;&gt;&lt;a href=&quot;#rpm管理器&quot; class=&quot;headerlink&quot; title=&quot;rpm管理器&quot;&gt;&lt;/a&gt;rpm管理器&lt;/h4&gt;&lt;p&gt;linux 发行版本众多，基于各个版本开发的软件并不能在各个版本中使用，而二进制编译对于普通用户相对困难，因而RPM应运而生，RPM是将二进制源码，依赖库配置文件打包，RPM是linux统一默认的安装器。&lt;/p&gt;
     
     </summary>
     
