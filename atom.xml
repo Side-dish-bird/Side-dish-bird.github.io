@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2020-10-27T08:06:29.766Z</updated>
+  <updated>2020-10-28T07:04:17.765Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -15,6 +15,30 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>composer的使用</title>
+    <link href="http://yoursite.com/2020/10/28/composer%E7%9A%84%E4%BD%BF%E7%94%A8/"/>
+    <id>http://yoursite.com/2020/10/28/composer%E7%9A%84%E4%BD%BF%E7%94%A8/</id>
+    <published>2020-10-28T06:43:00.000Z</published>
+    <updated>2020-10-28T07:04:17.765Z</updated>
+    
+    <content type="html"><![CDATA[<h4 id="php命令行的调用"><a href="#php命令行的调用" class="headerlink" title="php命令行的调用"></a>php命令行的调用</h4><p>php是一种脚本语言，语言通过”php解释器”来解释执行<br>我们经常在web开发中通过浏览器运行xx.php<br>其实是nginx/apache 通知php解释器来执行xx.php<br>我们也可以直接调用php解释器php.exe，让它来执行xx.php<br>更通俗的说：命令行方式来调用。<br>cd到php.exe 所在路径，然后执行php文件<br>例如：</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">D:\xampp\php.exe  D:\blog\a.php</span><br><span class="line">为了让命令行更简短</span><br><span class="line">在win下，我们用&#39;环境变量&#39;来告诉操作系统到哪儿找php.exe</span><br><span class="line">如下：在path变量末尾加上;D:\xampp\php</span><br><span class="line">D:\blog&gt;php a.php</span><br></pre></td></tr></table></figure><p>在linux操作系统会到/usr/bin下找相关的命令<br>我们在此目录下建立php的软连接<br><code>ln -s /usr/local/php56/bin/php /usr/bin/php</code></p><h4 id="composer是PHP类库管理"><a href="#composer是PHP类库管理" class="headerlink" title="composer是PHP类库管理"></a>composer是PHP类库管理</h4><p>php的库很多，但都是散落在互联网的各个角落，不成系统，且没有统一的规范。<br>自从有了composer，这些库就被组织起来了。<br>安装composer<br>composer需要一定的要求：<br> php版本要求：&gt;=5.5.9<br> OpenSSL扩展<br> PDO扩展<br> Mbstring扩展<br> 如果不满足以上条件，请修改php.ini配置或重新编译PHP</p><p>liunx下安装composer</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">cd</span><br><span class="line">curl -sS https:&#x2F;&#x2F;getcomposer.org&#x2F;installer | php</span><br><span class="line">mv composer.phar&#x2F;usr&#x2F;bin&#x2F;composer</span><br></pre></td></tr></table></figure><p> win下安装composer<br> 有两种方法：<br>   1.从官网下载，然后解压,一路next<br>     完成后重新打开cmd命令行窗口，输入composer about<br>   2.离线安装<br>     由于国内的高墙，win下安装composer十分吃力<br>     所以使用composer离线安装<br>     1：按要求打开php的相关扩展<br>     2：把php.exe所在目录的路径，加入到环境变量。保证随处可以cmd下调用php命令<br>     3：把分压缩下的composer.bat,composer.phar解压放到php.exe相同的目录下<br>     打开cmd窗口,composer -v ,出现composer字样即代表成功了</p><h5 id="配置composer修改国内镜像"><a href="#配置composer修改国内镜像" class="headerlink" title="配置composer修改国内镜像"></a>配置composer修改国内镜像</h5><p>因为 composer 的软件仓库位置在国外 , 所以我们修改国内镜像 , 提高速度<br><code>composer config -g repositories.packagist composer https://packagist.phpcomposer.com</code></p><h5 id="初试composer"><a href="#初试composer" class="headerlink" title="初试composer"></a>初试composer</h5><p> 为项目引入某个库<br> 假如我们blog项目中需要smarty这个组件 , 我们来到<a href="https://packagist.org/" target="_blank" rel="noopener">https://packagist.org/</a> 搜索smarty , 并注意看项目的目录和版本信息 .<br> 我们需要在项目根目录下写入composer.json文件，注意必须是json格式<br> 内容如下：</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"> &#123;</span><br><span class="line">&quot;require&quot; : &#123;</span><br><span class="line">smarty&#x2F;smarty&quot;:&quot;3.1.30&quot;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p>然后 , 我们cd到项目的根目录下输入 composer install</p><p><code>D：\xampp\htdocs\myphp\blog&gt;composer install</code></p><p>查看项目根目录下，有一个vendor的文件夹，文件夹内有一个smarty的文件夹</p><h5 id="如何使用引入的库"><a href="#如何使用引入的库" class="headerlink" title="如何使用引入的库"></a>如何使用引入的库</h5><p>如果我们通过 composer 引入上百个类库 , 我们如何引入呢 , 手工require ?<br> 不用的 ,composer 的类都满足一定的标准 (psr-4 标准 );<br>Composer 中生成了一个vendor/autoload.php的文件 ( 我们都知道 autoload 是自动加载 )<br>利用它你可以很容易的就引入这个文件 , 会得到完善的自动加载支持 .<br> 下面我们自己在项目下写一个文件看如何引入 smarty 这个类</p><p><code>require(__DIR__ . &#39;/vendor/autoload.php&#39;);print_r( new Smarty() );</code></p><h5 id="添加某个新库"><a href="#添加某个新库" class="headerlink" title="添加某个新库"></a>添加某个新库</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">假如项目后期需要引入某个新库 , 比如phpmailer处理库</span><br><span class="line">只需要在 require 后添加就可以 , 例 </span><br><span class="line">&#123;</span><br><span class="line">&quot;require&quot; : &#123;</span><br><span class="line">&quot;smarty&#x2F;smarty&quot;:&quot;3.1.30&quot;,</span><br><span class="line">&quot;phpmailer&#x2F;phpmailer&quot;: &quot;5.2.16&quot;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">如果有新旧版本冲突</span><br><span class="line">&gt;composer update</span><br></pre></td></tr></table></figure><h5 id="卸载某个库"><a href="#卸载某个库" class="headerlink" title="卸载某个库"></a>卸载某个库</h5><p><code>以卸载 phpmailer 为例composer remove phpmailer/phpmailer , 不必加版本号</code></p><h5 id="不配置json文件新增某库"><a href="#不配置json文件新增某库" class="headerlink" title="不配置json文件新增某库"></a>不配置json文件新增某库</h5><p>比如 : 我们新增另外一个叫phpmailer的库 , 先到<a href="https://packagist.org/搜索phpmailer" target="_blank" rel="noopener">https://packagist.org/搜索phpmailer</a><br>composer require phpmailer/phpmailer=5.2.16<br>运行后会发现vendor下多出来一个phpmailer目录<br>且composer.json文件和composer.lock文件也已自动更新</p><h5 id="创建项目"><a href="#创建项目" class="headerlink" title="创建项目"></a>创建项目</h5><p>  框架用 create-project<br>   composer create-project    laravel/laravel=5.1.33   别名</p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h4 id=&quot;php命令行的调用&quot;&gt;&lt;a href=&quot;#php命令行的调用&quot; class=&quot;headerlink&quot; title=&quot;php命令行的调用&quot;&gt;&lt;/a&gt;php命令行的调用&lt;/h4&gt;&lt;p&gt;php是一种脚本语言，语言通过”php解释器”来解释执行&lt;br&gt;我们经常在web开发
+      
+    
+    </summary>
+    
+    
+      <category term="php" scheme="http://yoursite.com/categories/php/"/>
+    
+    
+  </entry>
   
   <entry>
     <title>PDO,自动加载,错误异常处理</title>
@@ -475,30 +499,6 @@
       
         &lt;h4 id=&quot;nginx配置虚拟主机&quot;&gt;&lt;a href=&quot;#nginx配置虚拟主机&quot; class=&quot;headerlink&quot; title=&quot;nginx配置虚拟主机&quot;&gt;&lt;/a&gt;nginx配置虚拟主机&lt;/h4&gt;&lt;p&gt;在conf文件里，一个server就是一个虚拟主机&lt;/p&gt;
 &lt;fig
-      
-    
-    </summary>
-    
-    
-      <category term="nginx" scheme="http://yoursite.com/categories/nginx/"/>
-    
-    
-  </entry>
-  
-  <entry>
-    <title>nginx服务器</title>
-    <link href="http://yoursite.com/2020/06/22/nginx%E6%9C%8D%E5%8A%A1%E5%99%A8/"/>
-    <id>http://yoursite.com/2020/06/22/nginx%E6%9C%8D%E5%8A%A1%E5%99%A8/</id>
-    <published>2020-06-22T00:18:32.000Z</published>
-    <updated>2020-06-22T00:55:07.509Z</updated>
-    
-    <content type="html"><![CDATA[<h4 id="nginx是什么？"><a href="#nginx是什么？" class="headerlink" title="nginx是什么？"></a>nginx是什么？</h4><p>nginx是一款轻量级的web 服务器/反向代理服务器及电子邮件代理服务器！</p><p>最早由俄罗斯程序设计师 lgor Sysoev所开发，并在一个BSD-like 协议下发行</p><p>nginx 轻量级，占有内存少，并发能力强，发展势头强劲。因而web领域最经典的lamp组合变成了lnmp组合</p><h4 id="nginx编译安装"><a href="#nginx编译安装" class="headerlink" title="nginx编译安装"></a>nginx编译安装</h4><p>到nginx官网，选择stable版本下载</p><p>nginx依赖于pcre库，所以先下载pcre</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">cd nginx</span><br><span class="line">.&#x2F;configure  --prefix&#x3D;&#x2F;usr&#x2F;local&#x2F;nginx  --with-pcre&#x3D;&#x2F;usr&#x2F;local&#x2F;src&#x2F;pcre-8.39</span><br><span class="line">make  &amp;&amp; make install</span><br></pre></td></tr></table></figure><p>启动：./sbin/nginx</p><h5 id="nginx-目录"><a href="#nginx-目录" class="headerlink" title="nginx 目录"></a>nginx 目录</h5><ul><li>conf   配置文件</li><li>html  网页文件</li><li>logs  日志文件</li><li>sbin  主要二进制程序</li></ul><h5 id="常见问题"><a href="#常见问题" class="headerlink" title="常见问题"></a>常见问题</h5><p>有时候启动nginx会失败，查看端口</p><p>ps  aux|grep  nginx</p><p>80端口容易被占用，一般是防火墙关掉防火墙</p><p><code>servcie iptables stop</code></p><h4 id="nginx-命令"><a href="#nginx-命令" class="headerlink" title="nginx 命令"></a>nginx 命令</h4><ul><li>./sbin/nginx -t  配置文件是否成功</li><li>./sbin/nginx  -s  reload  加载最新配置</li><li>./sbin/nginx -s stop  立即停止</li><li>./sbin/nginx -s quit  优雅停止，执行完程序后停止</li><li>./sbin/nignx  -s  reopen  重新打开日志（当备份了日志文件后，日志内容不往新文件写入就需要重新打开)</li></ul>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;h4 id=&quot;nginx是什么？&quot;&gt;&lt;a href=&quot;#nginx是什么？&quot; class=&quot;headerlink&quot; title=&quot;nginx是什么？&quot;&gt;&lt;/a&gt;nginx是什么？&lt;/h4&gt;&lt;p&gt;nginx是一款轻量级的web 服务器/反向代理服务器及电子邮件代理服务器！&lt;/p&gt;
       
     
     </summary>
